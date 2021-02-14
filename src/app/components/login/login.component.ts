@@ -16,7 +16,7 @@ import { AuthService } from 'src/app/services/auth.service';
     '../../../assets/vendors/css/vendor.bundle.base.css',
     '../../../assets/vendors/css/vendor.bundle.addons.css',
     '../../../assets/css/shared/style.css',
-    '../../../assets/css/demo_1/style.css'  
+    '../../../assets/css/demo_1/style.css'
   ]
 })
 export class LoginComponent implements OnInit {
@@ -50,13 +50,13 @@ export class LoginComponent implements OnInit {
   login() {
     if (this.form.invalid)
     this.hasErrorsOnSubmit = true;
-    
-    
+
+
     else {
-      
+
       alert(this.form.value)
       this.authService.login(this.form.value).subscribe(
-        
+
         res => {
           this.router.navigate(['/']);
         },
