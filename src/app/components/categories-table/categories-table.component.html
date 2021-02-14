@@ -17,7 +17,7 @@
             <ng-container *ngFor="let category of categories">
 
               <tr>
-                <td>{{category.name}}</td>
+                <td><a [routerLink]="['/categoryProducts',category.id]" >{{category.name}}</a></td>
                 <td>Photoshop</td>
                 <td class="text-danger"> 28.76% <i class="mdi mdi-arrow-down"></i>
                 </td>

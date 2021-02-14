@@ -10,6 +10,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { CategoriesTableComponent } from './components/categories-table/categories-table.component';
 import { CategoryComponent } from './components/category/category.component';
+import { ProductComponent } from './components/product/product.component';
+import { ItemComponent } from './components/item/item.component';
+import { ItemsTableComponent } from './components/items-table/items-table.component';
+import { ProductItemsTableComponent } from './components/product-items-table/product-items-table.component';
+import { CategoryProductsTableComponent } from './components/category-products-table/category-products-table.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +23,12 @@ import { CategoryComponent } from './components/category/category.component';
     DashBoardComponent,
     LoginComponent,
     ProductsTableComponent,
-    CategoryComponent
+    CategoryComponent,
+    ProductComponent,
+    ItemComponent,
+    ItemsTableComponent,
+    ProductItemsTableComponent,
+    CategoryProductsTableComponent
   ],
   imports: [
     AppRoutingModule,
