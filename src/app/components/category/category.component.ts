@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { CategoryService } from 'src/app/services/category.service';
 
 @Component({
@@ -18,21 +19,50 @@ import { CategoryService } from 'src/app/services/category.service';
 })
 export class CategoryComponent implements OnInit {
   form!: FormGroup;
+  categoryId:string="";
   constructor(
-    private fb: FormBuilder,
-    private categoryService:CategoryService
+    private route: ActivatedRoute,
+    private categoryService:CategoryService,
+    private fb: FormBuilder
   ) {
+
     this.form = this.fb.group({
       name: ['', Validators.required]
+
     });
   }
 
   ngOnInit(): void {
+
+    this.route.paramMap.subscribe(pram => {
+      this.categoryId = (pram.get('id') as string);
+
+      if(this.categoryId != null)
+      {
+        this.categoryService.get(this.categoryId).subscribe(res =>{
+
+          let categoryInDb = (res as any)
+          this.form.get('name')?.setValue(categoryInDb.name);
+        });
+      }
+
+    });
   }
 
   submit(){
-    this.categoryService.create(null,null,[this.form.get('name')?.value]).subscribe(res => {
-      console.log(res);
-    })
+
+    if(this.categoryId == null){
+
+      this.categoryService.create(null,null,[this.form.get('name')?.value]).subscribe(res => {
+        console.log(res);
+      });
+
+    }
+    else
+    {
+      this.categoryService.update(null,null,[this.categoryId,this.form.get('name')?.value]).subscribe(res => {
+        console.log(res);
+      });
+    }
 }
 }

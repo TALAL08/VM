@@ -12,22 +12,30 @@ import { CategoryService } from 'src/app/services/category.service';
     '../../../assets/vendors/css/vendor.bundle.base.css',
     '../../../assets/vendors/css/vendor.bundle.addons.css',
     '../../../assets/css/shared/style.css',
-    '../../../assets/css/demo_1/style.css'
-  ]
+    '../../../assets/css/demo_1/style.css',
+  ],
 })
 export class CategoriesTableComponent implements OnInit {
+  categories: [] = [];
 
-  categories:[]=[];
-
-  constructor(
-    private categoryService:CategoryService
-  ) { }
+  constructor(private categoryService: CategoryService) {}
 
   ngOnInit(): void {
-    this.categoryService.getAll().subscribe(res => {
+    this.categoryService.getAll().subscribe((res) => {
       console.log(res);
       (this.categories as any) = res;
     });
   }
 
+  delete(category: any) {
+
+    this.categoryService.delete(category.id).subscribe((res) => {
+      console.log(res);
+    });
+
+    const index = this.categories.indexOf(category as never);
+    this.categories.splice(index, 1);
+
+    alert('Deleted');
+  }
 }

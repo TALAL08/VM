@@ -23,10 +23,10 @@ export class DataService {
     }
 
     public getAll(name?: string|null,prams?:string[]) {
-    
+
         this.extendUrl(name)
         this.addPrams(prams);
-    
+
         let request = this.http.get(this.url, this.httpOptions).pipe(
             catchError(this.handleError)
         );
@@ -41,7 +41,7 @@ export class DataService {
         this.extendUrl(name);
         this.extendUrl(id);
         this.addPrams(prams);
-        
+
         let request = this.http.get(this.url, this.httpOptions).pipe(
             catchError(this.handleError)
         );
@@ -67,7 +67,7 @@ export class DataService {
 
         return request;
     }
-  
+
 
     public update(resource: any, name?: string|null,prams?:string[]) {
 
@@ -80,14 +80,14 @@ export class DataService {
 
         this.removeUrlPrams(prams);
         this.removeUrlExtension(name);
-        
+
         return request;
     }
 
-    
+
     public delete(id: any, name?: string|null) {
         this.extendUrl(name);
-        let request = this.http.post(this.url + "/" + id, this.httpOptions).pipe(
+        let request = this.http.delete(this.url + "/" + id, this.httpOptions).pipe(
             catchError(this.handleError)
         );
 

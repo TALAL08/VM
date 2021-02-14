@@ -8,6 +8,7 @@ import { LoginComponent } from './components/login/login.component';
 const routes: Routes = [
   {path:'categories', component:CategoriesTableComponent},
   {path:'category/new', component:CategoryComponent},
+  {path:'category/update/:id', component:CategoryComponent},
   {path:'dashBoard', component:DashBoardComponent},
   {path:'login', component:LoginComponent},
 ];
