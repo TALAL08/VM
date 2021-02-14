@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CategoryService } from 'src/app/services/category.service';
 
 @Component({
   selector: 'app-categories-table',
@@ -16,9 +17,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CategoriesTableComponent implements OnInit {
 
-  constructor() { }
+  categories:[]=[];
+
+  constructor(
+    private categoryService:CategoryService
+  ) { }
 
   ngOnInit(): void {
+    this.categoryService.getAll().subscribe(res => {
+      console.log(res);
+      (this.categories as any) = res;
+    });
   }
 
 }

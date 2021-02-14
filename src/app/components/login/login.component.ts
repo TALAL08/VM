@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { AppError } from 'src/app/common/validator/app-error';
+import { BadRequest } from 'src/app/common/validator/bad-request';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -16,9 +21,55 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoginComponent implements OnInit {
 
-  constructor() { }
+  form!: FormGroup;
+  hasErrorsOnSubmit: boolean = false;
+  emailError: string = "Email Is required";
+  passwordError: string = "Password Is required";
+
+  constructor(
+    private fb: FormBuilder,
+    private router: Router,
+    private authService: AuthService
+  ) {
+
+    this.form = this.fb.group({
+      userName: ['', Validators.required],
+      password: ['', Validators.required]
+    });
+  }
 
   ngOnInit(): void {
+  }
+
+  isValidControl(controlname: string) {
+
+    return (this.form.get(controlname)?.touched && this.form.get(controlname)?.invalid);
+
+  }
+
+  login() {
+    if (this.form.invalid)
+    this.hasErrorsOnSubmit = true;
+    
+    
+    else {
+      
+      alert(this.form.value)
+      this.authService.login(this.form.value).subscribe(
+        
+        res => {
+          this.router.navigate(['/']);
+        },
+        (error: AppError) => {
+          if (error instanceof BadRequest)
+            alert("Email Or Passoword Is Not Valid")
+
+          else throw error;
+
+
+        });
+    }
+
   }
 
 }
