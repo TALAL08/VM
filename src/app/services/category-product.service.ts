@@ -1,9 +1,13 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { DataService } from './data.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class CategoryProductService {
+export class CategoryProductService extends DataService {
 
-  constructor() { }
+  constructor(private httpClient: HttpClient) {
+    super("CategoryProducts", httpClient)
+  }
 }
