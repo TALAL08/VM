@@ -12,7 +12,7 @@ import { CategoryService } from 'src/app/services/category.service';
     '../../../assets/vendors/css/vendor.bundle.base.css',
     '../../../assets/vendors/css/vendor.bundle.addons.css',
     '../../../assets/css/shared/style.css',
-    '../../../assets/css/demo_1/style.css',
+    '../../../assets/css/demo_1/style.css'
   ],
 })
 export class CategoriesTableComponent implements OnInit {

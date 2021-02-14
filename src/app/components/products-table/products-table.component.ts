@@ -4,7 +4,16 @@ import { ProductService } from 'src/app/services/product.service';
 @Component({
   selector: 'app-products-table',
   templateUrl: './products-table.component.html',
-  styleUrls: ['./products-table.component.css']
+  styleUrls: [
+    './products-table.component.css',
+    '../../../assets/vendors/iconfonts/mdi/css/materialdesignicons.min.css',
+    '../../../assets/vendors/iconfonts/ionicons/dist/css/ionicons.css',
+    '../../../assets/vendors/iconfonts/flag-icon-css/css/flag-icon.min.css',
+    '../../../assets/vendors/css/vendor.bundle.base.css',
+    '../../../assets/vendors/css/vendor.bundle.addons.css',
+    '../../../assets/css/shared/style.css',
+    '../../../assets/css/demo_1/style.css'
+]
 })
 export class ProductsTableComponent implements OnInit {
 
