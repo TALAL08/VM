@@ -25,3 +25,4 @@ export enum Color {
   White = 23,
   Yellow = 24,
 }
+

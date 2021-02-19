@@ -22,7 +22,6 @@ export class CategoriesTableComponent implements OnInit {
 
   ngOnInit(): void {
     this.categoryService.getAll().subscribe((res) => {
-      console.log(res);
       (this.categories as any) = res;
     });
   }

@@ -23,7 +23,6 @@ export class ProductsTableComponent implements OnInit {
 
   ngOnInit(): void {
     this.productService.getAll().subscribe((res) => {
-      console.log(res);
       (this.products as any) = res;
     });
   }

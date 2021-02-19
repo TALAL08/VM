@@ -1,1 +1,126 @@
-<p>item works!</p>
+<div class="row">
+  <div class="col-md-6 d-flex align-items-stretch grid-margin">
+    <div class="row flex-grow">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title">ITEM FORM</h4>
+            <form class="forms-sample" [formGroup]="form" (ngSubmit)="submit()">
+
+              <div class="form-group row">
+
+                <label class="col-sm-3 col-form-label">Name</label>
+                <div class="col-sm-9">
+                  <input formControlName="name" class="form-control" placeholder="Enter Item Name">
+                </div>
+
+              </div>
+
+              <div class="form-group row">
+
+                <label class="col-sm-3 col-form-label">Number In Stock</label>
+                <div class="col-sm-9">
+                  <input formControlName="numberInStock" class="form-control" placeholder="Number In Stock">
+                </div>
+
+              </div>
+              <div class="form-group row">
+
+                <label class="col-sm-3 col-form-label">Per Unit Price</label>
+                <div class="col-sm-9">
+                  <input formControlName="price" class="form-control" placeholder="Per Unit Price">
+                </div>
+
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Category</label>
+                <div class="col-sm-9">
+                  <select (change)="onCategoryProducts($event.target.value)" formControlName="categoryId"
+                    class="form-control">
+                    <ng-container *ngFor="let category of categories">
+
+                      <option [value]="category.id">{{category.name}}</option>
+
+                    </ng-container>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Product</label>
+                <div class="col-sm-9">
+                  <select formControlName="productId" class="form-control">
+                    <ng-container *ngFor="let product of products">
+
+                      <option [value]="product.id">{{product.name}}</option>
+
+                    </ng-container>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Colors</label>
+                <div class="col-sm-9">
+                  <select multiple formControlName="colors" class="form-control">
+                    <ng-container *ngFor="let color of colors">
+                      {{color}}|
+                      {{colors.length}}
+                      <option [value]="color">{{color}}</option>
+
+                    </ng-container>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Description</label>
+                <textarea formControlName="description" class="form-control" id="exampleTextarea1" rows="2"></textarea>
+              </div>
+
+              <div class="input-group col-xs-12">
+                <input type="text" class="form-control file-upload-info" disabled="" placeholder="Upload Images">
+                <div>
+                  <span class="input-group-append">
+                    <button type="button" class="file-upload-browse btn btn-info"
+                      style="display:block;width:120px; height:30px;"
+                      onclick="document.getElementById('getFile').click()">Upload
+                      <span *ngIf="imageCount>0" class="badge badge-danger count count-position">
+                        {{imageCount}}
+                      </span>
+                    </button>
+                    <input (change)="convertImage($event)" type='file' id="getFile" multiple style="display:none">
+                  </span>
+                </div>
+
+              </div>
+              <br>
+              <button type="submit" class="btn btn-success mr-2">Save</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-6 stretch-card">
+    <div class="card">
+      <div class="card-body">
+
+        <div *ngIf="images.length>0" class="abc">
+          <owl-carousel [options]="homeSlider" [carouselClasses]="['owl-theme','customClassName']">
+
+            <ng-container *ngFor="let image of images">
+              <div class="item">
+                <img [src]="image">
+              </div>
+
+              <div class="item">
+                <img [src]="image">
+              </div>
+            </ng-container>
+          </owl-carousel>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<br>

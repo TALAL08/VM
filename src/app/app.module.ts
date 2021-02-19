@@ -15,7 +15,9 @@ import { ItemComponent } from './components/item/item.component';
 import { ItemsTableComponent } from './components/items-table/items-table.component';
 import { ProductItemsTableComponent } from './components/product-items-table/product-items-table.component';
 import { CategoryProductsTableComponent } from './components/category-products-table/category-products-table.component';
-
+import { CarouselModule } from 'ngx-owl-carousel-o';
+import {OwlModule}from 'ngx-owl-carousel';
+import { RouterModule } from '@angular/router';
 @NgModule({
   declarations: [
     AppComponent,
@@ -31,8 +33,11 @@ import { CategoryProductsTableComponent } from './components/category-products-t
     CategoryProductsTableComponent
   ],
   imports: [
-    AppRoutingModule,
     BrowserModule,
+    OwlModule,
+    RouterModule,
+    CarouselModule,
+    AppRoutingModule,
     FormsModule,
     HttpClientModule,
     ReactiveFormsModule
