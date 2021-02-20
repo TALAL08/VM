@@ -20,7 +20,7 @@ import { ProductService } from 'src/app/services/product.service';
 })
 export class ProductComponent implements OnInit {
   form!: FormGroup;
-  categories: [] = [];
+  categories: any[] = [];
   productId: string = '';
   categoryId: string = '';
 
@@ -39,7 +39,7 @@ export class ProductComponent implements OnInit {
 
   ngOnInit(): void {
     this.categoryService.getAll().subscribe((res) => {
-      this.categories = res as any;
+      this.categories = (res as any);
     });
 
     this.route.paramMap.subscribe((pram) => {
@@ -47,9 +47,9 @@ export class ProductComponent implements OnInit {
 
       if (this.productId != null) {
         this.productService.get(this.productId).subscribe((res) => {
-          let productInDb = res as any;
+          let productInDb = (res as any);
           this.form.get('name')?.setValue(productInDb.name);
-          this.form.get('categoryId')?.setValue(productInDb.categoryId);
+          this.form.get('categoryId')?.setValue(productInDb.category.id);
           this.categoryId = productInDb.categoryId;
         });
       }
