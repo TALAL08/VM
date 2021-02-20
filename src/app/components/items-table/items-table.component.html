@@ -9,6 +9,7 @@
             <th>Name</th>
             <th>Category</th>
             <th>Product</th>
+            <th>Total Images</th>
             <th>Sale</th>
             <th>Status</th>
             <th>Action</th>
@@ -21,6 +22,7 @@
               <td>{{item.name}}</td>
               <td>{{item.product.category.name}}</td>
               <td>{{item.product.name}}</td>
+              <td>{{item.images.length}}</td>
               <td class="text-danger"> 28.76% <i class="mdi mdi-arrow-down"></i>
               </td>
 
@@ -29,8 +31,8 @@
               </td>
 
               <td>
-                <button class="badge badge-default" [routerLink]="['/category/update',category.id]">Edit</button>
-                <button class="badge badge-danger" (click)="delete(category)" >Delete</button>
+                <button class="badge badge-default" [routerLink]="['/item/update',item.id]">Edit</button>
+                <button class="badge badge-danger" (click)="delete(item)" >Delete</button>
               </td>
             </tr>
 

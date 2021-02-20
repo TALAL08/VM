@@ -35,7 +35,7 @@
               <div class="form-group row">
                 <label class="col-sm-3 col-form-label">Category</label>
                 <div class="col-sm-9">
-                  <select (change)="onCategoryProducts($event.target.value)" formControlName="categoryId"
+                  <select (change)="getCategoryProducts($event.target)" formControlName="categoryId"
                     class="form-control">
                     <ng-container *ngFor="let category of categories">
 
@@ -105,22 +105,21 @@
     <div class="card">
       <div class="card-body">
 
-        <div *ngIf="images.length>0" class="abc">
-          <owl-carousel [options]="homeSlider" [carouselClasses]="['owl-theme','customClassName']">
-
-            <ng-container *ngFor="let image of images">
-              <div class="item">
-                <img [src]="image">
+        <div *ngIf="itemImages.length>0" class="container">
+          <h2>Images</h2>
+          <div class="row">
+            <div *ngFor="let itemImage of itemImages" class="col-md-4">
+              <div class="thumbnail">
+                <img [src]="getImage(itemImage.contentType+itemImage.image)" alt="Lights" style="width:100%">
+                <div class="caption">
+                  <button (click)="removeImage(itemImage)" class="btn btn-danger">remove</button>
+                </div>
               </div>
+            </div>
+          </div>
 
-              <div class="item">
-                <img [src]="image">
-              </div>
-            </ng-container>
-          </owl-carousel>
         </div>
       </div>
     </div>
   </div>
-</div>
-<br>
+  <br>

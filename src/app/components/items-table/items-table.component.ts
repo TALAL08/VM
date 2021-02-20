@@ -17,7 +17,7 @@ import { ItemService } from 'src/app/services/item.service';
 })
 export class ItemsTableComponent implements OnInit {
 
-  items: [] = [];
+  items: any[] = [];
 
   constructor(private itemService: ItemService) {}
 
