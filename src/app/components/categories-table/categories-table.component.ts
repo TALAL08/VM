@@ -16,7 +16,7 @@ import { CategoryService } from 'src/app/services/category.service';
   ],
 })
 export class CategoriesTableComponent implements OnInit {
-  categories: [] = [];
+  categories: any[] = [];
 
   constructor(private categoryService: CategoryService) {}
 

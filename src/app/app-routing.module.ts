@@ -4,6 +4,7 @@ import { CategoriesTableComponent } from './components/categories-table/categori
 import { CategoryProductsTableComponent } from './components/category-products-table/category-products-table.component';
 import { CategoryComponent } from './components/category/category.component';
 import { DashBoardComponent } from './components/dash-board/dash-board.component';
+import { HomeComponent } from './components/home/home.component';
 import { ItemComponent } from './components/item/item.component';
 import { ItemsTableComponent } from './components/items-table/items-table.component';
 import { LoginComponent } from './components/login/login.component';
@@ -27,6 +28,8 @@ const routes: Routes = [
 
   {path:'dashBoard', component:DashBoardComponent},
   {path:'login', component:LoginComponent},
+
+  {path:'home', component:HomeComponent},
 ];
 
 @NgModule({
