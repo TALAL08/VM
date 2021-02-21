@@ -54,7 +54,6 @@ export class LoginComponent implements OnInit {
 
     else {
 
-      alert(this.form.value)
       this.authService.login(this.form.value).subscribe(
 
         res => {

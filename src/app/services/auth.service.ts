@@ -15,7 +15,7 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 })
 export class AuthService {
 
-  private readonly roles = 'http://schemas.microsoft.com/ws/2008/06/identity/claims/role';
+  private readonly role = 'http://schemas.microsoft.com/ws/2008/06/identity/claims/role';
   private httpOptions: any = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   }
@@ -61,7 +61,7 @@ export class AuthService {
 
   }
 
-  isLoggedIn() {
+  isAutherize() {
     const token = this.getToken();
     if (!token)
       return false;
@@ -82,16 +82,16 @@ export class AuthService {
       return false;
 
     const decodedToken = helper.decodeToken(token);
-    const roles: string[] = decodedToken[this.roles];
-
-    if (roles.find(r => r == role))
+    const userRole: string = decodedToken[this.role];
+    console.log(role);
+    if (userRole == role)
       return true;
     return false;
 
   }
 
   getCurrentUser(){
-    
+
     const token = this.getToken();
   }
 

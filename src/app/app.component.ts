@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AuthService } from './services/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -16,4 +17,11 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'VirtualMartket';
+  constructor(private authService:AuthService){
+
+  }
+
+  isInRole(roleName:string){
+    return this.authService.isInRole(roleName);
+  }
 }
