@@ -269,11 +269,6 @@
   </div>
 </div>
 <ng-template #loginForm>
-
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
     <!--
   Document Title
   =============================================
@@ -312,13 +307,13 @@
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
 
     <!-- Main stylesheet and color file-->
-  </head>
+    <link id="color-scheme" href="/assets/css/colors/default.css" rel="stylesheet">
 
-  <body data-spy="scroll" data-target=".onpage-navigation" data-offset="60">
+  <app-home></app-home>
+  <!-- <body data-spy="scroll" data-target=".onpage-navigation" data-offset="60">
 
-    <app-home></app-home>
-    <!-- <app-login></app-login> -->
-  </body>
+  </body> -->
+  <!-- <app-login></app-login> -->
 </ng-template>
 <!-- plugins:js -->
 <!-- <script src="../assets/vendors/js/vendor.bundle.base.js"></script> -->
