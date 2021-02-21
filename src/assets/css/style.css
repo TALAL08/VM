@@ -1062,6 +1062,7 @@ Hero Slider
 .hero-slider .slides > li {
   display: none;
   -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
 }
 
 .hero-slider,
@@ -1201,8 +1202,9 @@ General Styles - Owlcarousel
   z-index: 9999;
   -webkit-animation: load 0.8s infinite linear;
   -moz-animation: load 0.8s infinite linear;
-  ms-animation: load 0.8s infinite linear;
-  o-animation: load 0.8s infinite linear;
+  -ms-animation: load 0.8s infinite linear;
+  -o-animation: load 0.8s infinite linear;
+  animation: load 0.8s infinite linear;
   animation: load 0.8s infinite linear;
 }
 
@@ -1752,6 +1754,7 @@ Google map
   -moz-transform: rotate(45deg);
   -ms-transform: rotate(45deg);
   -o-transform: rotate(45deg);
+  transform: rotate(45deg);
   margin-left: -7px;
 }
 
@@ -1767,6 +1770,7 @@ Google map
   -moz-transform: rotate(45deg);
   -ms-transform: rotate(45deg);
   -o-transform: rotate(45deg);
+  transform: rotate(45deg);
   margin-left: -8px;
 }
 
