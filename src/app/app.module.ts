@@ -19,6 +19,8 @@ import { CarouselModule } from 'ngx-owl-carousel-o';
 import {OwlModule}from 'ngx-owl-carousel';
 import { RouterModule } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
+import { NavBarComponent } from './components/nav-bar/nav-bar.component';
+import { SliderComponent } from './components/slider/slider.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -32,7 +34,9 @@ import { HomeComponent } from './components/home/home.component';
     ItemsTableComponent,
     ProductItemsTableComponent,
     CategoryProductsTableComponent,
-    HomeComponent
+    HomeComponent,
+    NavBarComponent,
+    SliderComponent
   ],
   imports: [
     BrowserModule,
