@@ -1,17 +1,58 @@
-<div class="col-6 stretch-card">
-  <div class="card">
-    <div class="card-body">
-      <h4 class="card-title">CATEGORY FORM</h4>
-      <form class="forms-sample" [formGroup]="form" (ngSubmit)="submit()">
-        <div class="form-group row">
-          <label for="exampleInputEmail2" class="col-sm-3 col-form-label">Name</label>
-          <div class="col-sm-9">
-            <input formControlName="name" type="email" class="form-control" id="exampleInputEmail2" placeholder="Enter Category Name">
+<div class="row">
+  <div class="col-md-6 d-flex align-items-stretch grid-margin">
+    <div class="row flex-grow">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title">CATEGORY FORM</h4>
+            <form class="forms-sample" [formGroup]="form" (ngSubmit)="submit()">
+              <div class="form-group row">
+                <label for="exampleInputEmail2" class="col-sm-3 col-form-label">Name</label>
+                <div class="col-sm-9">
+                  <input formControlName="name" type="email" class="form-control" id="exampleInputEmail2"
+                    placeholder="Enter Category Name">
+                </div>
+              </div>
+
+              <div class="input-group col-xs-12">
+                <input type="text" class="form-control file-upload-info" disabled="" placeholder="Upload Image">
+                <div>
+                  <span class="input-group-append">
+                    <button type="button" class="file-upload-browse btn btn-info"
+                      style="display:block;width:120px; height:30px;"
+                      onclick="document.getElementById('getFile').click()">Upload
+                    </button>
+                    <input (change)="convertImage($event)" type='file' id="getFile" style="display:none">
+                  </span>
+                </div>
+
+              </div>
+              <br>
+              <button type="submit" class="btn btn-success mr-2">Save</button>
+            </form>
           </div>
         </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-6 stretch-card">
+    <div class="card">
+      <div class="card-body">
 
-        <button type="submit" class="btn btn-success mr-2">Save</button>
-      </form>
+        <div *ngIf="categoryImage.image" class="container">
+          <div class="row">
+            <div class="col-md-4">
+              <div class="thumbnail">
+                <img [src]="getImage(categoryImage.contentType+categoryImage.image)" alt="Lights" style="width:100%">
+                <div class="caption">
+                  <button (click)="removeImage()" class="btn btn-danger">remove</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
     </div>
   </div>
 </div>
