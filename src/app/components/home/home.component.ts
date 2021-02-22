@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
+import { CategoryService } from 'src/app/services/category.service';
 
 @Component({
   selector: 'app-home',
@@ -17,9 +19,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
+  categories:any[]=[];
+  constructor(
+    private categoryService:CategoryService,
+    private sanitizer: DomSanitizer
+  ) {
+    this.categoryService.getAll().subscribe(res =>{
+      this.categories = (res as any);
+    });
+  }
 
   ngOnInit(): void {
   }
-
+  getImage(category: any) {
+    const image = category.contentType+category.image;
+    return this.sanitizer.bypassSecurityTrustResourceUrl(image as string);
+  }
 }

@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { CategoriesTableComponent } from './components/categories-table/categories-table.component';
 import { CategoryProductsTableComponent } from './components/category-products-table/category-products-table.component';
+import { CategoryProductsComponent } from './components/category-products/category-products.component';
 import { CategoryComponent } from './components/category/category.component';
 import { DashBoardComponent } from './components/dash-board/dash-board.component';
 import { HomeComponent } from './components/home/home.component';
@@ -16,7 +17,8 @@ const routes: Routes = [
   {path:'categories', component:CategoriesTableComponent},
   {path:'category/new', component:CategoryComponent},
   {path:'category/update/:id', component:CategoryComponent},
-  {path:'categoryProducts/:categoryId', component:CategoryProductsTableComponent},
+  {path:'categoryProductsTable/:categoryId', component:CategoryProductsTableComponent},
+  {path:'categoryProducts/:categoryId', component:CategoryProductsComponent},
 
   {path:'products', component:ProductsTableComponent},
   {path:'product/new', component:ProductComponent},

@@ -79,7 +79,8 @@ export class CategoryComponent implements OnInit {
     };
   }
 
-  getImage(image: any) {
+  getImage(categoryImage: any) {
+    const image = categoryImage.contentType+categoryImage.image;
     return this.sanitizer.bypassSecurityTrustResourceUrl(image as string);
   }
 

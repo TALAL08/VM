@@ -21,6 +21,7 @@ import { RouterModule } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { SliderComponent } from './components/slider/slider.component';
+import { CategoryProductsComponent } from './components/category-products/category-products.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -36,7 +37,8 @@ import { SliderComponent } from './components/slider/slider.component';
     CategoryProductsTableComponent,
     HomeComponent,
     NavBarComponent,
-    SliderComponent
+    SliderComponent,
+    CategoryProductsComponent
   ],
   imports: [
     BrowserModule,
