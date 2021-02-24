@@ -1,9 +1,4 @@
-    <main>
-      <div class="page-loader">
-        <div class="loader">Loading...</div>
-      </div>
-      <app-nav-bar></app-nav-bar>
-      <app-slider></app-slider>
+<app-slider></app-slider>
       <div class="main">
         <section class="module-small">
           <div class="container">
@@ -21,7 +16,7 @@
                     </div>
                     <h4 class="shop-item-title font-alt">
                       <a [routerLink]="['/categoryProducts',category.id]">{{category.name}}</a>
-                    </h4>{{category.products.length}}Products Avalible
+                    </h4>{{category.products.length}} Products Avalible
                   </div>
                 </div>
               </ng-container>
@@ -304,7 +299,6 @@
         </footer>
       </div>
       <div class="scroll-up"><a href="#totop"><i class="fa fa-angle-double-up"></i></a></div>
-    </main>
     <!--
     JavaScripts
     =============================================
