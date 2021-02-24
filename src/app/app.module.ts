@@ -22,6 +22,7 @@ import { HomeComponent } from './components/home/home.component';
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { SliderComponent } from './components/slider/slider.component';
 import { CategoryProductsComponent } from './components/category-products/category-products.component';
+import { ProductItemsComponent } from './components/product-items/product-items.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -38,7 +39,8 @@ import { CategoryProductsComponent } from './components/category-products/catego
     HomeComponent,
     NavBarComponent,
     SliderComponent,
-    CategoryProductsComponent
+    CategoryProductsComponent,
+    ProductItemsComponent
   ],
   imports: [
     BrowserModule,

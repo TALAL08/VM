@@ -45,11 +45,7 @@ export class CategoryProductsComponent implements OnInit {
 
 
    getImage(categoryImage: any) {
-
-
        const image = categoryImage.contentType + categoryImage.image;
-       console.log(image);
        return this.sanitizer.bypassSecurityTrustResourceUrl(image as string);
-
    }
 }
