@@ -34,6 +34,12 @@
             ],
             "scripts": [
               "./node_modules/owl.carousel/dist/owl.carousel.min.js",
+              "src/assets/vendors/js/vendor.bundle.base.js",
+              "src/assets/vendors/js/vendor.bundle.addons.js",
+              "src/assets/js/shared/off-canvas.js",
+              "src/assets/js/shared/misc.js",
+              "src/assets/js/demo_1/dashboard.js",
+
               "src/assets/lib/jquery/dist/jquery.js",
               "src/assets/lib/bootstrap/dist/js/bootstrap.min.js",
               "src/assets/lib/wow/dist/wow.js",
