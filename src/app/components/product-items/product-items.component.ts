@@ -39,13 +39,14 @@ export class ProductItemsComponent implements OnInit {
       this.productItemService.get(productId).subscribe((res) => {
         this.productItems =(res as any);
         this.product =this.productItems[0].product
-        console.log(this.product);
       });
     });
 
   }
   getImage(itemImage: any) {
+
     const image = itemImage.contentType + itemImage.image;
     return this.sanitizer.bypassSecurityTrustResourceUrl(image as string);
-}
+
+  }
 }

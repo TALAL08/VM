@@ -23,6 +23,7 @@ import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { SliderComponent } from './components/slider/slider.component';
 import { CategoryProductsComponent } from './components/category-products/category-products.component';
 import { ProductItemsComponent } from './components/product-items/product-items.component';
+import { ItemImagesComponent } from './components/item-images/item-images.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -40,7 +41,8 @@ import { ProductItemsComponent } from './components/product-items/product-items.
     NavBarComponent,
     SliderComponent,
     CategoryProductsComponent,
-    ProductItemsComponent
+    ProductItemsComponent,
+    ItemImagesComponent
   ],
   imports: [
     BrowserModule,

@@ -12,6 +12,7 @@ import { LoginComponent } from './components/login/login.component';
 import { ProductComponent } from './components/product/product.component';
 import { ProductsTableComponent } from './components/products-table/products-table.component';
 import { ProductItemsComponent } from './components/product-items/product-items.component';
+import { ItemImagesComponent } from './components/item-images/item-images.component';
 
 const routes: Routes = [
 
@@ -29,6 +30,8 @@ const routes: Routes = [
   {path:'items', component:ItemsTableComponent},
   {path:'item/new', component:ItemComponent},
   {path:'item/update/:id', component:ItemComponent},
+
+  {path:'itemImages/:itemId', component:ItemImagesComponent},
 
   {path:'dashBoard', component:DashBoardComponent},
   {path:'login', component:LoginComponent},
