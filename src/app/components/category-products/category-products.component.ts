@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
+import { timeout } from 'rxjs/operators';
 import { CategoryProductService } from 'src/app/services/category-product.service';
 
 @Component({
@@ -21,6 +22,7 @@ import { CategoryProductService } from 'src/app/services/category-product.servic
 export class CategoryProductsComponent implements OnInit {
   categoryProducts: any[] = [];
   category: any;
+  loader = true;
   constructor(
     private route: ActivatedRoute,
     private sanitizer: DomSanitizer,
@@ -37,6 +39,11 @@ export class CategoryProductsComponent implements OnInit {
         this.categoryProducts =(res as any);
 
         this.category =this.categoryProducts[0].category
+        setTimeout (() => {
+
+          this.loader=false;
+          console.log("loader")
+        }, 1000);
       });
     });
 

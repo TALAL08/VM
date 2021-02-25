@@ -78,17 +78,31 @@
               </div>
 
               <div class="input-group col-xs-12">
-                <input type="text" class="form-control file-upload-info" disabled="" placeholder="Upload Images">
+                <input type="text" class="form-control file-upload-info" disabled="" placeholder="Upload Image">
                 <div>
                   <span class="input-group-append">
                     <button type="button" class="file-upload-browse btn btn-info"
                       style="display:block;width:120px; height:30px;"
                       onclick="document.getElementById('getFile').click()">Upload
+                    </button>
+                    <input (change)="convertImage($event)" type='file' id="getFile" style="display:none">
+                  </span>
+                </div>
+
+              </div>
+
+              <div class="input-group col-xs-12">
+                <input type="text" class="form-control file-upload-info" disabled="" placeholder="Upload Images">
+                <div>
+                  <span class="input-group-append">
+                    <button type="button" class="file-upload-browse btn btn-info"
+                      style="display:block;width:120px; height:30px;"
+                      onclick="document.getElementById('getFiles').click()">Upload
                       <span *ngIf="imageCount>0" class="badge badge-danger count count-position">
                         {{imageCount}}
                       </span>
                     </button>
-                    <input (change)="convertImage($event)" type='file' id="getFile" multiple style="display:none">
+                    <input (change)="convertImages($event)" type='file' id="getFiles" multiple style="display:none">
                   </span>
                 </div>
 

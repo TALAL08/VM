@@ -1,6 +1,10 @@
+<div class="page-loader">
+  <div class="loader">Loading...</div>
+</div>
 <div class="main">
-  <section class="module bg-dark-60 shop-page-header"style="background-image: url('{{product.contentType+product.image}}');" >
-    <div class="container" >
+  <section class="module bg-dark-60 shop-page-header"
+    style="background-image: url('{{product.contentType+product.image}}');">
+    <div class="container">
       <div class="row">
         <div class="col-sm-6 col-sm-offset-3">
           <h2 class="module-title font-alt">{{product.name}}</h2>
@@ -49,21 +53,26 @@
     <div class="container">
       <div class="row multi-columns-row">
         <ng-container *ngFor="let item of productItems">
-          <div class="col-sm-6 col-md-3 col-lg-3">
-            <div class="shop-item">
-              <div class="shop-item-image"><img [src]="getImage(item)" alt="Accessories Pack"/>
-                <div class="shop-item-detail"><a class="btn btn-round btn-b"><span class="icon-basket">Add To Cart</span></a></div>
-              </div>
-              <h4 class="shop-item-title font-alt"><a href="#">{{item.name}}</a></h4>
-            </div>
-          </div>
+            <ng-container *ngFor="let image of item.images">
+                <div class="col-sm-6 col-md-3 col-lg-3">
+                  <div class="shop-item">
+                    <div class="shop-item-image"><img [src]="getImage(image)" alt="Accessories Pack" />
+                      <div class="shop-item-detail"><a class="btn btn-round btn-b"><span class="icon-basket">Add To
+                            Cart</span></a></div>
+                    </div>
+                    <h4 class="shop-item-title font-alt"><a href="#">{{item.name}}</a></h4>
+                  </div>
+                </div>
+            </ng-container>
 
         </ng-container>
 
       </div>
       <div class="row">
         <div class="col-sm-12">
-          <div class="pagination font-alt"><a href="#"><i class="fa fa-angle-left"></i></a><a class="active" href="#">1</a><a href="#">2</a><a href="#">3</a><a href="#">4</a><a href="#"><i class="fa fa-angle-right"></i></a></div>
+          <div class="pagination font-alt"><a href="#"><i class="fa fa-angle-left"></i></a><a class="active"
+              href="#">1</a><a href="#">2</a><a href="#">3</a><a href="#">4</a><a href="#"><i
+                class="fa fa-angle-right"></i></a></div>
         </div>
       </div>
     </div>
@@ -108,14 +117,16 @@
             <h5 class="widget-title font-alt">Popular Posts</h5>
             <ul class="widget-posts">
               <li class="clearfix">
-                <div class="widget-posts-image"><a href="#"><img src="assets/images/rp-1.jpg" alt="Post Thumbnail"/></a></div>
+                <div class="widget-posts-image"><a href="#"><img src="assets/images/rp-1.jpg"
+                      alt="Post Thumbnail" /></a></div>
                 <div class="widget-posts-body">
                   <div class="widget-posts-title"><a href="#">Designer Desk Essentials</a></div>
                   <div class="widget-posts-meta">23 january</div>
                 </div>
               </li>
               <li class="clearfix">
-                <div class="widget-posts-image"><a href="#"><img src="assets/images/rp-2.jpg" alt="Post Thumbnail"/></a></div>
+                <div class="widget-posts-image"><a href="#"><img src="assets/images/rp-2.jpg"
+                      alt="Post Thumbnail" /></a></div>
                 <div class="widget-posts-body">
                   <div class="widget-posts-title"><a href="#">Realistic Business Card Mockup</a></div>
                   <div class="widget-posts-meta">15 February</div>
@@ -135,7 +146,9 @@
           <p class="copyright font-alt">&copy; 2017&nbsp;<a href="index.html">TitaN</a>, All Rights Reserved</p>
         </div>
         <div class="col-sm-6">
-          <div class="footer-social-links"><a href="#"><i class="fa fa-facebook"></i></a><a href="#"><i class="fa fa-twitter"></i></a><a href="#"><i class="fa fa-dribbble"></i></a><a href="#"><i class="fa fa-skype"></i></a>
+          <div class="footer-social-links"><a href="#"><i class="fa fa-facebook"></i></a><a href="#"><i
+                class="fa fa-twitter"></i></a><a href="#"><i class="fa fa-dribbble"></i></a><a href="#"><i
+                class="fa fa-skype"></i></a>
           </div>
         </div>
       </div>

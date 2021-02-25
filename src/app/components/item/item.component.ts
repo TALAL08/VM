@@ -47,6 +47,8 @@ export class ItemComponent implements OnInit {
       price: ['', Validators.required],
       colors: ['', Validators.required],
       description: ['', Validators.required],
+      contentType:['', Validators.required],
+      image:['', Validators.required],
       images: this.fb.array([]),
       removedImageIds: this.fb.array([]),
     });
@@ -105,6 +107,26 @@ export class ItemComponent implements OnInit {
   }
 
   convertImage(event: any) {
+
+    let file = event.target.files[0];
+    let reader = new FileReader();
+    reader.readAsDataURL(file);
+    let form = this.form;
+    reader.onload = function () {
+
+      const imageString = reader.result as string;
+      const contentType = imageString.slice(0, imageString.indexOf(',') + 1);
+      const image = imageString.slice(imageString.indexOf(',') + 1);
+      form.get('contentType')?.setValue(contentType);
+      form.get('image')?.setValue(image);
+
+      reader.onerror = function (error) {
+        console.log('Error: ', error);
+      };
+    };
+  }
+
+  convertImages(event: any) {
     let itemImages = this.itemImages;
     let files = event.target.files;
     let imageCount = this.imageCount;

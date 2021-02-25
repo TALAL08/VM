@@ -16,6 +16,8 @@ import { ProductItemService } from '../../services/product-item.service';
     '../../../assets/lib/simple-text-rotator/simpletextrotator.css',
     '../../../assets/css/style.css',
     '../../../assets/css/colors/default.css',
+    '../../../assets/lib/owl.carousel/dist/assets/owl.carousel.min.css',
+    '../../../assets/lib/owl.carousel/dist/assets/owl.theme.default.min.css',
   ]
 })
 export class ProductItemsComponent implements OnInit {
@@ -33,11 +35,11 @@ export class ProductItemsComponent implements OnInit {
 
     this.route.paramMap.subscribe((pram) => {
 
-      let categoryId = pram.get('productId') as string;
-      this.productItemService.get(categoryId).subscribe((res) => {
+      let productId = pram.get('productId') as string;
+      this.productItemService.get(productId).subscribe((res) => {
         this.productItems =(res as any);
-
-        this.product =this.productItems[0].category
+        this.product =this.productItems[0].product
+        console.log(this.product);
       });
     });
 

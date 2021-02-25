@@ -2495,7 +2495,9 @@ Google map
 }
 
 .shop-item-image img {
-  width: 100%;
+  width: 345px;
+  height: 389px;
+  object-fit: contain;
 }
 
 .shop-item-detail,
