@@ -13,8 +13,11 @@ import { ProductComponent } from './components/product/product.component';
 import { ProductsTableComponent } from './components/products-table/products-table.component';
 import { ProductItemsComponent } from './components/product-items/product-items.component';
 import { ItemImagesComponent } from './components/item-images/item-images.component';
+import { CartComponent } from './components/cart/cart.component';
 
 const routes: Routes = [
+
+  {path:'cart/:itemId', component:CartComponent},
 
   {path:'categories', component:CategoriesTableComponent},
   {path:'category/new', component:CategoryComponent},

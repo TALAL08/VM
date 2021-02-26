@@ -21,37 +21,31 @@ import { CategoryProductService } from 'src/app/services/category-product.servic
 export class CategoryProductsComponent implements OnInit {
   categoryProducts: any[] = [];
   category: any;
-  loader = true;
+  loader = false;
   constructor(
     private route: ActivatedRoute,
     private sanitizer: DomSanitizer,
     private categoryProductService: CategoryProductService
-  ) {
-   }
+  ) {}
 
-   ngOnInit(): void {
-
+  ngOnInit(): void {
     this.route.paramMap.subscribe((pram) => {
-
       let categoryId = pram.get('categoryId') as string;
       this.categoryProductService.get(categoryId).subscribe((res) => {
-        this.categoryProducts =(res as any);
-
-        this.category =this.categoryProducts[0].category
-        setTimeout (() => {
-
-          this.loader=false;
-          console.log("loader")
-        }, 1000);
+        console.log(res);
+        this.categoryProducts = res as any;
+        if (this.categoryProducts.length > 0)
+          this.category = this.categoryProducts[0].category;
+        setTimeout(() => {
+          this.loader = true;
+          console.log('loader');
+        }, 2000);
       });
     });
+  }
 
-
-   }
-
-
-   getImage(categoryImage: any) {
-       const image = categoryImage.contentType + categoryImage.image;
-       return this.sanitizer.bypassSecurityTrustResourceUrl(image as string);
-   }
+  getImage(categoryImage: any) {
+    const image = categoryImage.contentType + categoryImage.image;
+    return this.sanitizer.bypassSecurityTrustResourceUrl(image as string);
+  }
 }

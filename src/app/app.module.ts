@@ -25,6 +25,7 @@ import { CategoryProductsComponent } from './components/category-products/catego
 import { ProductItemsComponent } from './components/product-items/product-items.component';
 import { ItemImagesComponent } from './components/item-images/item-images.component';
 import { CartComponent } from './components/cart/cart.component';
+import { LoaderComponent } from './components/loader/loader.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -44,7 +45,8 @@ import { CartComponent } from './components/cart/cart.component';
     CategoryProductsComponent,
     ProductItemsComponent,
     ItemImagesComponent,
-    CartComponent
+    CartComponent,
+    LoaderComponent
   ],
   imports: [
     BrowserModule,

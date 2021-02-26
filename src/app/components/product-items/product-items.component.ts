@@ -24,6 +24,7 @@ export class ProductItemsComponent implements OnInit {
 
   productItems: any[] = [];
   product: any;
+  isClick:boolean=false;
   constructor(
     private route: ActivatedRoute,
     private sanitizer: DomSanitizer,
@@ -48,5 +49,17 @@ export class ProductItemsComponent implements OnInit {
     const image = itemImage.contentType + itemImage.image;
     return this.sanitizer.bypassSecurityTrustResourceUrl(image as string);
 
+  }
+
+  saveItem(item:any){
+    const cartInStorage = localStorage.getItem("cart");
+    let cart =[{}];
+    cart=[];
+    if(cartInStorage){
+      cart = (JSON.parse(cartInStorage) as {}[]);
+    }
+    cart.push({id:item.id,name:item.name,price:item.price,image:item.contentType+item.image});
+    localStorage.setItem('cart', JSON.stringify(cart));
+    this.isClick=true;
   }
 }
