@@ -24,6 +24,7 @@ import { SliderComponent } from './components/slider/slider.component';
 import { CategoryProductsComponent } from './components/category-products/category-products.component';
 import { ProductItemsComponent } from './components/product-items/product-items.component';
 import { ItemImagesComponent } from './components/item-images/item-images.component';
+import { CartComponent } from './components/cart/cart.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -42,7 +43,8 @@ import { ItemImagesComponent } from './components/item-images/item-images.compon
     SliderComponent,
     CategoryProductsComponent,
     ProductItemsComponent,
-    ItemImagesComponent
+    ItemImagesComponent,
+    CartComponent
   ],
   imports: [
     BrowserModule,
