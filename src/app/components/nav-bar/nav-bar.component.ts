@@ -21,10 +21,14 @@ export class NavBarComponent implements OnInit {
 
   ngOnInit(): void {
 
-    const count = (localStorage.getItem("itemsCount") as string);
-    if(parseInt(count)){
-      this.count = parseInt(count);
+    const cartInStorage = localStorage.getItem('items');
+    let cart = [{}];
+    cart = [];
+    if (cartInStorage) {
+      cart = JSON.parse(cartInStorage) as {}[];
     }
+
+    this.count = cart.length;
   }
 
 }

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { ProductItemService } from '../../services/product-item.service';
-declare var $:any;
+declare var $: any;
 @Component({
   selector: 'app-product-items',
   templateUrl: './product-items.component.html',
@@ -22,9 +22,8 @@ declare var $:any;
 })
 export class ProductItemsComponent implements OnInit {
   productItems: any[] = [];
-  product: any;
-  count:number=0;
-  isClick: boolean = false;
+  product: {name:string,contentType:string,image:string}={name:"",contentType:"",image:""};
+  count: number = 0;
   constructor(
     private route: ActivatedRoute,
     private sanitizer: DomSanitizer,
@@ -33,11 +32,38 @@ export class ProductItemsComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.paramMap.subscribe((pram) => {
-      let productId = pram.get('productId') as string;
-      this.productItemService.get(productId).subscribe((res) => {
-        this.productItems = res as any;
-        this.product = this.productItems[0].product;
 
+      let productId = pram.get('productId') as string;
+      const itemsInStorage = localStorage.getItem('items');
+      let items = [{}];
+      items = [];
+      if (itemsInStorage)
+        items = JSON.parse(itemsInStorage) as {}[];
+
+
+
+      this.productItemService.get(productId).subscribe((res) => {
+
+        ((res as any) as []).forEach((item: any) => {
+
+          const isInCart = items.find((c: any) => c.id === item.id);
+
+          let productItem = {
+            id: item.id,
+            name: item.name,
+            contentType: item.contentType,
+            price: item.price,
+            image: item.image,
+            product: item.product,
+            isAddedToCart: false,
+          };
+
+          if (isInCart) productItem.isAddedToCart = true;
+          this.productItems.push(productItem);
+        });
+
+        this.product = this.productItems[0].product;
+        console.log(this.productItems);
         $('.loader').fadeOut();
         $('.page-loader').delay(950).fadeOut('slow');
       });
@@ -48,45 +74,30 @@ export class ProductItemsComponent implements OnInit {
     return this.sanitizer.bypassSecurityTrustResourceUrl(image as string);
   }
 
-  saveItem(item: any, event: any) {
+  saveItem(item: any) {
+    let productItem = this.productItems.find((i) => i.id == item.id);
+    const itemsInStorage = localStorage.getItem('items');
+    let items = [{}];
+    items = [];
+    if (itemsInStorage) {
+      items = JSON.parse(itemsInStorage) as {}[];
+    }
 
-    const buttonText = (event.target.text as string);
-    if (buttonText == " Add to Cart ") {
-      const cartInStorage = localStorage.getItem('cart');
-      let cart = [{}];
-      cart = [];
-      if (cartInStorage) {
-        cart = JSON.parse(cartInStorage) as {}[];
-      }
-      cart.push({
+    if (!item.isAddedToCart) {
+      items.push({
         id: item.id,
         name: item.name,
         price: item.price,
         image: item.contentType + item.image,
-        quantity:1
+        quantity: 1,
       });
-      localStorage.setItem('items', JSON.stringify(cart));
-      this.setItemCount();
-      event.target.text = 'Added To Cart';
+    } else {
+      let cartItemIndex = items.findIndex((c: any) => c.id == item.id);
+      items.slice(cartItemIndex, 1);
     }
 
-  }
-
-  setItemCount(){
-
-    let count = parseInt(( localStorage.getItem('itemsCount')as string));
-    console.log("out: "+count);
-    if(!isNaN(count)){
-      count++;
-      console.log("if: "+count);
-    }
-    else
-    {
-      count =1;
-      console.log("else: "+count);
-    }
-
-    localStorage.setItem('itemsCount', count.toString());
-    this.count = count;
+    localStorage.setItem('items', JSON.stringify(items));
+    productItem.isAddedToCart = !item.isAddedToCart;
+    this.count = items.length;
   }
 }

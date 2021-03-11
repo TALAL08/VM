@@ -15,7 +15,7 @@
           <a [routerLink]="['/cart']">
             Cart
             <span class="icon-basket"></span>
-            <span hidden="count==0" class="badge badge-danger badge-js">{{count}}</span>
+            <span *ngIf="count>0" class="badge badge-danger badge-js">{{count}}</span>
           </a>
         </li>
 

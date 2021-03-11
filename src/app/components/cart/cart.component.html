@@ -34,8 +34,7 @@
                         <h5 class="product-title font-alt">PKR {{item.price}}</h5>
                       </td>
                       <td>
-                            {{item.quantity}}
-                        <!-- <input class="form-control" (change)="show(item)" type="number" name="" value="{{item.quantity}}" max="50" min="1"/> -->
+                        <input min="1" (change)="updateQuantity($event,item)" type="number" value={{item.quantity}}>
                       </td>
                       <td>
                         <h5 class="product-title font-alt">PKR {{item.price * item.quantity}}</h5>
@@ -59,7 +58,7 @@
               </div>
               <div class="col-sm-3 col-sm-offset-3">
                 <div class="form-group">
-                  <button class="btn btn-block btn-round btn-d pull-right" type="submit">Update Cart</button>
+                  <button class="btn btn-block btn-round btn-d pull-right" type="submit">Save Cart</button>
                 </div>
               </div>
             </div>

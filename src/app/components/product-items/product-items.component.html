@@ -79,11 +79,16 @@
                     </span></a>
                     <br>
                     <br>
-                    <a (click)="saveItem(item,$event)"
+                    <a (click)="saveItem(item)"
 
-                     class="btn btn-round btn-b"><span class="icon-basket">
+                     class="btn btn-round btn-b">
+                     <span *ngIf="item.isAddedToCart" class="icon-basket">
+                      Item Added to Cart
+                    </span>
+                    <span *ngIf="!item.isAddedToCart" class="icon-basket">
                       Add to Cart
-                    </span></a>
+                    </span>
+                  </a>
                   </div>
               </div>
               <h4 class="shop-item-title font-alt"><a href="#">{{item.name}}</a></h4>

@@ -86,7 +86,6 @@ console.log('%c Proudly Crafted with ZiOn.', 'background: #222; color: #bada55')
          /* ---------------------------------------------- */
 
         function buildHomeSection(homeSection) {
-            console.log(homeSection)
             if (homeSection.length > 0) {
                 if (homeSection.hasClass('home-full-height')) {
                     homeSection.height($(window).height());
