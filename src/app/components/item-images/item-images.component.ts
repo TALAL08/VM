@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ItemService } from 'src/app/services/item.service';
-
+declare var $:any;
 @Component({
   selector: 'app-item-images',
   templateUrl: './item-images.component.html',
@@ -40,6 +40,9 @@ export class ItemImagesComponent implements OnInit {
         this.item =(res as any);
         this.images =this.item.images
       });
+
+      $('.loader').fadeOut();
+      $('.page-loader').delay(350).fadeOut('slow');
     });
 
   }

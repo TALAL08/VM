@@ -12,6 +12,7 @@ import { CategoriesTableComponent } from './components/categories-table/categori
 import { CategoryComponent } from './components/category/category.component';
 import { ProductComponent } from './components/product/product.component';
 import { ItemComponent } from './components/item/item.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ItemsTableComponent } from './components/items-table/items-table.component';
 import { ProductItemsTableComponent } from './components/product-items-table/product-items-table.component';
 import { CategoryProductsTableComponent } from './components/category-products-table/category-products-table.component';
@@ -26,6 +27,7 @@ import { ProductItemsComponent } from './components/product-items/product-items.
 import { ItemImagesComponent } from './components/item-images/item-images.component';
 import { CartComponent } from './components/cart/cart.component';
 import { LoaderComponent } from './components/loader/loader.component';
+import { SignUpComponent } from './components/sign-up/sign-up.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -46,9 +48,11 @@ import { LoaderComponent } from './components/loader/loader.component';
     ProductItemsComponent,
     ItemImagesComponent,
     CartComponent,
-    LoaderComponent
+    LoaderComponent,
+    SignUpComponent
   ],
   imports: [
+    BrowserAnimationsModule,
     BrowserModule,
     OwlModule,
     RouterModule,

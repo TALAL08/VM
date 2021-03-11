@@ -1241,7 +1241,7 @@ General Styles - Owlcarousel
 	Navbar
 --------------------------------------------------------------*/
 .navbar-custom {
-  background-color: rgba(10, 10, 10, 0.9);
+  background-color:rgb(189 0 56 / 90%);
   border: 0;
   border-radius: 0;
   z-index: 1000;
@@ -1257,7 +1257,7 @@ General Styles - Owlcarousel
 }
 
 .navbar-custom .dropdown-menu {
-  background: rgba(26, 26, 26, 0.9);
+  background: rgba(255, 255, 255, 0.9);
   border-radius: 0;
   border: 0;
   padding: 0;
@@ -1280,7 +1280,8 @@ General Styles - Owlcarousel
   border-bottom: 1px solid rgba(73, 71, 71, 0.15) !important;
   padding: 11px 15px;
   letter-spacing: 2px;
-  color: #999;
+  font-weight: bold;
+  color: #ff005e;
 }
 
 .navbar-custom .dropdown-menu .dropdown-menu {

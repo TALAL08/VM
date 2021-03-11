@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { CategoryProductService } from 'src/app/services/category-product.service';
-
+declare var $: any;
 @Component({
   selector: 'app-category-products',
   templateUrl: './category-products.component.html',
@@ -16,12 +16,12 @@ import { CategoryProductService } from 'src/app/services/category-product.servic
     '../../../assets/lib/simple-text-rotator/simpletextrotator.css',
     '../../../assets/css/style.css',
     '../../../assets/css/colors/default.css',
-  ],
+  ]
 })
 export class CategoryProductsComponent implements OnInit {
   categoryProducts: any[] = [];
   category: any;
-  loader = false;
+
   constructor(
     private route: ActivatedRoute,
     private sanitizer: DomSanitizer,
@@ -36,10 +36,9 @@ export class CategoryProductsComponent implements OnInit {
         this.categoryProducts = res as any;
         if (this.categoryProducts.length > 0)
           this.category = this.categoryProducts[0].category;
-        setTimeout(() => {
-          this.loader = true;
-          console.log('loader');
-        }, 2000);
+
+          $('.loader').fadeOut();
+          $('.page-loader').delay(350).fadeOut('slow');
       });
     });
   }

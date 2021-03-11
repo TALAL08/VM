@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
-
+declare var $:any;
 @Component({
   selector: 'app-cart',
   templateUrl: './cart.component.html',
@@ -18,18 +18,35 @@ import { DomSanitizer } from '@angular/platform-browser';
 })
 export class CartComponent implements OnInit {
 
-  cart:any[]=[];
+  items:any[]=[];
+  cart:{CartSubtotal:number, deliveryCharges:number, total:number}={CartSubtotal:0, deliveryCharges:0,total:0};
   constructor(
     private sanitizer: DomSanitizer
   ) { }
 
   ngOnInit(): void {
 
-    this.cart =JSON.parse(localStorage.getItem('cart')as string);
+    this.items =JSON.parse(localStorage.getItem('items')as string);
+    (this.items as []).forEach((item:any) => {
 
+      this.cart.CartSubtotal+=(item.price as number )* (item.quantity as number)
+
+    });
+    this.cart.deliveryCharges = 200;
+    this.cart.total = this.cart.deliveryCharges+this.cart.CartSubtotal;
+
+    $('.loader').fadeOut();
+    $('.page-loader').delay(350).fadeOut('slow');
   }
   getImage(itemImage: any) {
-    const image = itemImage.contentType + itemImage.image;
-    return this.sanitizer.bypassSecurityTrustResourceUrl(image as string);
+    return this.sanitizer.bypassSecurityTrustResourceUrl(itemImage.image as string);
+  }
+  remove(item:any)
+  {
+    const index = this.items.indexOf(item);
+    this.items.splice(index,1);
+    const itemTotal = item.price * item.quantity;
+    this.cart.CartSubtotal-=itemTotal;
+    this.cart.total-=itemTotal;
   }
 }

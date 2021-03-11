@@ -14,10 +14,11 @@ import { ProductsTableComponent } from './components/products-table/products-tab
 import { ProductItemsComponent } from './components/product-items/product-items.component';
 import { ItemImagesComponent } from './components/item-images/item-images.component';
 import { CartComponent } from './components/cart/cart.component';
+import { SignUpComponent } from './components/sign-up/sign-up.component';
 
 const routes: Routes = [
 
-  {path:'cart/:itemId', component:CartComponent},
+  {path:'cart', component:CartComponent},
 
   {path:'categories', component:CategoriesTableComponent},
   {path:'category/new', component:CategoryComponent},
@@ -37,6 +38,7 @@ const routes: Routes = [
   {path:'itemImages/:itemId', component:ItemImagesComponent},
 
   {path:'dashBoard', component:DashBoardComponent},
+  {path:'signUp', component:SignUpComponent},
   {path:'login', component:LoginComponent},
 
   {path:'home', component:HomeComponent},

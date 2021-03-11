@@ -1,7 +1,8 @@
+import { trigger, transition, style, animate } from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { CategoryService } from 'src/app/services/category.service';
-
+declare var $: any;
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -15,11 +16,20 @@ import { CategoryService } from 'src/app/services/category.service';
     '../../../assets/lib/simple-text-rotator/simpletextrotator.css',
     '../../../assets/css/style.css',
     '../../../assets/css/colors/default.css',
+],
+animations:[
+  trigger('loader',[
+    transition('void => *',[
+      style({backgroundColor:'black', opacity:0}),
+      animate(2000)
+    ])
+  ])
 ]
 })
 export class HomeComponent implements OnInit {
 
   categories:any[]=[];
+  images:any[]=[1];
   constructor(
     private categoryService:CategoryService,
     private sanitizer: DomSanitizer
@@ -30,6 +40,9 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
+    $('.loader').fadeOut();
+    $('.page-loader').delay(350).fadeOut('slow');
   }
   getImage(category: any) {
     const image = category.contentType+category.image;

@@ -1,4 +1,5 @@
-    <main>
+<app-nav-bar [count]="0" ></app-nav-bar>
+<main>
       <div class="page-loader">
         <div class="loader">Loading...</div>
       </div>
@@ -24,7 +25,7 @@
                       <th>Remove</th>
                     </tr>
 
-                    <tr *ngFor="let item of cart">
+                    <tr *ngFor="let item of items">
                       <td class="hidden-xs"><a href="#"><img [src]="getImage(item)" alt="Accessories Pack"/></a></td>
                       <td>
                         <h5 class="product-title font-alt">{{item.name}}</h5>
@@ -33,12 +34,13 @@
                         <h5 class="product-title font-alt">PKR {{item.price}}</h5>
                       </td>
                       <td>
-                        <input class="form-control" type="number" name="" value="1" max="50" min="1"/>
+                            {{item.quantity}}
+                        <!-- <input class="form-control" (change)="show(item)" type="number" name="" value="{{item.quantity}}" max="50" min="1"/> -->
                       </td>
                       <td>
-                        <h5 class="product-title font-alt">£20.00</h5>
+                        <h5 class="product-title font-alt">PKR {{item.price * item.quantity}}</h5>
                       </td>
-                      <td class="pr-remove"><a href="#" title="Remove"><i class="fa fa-times"></i></a></td>
+                      <td class="pr-remove"><a (click)="remove(item)" title="Remove"><i class="fa fa-times"></i></a></td>
                     </tr>
                   </tbody>
                 </table>
@@ -70,15 +72,15 @@
                     <tbody>
                       <tr>
                         <th>Cart Subtotal :</th>
-                        <td>£40.00</td>
+                        <td>PKR {{cart.CartSubtotal}}</td>
                       </tr>
                       <tr>
-                        <th>Shipping Total :</th>
-                        <td>£2.00</td>
+                        <th>Delivery Charges :</th>
+                        <td>PKR {{cart.deliveryCharges}}</td>
                       </tr>
                       <tr class="shop-Cart-totalprice">
                         <th>Total :</th>
-                        <td>£42.00</td>
+                        <td>PKR {{cart.total}}</td>
                       </tr>
                     </tbody>
                   </table>

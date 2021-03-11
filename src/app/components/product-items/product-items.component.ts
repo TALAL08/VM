@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { ProductItemService } from '../../services/product-item.service';
-
+declare var $:any;
 @Component({
   selector: 'app-product-items',
   templateUrl: './product-items.component.html',
@@ -23,6 +23,7 @@ import { ProductItemService } from '../../services/product-item.service';
 export class ProductItemsComponent implements OnInit {
   productItems: any[] = [];
   product: any;
+  count:number=0;
   isClick: boolean = false;
   constructor(
     private route: ActivatedRoute,
@@ -36,6 +37,9 @@ export class ProductItemsComponent implements OnInit {
       this.productItemService.get(productId).subscribe((res) => {
         this.productItems = res as any;
         this.product = this.productItems[0].product;
+
+        $('.loader').fadeOut();
+        $('.page-loader').delay(950).fadeOut('slow');
       });
     });
   }
@@ -59,11 +63,30 @@ export class ProductItemsComponent implements OnInit {
         name: item.name,
         price: item.price,
         image: item.contentType + item.image,
+        quantity:1
       });
-      localStorage.setItem('cart', JSON.stringify(cart));
-
+      localStorage.setItem('items', JSON.stringify(cart));
+      this.setItemCount();
       event.target.text = 'Added To Cart';
     }
 
+  }
+
+  setItemCount(){
+
+    let count = parseInt(( localStorage.getItem('itemsCount')as string));
+    console.log("out: "+count);
+    if(!isNaN(count)){
+      count++;
+      console.log("if: "+count);
+    }
+    else
+    {
+      count =1;
+      console.log("else: "+count);
+    }
+
+    localStorage.setItem('itemsCount', count.toString());
+    this.count = count;
   }
 }
