@@ -28,6 +28,9 @@ import { ItemImagesComponent } from './components/item-images/item-images.compon
 import { CartComponent } from './components/cart/cart.component';
 import { LoaderComponent } from './components/loader/loader.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
+import { CustomerLoginComponent } from './components/customer-login/customer-login.component';
+import { CheckoutComponent } from './components/checkout/checkout.component';
+import { CustomerDetailComponent } from './components/customer-detail/customer-detail.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -49,7 +52,10 @@ import { SignUpComponent } from './components/sign-up/sign-up.component';
     ItemImagesComponent,
     CartComponent,
     LoaderComponent,
-    SignUpComponent
+    SignUpComponent,
+    CustomerLoginComponent,
+    CheckoutComponent,
+    CustomerDetailComponent
   ],
   imports: [
     BrowserAnimationsModule,

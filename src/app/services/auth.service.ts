@@ -61,6 +61,18 @@ export class AuthService {
     return this.router.navigate(['/login']);
   }
 
+  GetUserName(firstName:string){
+
+    this.http
+    .get('https://localhost:44329/auth/GetUserName/'+firstName)
+    .pipe(catchError(this.handleError))
+    .subscribe((res) => {
+      console.log(res);
+      const userName = (res as string);
+      return userName;
+    });
+  }
+
   isAutherize() {
     const token = this.getToken();
     if (!token) return false;

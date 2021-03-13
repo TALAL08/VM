@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
+import { AuthService } from 'src/app/services/auth.service';
 declare var $: any;
 @Component({
   selector: 'app-cart',
@@ -23,7 +24,10 @@ export class CartComponent implements OnInit {
     deliveryCharges: 0,
     total: 0,
   };
-  constructor(private sanitizer: DomSanitizer) {}
+  constructor(
+    private sanitizer: DomSanitizer,
+    private authService:AuthService
+    ) {}
 
   ngOnInit(): void {
     this.items = JSON.parse(localStorage.getItem('items') as string);
@@ -37,6 +41,11 @@ export class CartComponent implements OnInit {
     $('.loader').fadeOut();
     $('.page-loader').delay(350).fadeOut('slow');
   }
+
+  isAutherizeUser(){
+   return this.authService.isAutherize();
+  }
+
   getImage(itemImage: any) {
     return this.sanitizer.bypassSecurityTrustResourceUrl(
       itemImage.image as string

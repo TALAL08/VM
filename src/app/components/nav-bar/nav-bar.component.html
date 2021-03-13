@@ -9,8 +9,15 @@
       <ul class="nav navbar-nav navbar-right">
         <li><a [routerLink]="['/home']">Home</a>
         </li>
-        <li><a [routerLink]="['/login']">Login</a>
-        </li>
+
+        <ng-container *ngIf="isAutherizeUser(); else elseTemplate">
+          <li ><a (click)="logout()">Logout</a>
+          </li>
+        </ng-container>
+        <ng-template #elseTemplate>
+          <li ><a [routerLink]="['/login']">Login</a>
+          </li>
+        </ng-template>
         <li>
           <a [routerLink]="['/cart']">
             Cart
@@ -19,7 +26,7 @@
           </a>
         </li>
 
-        <li class="dropdown"><a class="dropdown-toggle" href="documentation.html" data-toggle="dropdown">Username</a>
+        <li *ngIf="isAutherizeUser()" class="dropdown"><a class="dropdown-toggle" href="documentation.html" data-toggle="dropdown">Username</a>
           <ul class="dropdown-menu">
             <li><a href="documentation.html#contact">Profile</a></li>
             <li><a href="documentation.html#reservation">Orders</a></li>

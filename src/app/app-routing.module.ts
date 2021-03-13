@@ -15,6 +15,7 @@ import { ProductItemsComponent } from './components/product-items/product-items.
 import { ItemImagesComponent } from './components/item-images/item-images.component';
 import { CartComponent } from './components/cart/cart.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
+import { CustomerLoginComponent } from './components/customer-login/customer-login.component';
 
 const routes: Routes = [
 
@@ -40,6 +41,7 @@ const routes: Routes = [
   {path:'dashBoard', component:DashBoardComponent},
   {path:'signUp', component:SignUpComponent},
   {path:'login', component:LoginComponent},
+  {path:'customerLogin', component:CustomerLoginComponent},
 
   {path:'home', component:HomeComponent},
 ];

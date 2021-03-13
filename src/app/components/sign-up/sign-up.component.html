@@ -1,3 +1,8 @@
+<app-nav-bar [count]="0" ></app-nav-bar>
+<main>
+      <div class="page-loader">
+        <div class="loader">Loading...</div>
+      </div>
 <section class="module bg-dark-30 about-page-header" data-background="src/app/assets/images/about_bg.jpg">
   <div class="container">
     <div class="row">
@@ -12,7 +17,7 @@
   <div class="container">
     <div class="row">
       <div class="col-sm-8 col-sm-offset-2">
-        <h4 class="font-alt mb-0">Basic Forms</h4>
+        <h4 class="font-alt mb-0">Sign Up</h4>
         <hr class="divider-w mt-10 mb-20">
 
         <form class="form" role="form">
@@ -21,12 +26,12 @@
 
             <div class="col-md-5">
             <label>Name</label>
-              <input class="form-control input-lg" type="text" placeholder="Name"/>
+              <input  formControlName="name" class="form-control input-lg" type="text" placeholder="Name"/>
             </div>
 
             <div class="col-md-5">
               <label>Father Name</label>
-              <input class="form-control input-lg" type="text" placeholder="Father Name"/>
+              <input formControlName="fatherName" class="form-control input-lg" type="text" placeholder="Father Name"/>
             </div>
           </div>
 
@@ -34,37 +39,40 @@
 
             <div class="col-md-5">
               <label>Email Address</label>
-              <input class="form-control input-lg" type="text" placeholder="Email Address"/>
+              <input formControlName="emailAddress" class="form-control input-lg" type="text" placeholder="Email Address"/>
             </div>
 
             <div class="col-md-5">
               <label>Mobile No</label>
-              <input class="form-control input-lg" type="text" placeholder="Large Mobile No"/>
+              <input formControlName="mobileNo" class="form-control input-lg" type="text" placeholder="Large Mobile No"/>
             </div>
           </div>
 
           <div class="form-group">
             <label>Address</label>
-            <input class="form-control input-lg" type="text" placeholder="Home Address"/>
+            <input formControlName="address" class="form-control input-lg" type="text" placeholder="Home Address"/>
           </div>
           <br>
           <hr>
+          <div formGroupName="user">
 
-          <div class="form-group col-md-5">
-            <label>UserName</label>
-            <input class="form-control input-lg" type="text" placeholder="UserName"/>
-          </div>
+            <div class="form-group col-md-5">
+              <label>UserName</label>
+              <input formControlName="userName" class="form-control input-lg" type="text"/>
+            </div>
 
           <div class="form-group col-md-5">
             <label>Password</label>
-            <input class="form-control input-lg" type="password" placeholder="Password"/>
+            <input formControlName="password" class="form-control input-lg" type="password" placeholder="Password"/>
           </div>
 
           <div class="form-group col-md-5">
             <label>Confirm Password</label>
-            <input class="form-control input-lg" type="password" placeholder="Password"/>
+            <input formControlName="confirmPassword" class="form-control input-lg" type="password" placeholder="Password"/>
           </div>
-
+        </div>
+          <button class="btn btn-lg btn-block btn-round btn-d">Sign Up</button>
+          <a [routerLink]="['/customerLogin']">Already have an account?</a>
         </form>
       </div>
     </div>

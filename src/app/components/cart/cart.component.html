@@ -83,7 +83,7 @@
                       </tr>
                     </tbody>
                   </table>
-                  <button class="btn btn-lg btn-block btn-round btn-d" type="submit">Proceed to Checkout</button>
+                  <button class="btn btn-lg btn-block btn-round btn-d" [routerLink]="isAutherizeUser()?['/customerDetail']:['/signUp']">Proceed to Checkout</button>
                 </div>
               </div>
             </div>

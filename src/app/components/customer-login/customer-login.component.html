@@ -1,0 +1,30 @@
+<app-nav-bar [count]="0" ></app-nav-bar>
+<div class="page-loader">
+  <div class="loader">Loading...</div>
+</div>
+
+<section class="module bg-dark-30" data-background="assets/images/section-4.jpg">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-6 col-sm-offset-3">
+        <h1 class="module-title font-alt mb-0">Login</h1>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="col-sm-5 col-sm-offset-1 mb-sm-40">
+  <h4 class="font-alt">Login</h4>
+  <hr class="divider-w mb-10">
+  <form class="form">
+    <div class="form-group">
+      <input formControlName="userName" type="email" class="form-control" placeholder="Enter Username">
+    </div>
+    <div class="form-group">
+      <input formControlName="password" type="password" class="form-control" placeholder="Password">
+    </div>
+    <div class="form-group">
+      <button class="btn btn-round btn-b">Login</button>
+    </div>
+  </form>
+</div>

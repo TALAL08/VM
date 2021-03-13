@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-nav-bar',
@@ -17,7 +18,9 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class NavBarComponent implements OnInit {
   @Input() count:number =0;
-  constructor() { }
+  constructor(
+    private authService:AuthService
+  ) { }
 
   ngOnInit(): void {
 
@@ -31,4 +34,15 @@ export class NavBarComponent implements OnInit {
     this.count = cart.length;
   }
 
+  isAutherizeUser(){
+    return this.authService.isAutherize();
+  }
+
+  getUserName(){
+    return this.authService.getCurrentUser();
+  }
+
+  logout(){
+
+  }
 }
