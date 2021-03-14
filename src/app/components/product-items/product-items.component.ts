@@ -46,7 +46,7 @@ export class ProductItemsComponent implements OnInit {
 
         ((res as any) as []).forEach((item: any) => {
 
-          const isInCart = items.find((c: any) => c.id === item.id);
+          const isInCart = items.find((c: any) => c.itemId === item.id);
 
           let productItem = {
             id: item.id,
@@ -85,7 +85,7 @@ export class ProductItemsComponent implements OnInit {
 
     if (!item.isAddedToCart) {
       items.push({
-        id: item.id,
+        itemId: item.id,
         name: item.name,
         price: item.price,
         image: item.contentType + item.image,
@@ -94,7 +94,7 @@ export class ProductItemsComponent implements OnInit {
         categoryId:this.product.categoryId
       });
     } else {
-      let cartItemIndex = items.findIndex((c: any) => c.id == item.id);
+      let cartItemIndex = items.findIndex((c: any) => c.itemId == item.id);
       items.slice(cartItemIndex, 1);
     }
 

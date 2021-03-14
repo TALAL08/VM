@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
+import { OrderService } from 'src/app/services/order.service';
 import { CustomerService } from 'src/app/services/customer.service';
+import { Router } from '@angular/router';
 declare var $: any;
 @Component({
   selector: 'app-customer-detail',
@@ -22,10 +24,13 @@ declare var $: any;
 export class CustomerDetailComponent implements OnInit {
   form!: FormGroup;
   customer!: any;
+  items!: {}[];
 
   constructor(
+    private router: Router,
     private authService: AuthService,
     private customerService: CustomerService,
+    private orderService: OrderService,
     private fb:FormBuilder
   ) {
 
@@ -43,6 +48,8 @@ export class CustomerDetailComponent implements OnInit {
     if (this.authService.isAutherize()) {
       this.customerService.get().subscribe((res) => {
         this.customer = res as any;
+        const itemsInStorage = localStorage.getItem('items') as string;
+        this.items = JSON.parse(itemsInStorage) as {}[];
 
         this.form.get('name')?.setValue(this.customer.name);
         this.form.get('fatherName')?.setValue(this.customer.fatherName);
@@ -68,8 +75,14 @@ export class CustomerDetailComponent implements OnInit {
       });
 
     }
-    const itemsInStorage = localStorage.getItem('items') as string;
-    const items = JSON.parse(itemsInStorage) as {}[];
+    const resource = {OrderItems:this.items}
+    this.orderService.create(resource).subscribe(res =>{
 
+      console.log(res);
+      alert("Your Order is placed successfully");
+      localStorage.removeItem('items');
+      this.router.navigate(['/home']);
+
+    });
   }
 }
