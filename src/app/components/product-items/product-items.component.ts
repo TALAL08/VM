@@ -22,7 +22,7 @@ declare var $: any;
 })
 export class ProductItemsComponent implements OnInit {
   productItems: any[] = [];
-  product: {name:string,contentType:string,image:string}={name:"",contentType:"",image:""};
+  product: {id:string,name:string,contentType:string,image:string,categoryId:string}={id:"",name:"",contentType:"",image:"",categoryId:"",};
   count: number = 0;
   constructor(
     private route: ActivatedRoute,
@@ -90,6 +90,8 @@ export class ProductItemsComponent implements OnInit {
         price: item.price,
         image: item.contentType + item.image,
         quantity: 1,
+        productId:this.product.id,
+        categoryId:this.product.categoryId
       });
     } else {
       let cartItemIndex = items.findIndex((c: any) => c.id == item.id);

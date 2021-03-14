@@ -16,6 +16,7 @@ import { ItemImagesComponent } from './components/item-images/item-images.compon
 import { CartComponent } from './components/cart/cart.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { CustomerLoginComponent } from './components/customer-login/customer-login.component';
+import { CustomerDetailComponent } from './components/customer-detail/customer-detail.component';
 
 const routes: Routes = [
 
@@ -42,6 +43,7 @@ const routes: Routes = [
   {path:'signUp', component:SignUpComponent},
   {path:'login', component:LoginComponent},
   {path:'customerLogin', component:CustomerLoginComponent},
+  {path:'customerDetail', component:CustomerDetailComponent},
 
   {path:'home', component:HomeComponent},
 ];

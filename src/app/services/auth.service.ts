@@ -61,16 +61,18 @@ export class AuthService {
     return this.router.navigate(['/login']);
   }
 
-  GetUserName(firstName:string){
+  IsUserNameExist(userName:string):boolean{
 
     this.http
-    .get('https://localhost:44329/auth/GetUserName/'+firstName)
+    .get('https://localhost:44329/auth/'+userName)
     .pipe(catchError(this.handleError))
     .subscribe((res) => {
       console.log(res);
-      const userName = (res as string);
-      return userName;
+      const isExist = (res as boolean);
+      return isExist;
     });
+
+    return false;
   }
 
   isAutherize() {

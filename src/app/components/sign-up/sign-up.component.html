@@ -1,80 +1,95 @@
-<app-nav-bar [count]="0" ></app-nav-bar>
+<app-nav-bar [count]="0"></app-nav-bar>
 <main>
-      <div class="page-loader">
-        <div class="loader">Loading...</div>
-      </div>
-<section class="module bg-dark-30 about-page-header" data-background="src/app/assets/images/about_bg.jpg">
-  <div class="container">
-    <div class="row">
-      <div class="col-sm-6 col-sm-offset-3">
-        <h1 class="module-title font-alt mb-0">Forms</h1>
-      </div>
-    </div>
+  <div class="page-loader">
+    <div class="loader">Loading...</div>
   </div>
-</section>
-
-<section class="module">
-  <div class="container">
-    <div class="row">
-      <div class="col-sm-8 col-sm-offset-2">
-        <h4 class="font-alt mb-0">Sign Up</h4>
-        <hr class="divider-w mt-10 mb-20">
-
-        <form class="form" role="form">
-
-          <div class="form-group row">
-
-            <div class="col-md-5">
-            <label>Name</label>
-              <input  formControlName="name" class="form-control input-lg" type="text" placeholder="Name"/>
-            </div>
-
-            <div class="col-md-5">
-              <label>Father Name</label>
-              <input formControlName="fatherName" class="form-control input-lg" type="text" placeholder="Father Name"/>
-            </div>
-          </div>
-
-          <div class="form-group row">
-
-            <div class="col-md-5">
-              <label>Email Address</label>
-              <input formControlName="emailAddress" class="form-control input-lg" type="text" placeholder="Email Address"/>
-            </div>
-
-            <div class="col-md-5">
-              <label>Mobile No</label>
-              <input formControlName="mobileNo" class="form-control input-lg" type="text" placeholder="Large Mobile No"/>
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label>Address</label>
-            <input formControlName="address" class="form-control input-lg" type="text" placeholder="Home Address"/>
-          </div>
-          <br>
-          <hr>
-          <div formGroupName="user">
-
-            <div class="form-group col-md-5">
-              <label>UserName</label>
-              <input formControlName="userName" class="form-control input-lg" type="text"/>
-            </div>
-
-          <div class="form-group col-md-5">
-            <label>Password</label>
-            <input formControlName="password" class="form-control input-lg" type="password" placeholder="Password"/>
-          </div>
-
-          <div class="form-group col-md-5">
-            <label>Confirm Password</label>
-            <input formControlName="confirmPassword" class="form-control input-lg" type="password" placeholder="Password"/>
-          </div>
+  <section class="module bg-dark-30 about-page-header" data-background="src/app/assets/images/about_bg.jpg">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-6 col-sm-offset-3">
+          <h1 class="module-title font-alt mb-0">Forms</h1>
         </div>
-          <button class="btn btn-lg btn-block btn-round btn-d">Sign Up</button>
-          <a [routerLink]="['/customerLogin']">Already have an account?</a>
-        </form>
       </div>
     </div>
-  </div>
-</section>
+  </section>
+
+  <section class="module">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-8 col-sm-offset-2">
+          <h4 class="font-alt mb-0">Sign Up</h4>
+          <hr class="divider-w mt-10 mb-20">
+
+          <form class="form" role="form" [formGroup]="form" (ngSubmit)="submit()">
+
+            <div class="form-group row">
+
+              <div class="col-md-5">
+                <label>Name</label>
+                <input formControlName="name" class="form-control input-lg" type="text" placeholder="Name" />
+              </div>
+
+              <div class="col-md-5">
+                <label>Father Name</label>
+                <input formControlName="fatherName" class="form-control input-lg" type="text"
+                  placeholder="Father Name" />
+              </div>
+            </div>
+
+            <div class="form-group row">
+
+              <div class="col-md-5">
+                <label>Email Address</label>
+                <input formControlName="emailAddress" class="form-control input-lg form-feild" type="text"
+                  placeholder="Email Address" />
+              </div>
+
+              <div class="col-md-5">
+                <label>Mobile No</label>
+                <input formControlName="mobileNo" class="form-control input-lg" type="text"
+                  placeholder="Large Mobile No" />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>Address</label>
+              <input formControlName="address" class="form-control input-lg form-feild" type="text"
+                placeholder="Home Address" />
+            </div>
+
+            <div formGroupName="user">
+
+              <div class="form-group row">
+
+                <div class="col-md-8">
+                  <label>UserName</label>
+                  <input formControlName="userName" class="form-control input-lg form-feild" type="text"
+                    placeholder="eg: abc@virtualMart.com" />
+                </div>
+
+              </div>
+              <div class="form-group row">
+
+                <div class="col-md-5">
+                  <label>Password</label>
+                  <input formControlName="password" class="form-control input-lg form-feild" type="text"
+                    placeholder="Password" />
+                </div>
+
+                <div class="col-md-5">
+                  <label>Confirm Password</label>
+                  <input formControlName="confirmPassword" class="form-control input-lg form-feild" type="password"
+                    placeholder="Password" />
+                </div>
+              </div>
+
+            </div>
+            <br>
+            <br>
+            <button type="submit" class="btn btn-lg btn-block btn-round btn-d">Sign Up</button>
+            <a [routerLink]="['/customerLogin']">Already have an account?</a>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>

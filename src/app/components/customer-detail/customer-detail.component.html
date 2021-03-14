@@ -19,18 +19,18 @@
         <h4 class="font-alt mb-0">Customer Detail</h4>
         <hr class="divider-w mt-10 mb-20">
 
-        <form class="form" role="form">
+        <form class="form" role="form" [formGroup]="form">
 
           <div class="form-group row">
 
             <div class="col-md-5">
             <label>Name</label>
-              <input class="form-control input-lg" type="text" placeholder="Name" value="{{customer.name}}"/>
+              <input class="form-control input-lg" readonly type="text" placeholder="Name" value="{{customer.name}}"/>
             </div>
 
             <div class="col-md-5">
               <label>Father Name</label>
-              <input class="form-control input-lg" type="text" placeholder="Father Name" value="{{customer.fatherName}}"/>
+              <input class="form-control input-lg" readonly type="text" placeholder="Father Name" value="{{customer.fatherName}}"/>
             </div>
           </div>
 
@@ -38,7 +38,7 @@
 
             <div class="col-md-5">
               <label>Email Address</label>
-              <input class="form-control input-lg" type="text" placeholder="Email Address" value="{{customer.emailAddress}}" />
+              <input class="form-control input-lg" readonly type="text" placeholder="Email Address" value="{{customer.emailAddress}}" />
             </div>
 
             <div class="col-md-5">
@@ -53,7 +53,7 @@
           </div>
           <br>
           <hr>
-          <button class="btn btn-lg btn-block btn-round btn-d">Checkout</button>
+          <button type="submit" class="btn btn-lg btn-block btn-round btn-d">Checkout</button>
         </form>
       </div>
     </div>
