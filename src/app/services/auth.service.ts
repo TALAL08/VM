@@ -23,7 +23,7 @@ export class AuthService {
   login(user: any) {
     return this.http
       .post(
-        'https://localhost:44329/auth/login',
+        'https://localhost:44329/auth/Login',
         JSON.stringify(user),
         this.httpOptions
       )
@@ -31,9 +31,11 @@ export class AuthService {
         map((response: any) => {
           let result = response;
           if (result && result.token) {
+
             localStorage.setItem('token', result.token);
             alert('logged In Successfully');
-            return this.router.navigate(['/']);
+
+            return (this.isInRole('Admin'))?this.router.navigate(['/']):this.router.navigate(['/home']);
           }
           return false;
         })
@@ -58,7 +60,7 @@ export class AuthService {
     localStorage.removeItem('token');
 
     alert('LogOut Successfully');
-    return this.router.navigate(['/login']);
+    return this.router.navigate(['/customerLogin']);
   }
 
   IsUserNameExist(userName:string):boolean{
@@ -101,10 +103,16 @@ export class AuthService {
     return false;
   }
 
-  getCurrentUser() {
+  getUserName(){
+    const helper = new JwtHelperService();
     const token = this.getToken();
-  }
+    if (!token) return false;
 
+    const decodedToken = helper.decodeToken(token);
+    const isExpired = helper.isTokenExpired(token);
+    if (isExpired) return !isExpired;
+    return decodedToken["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"];
+  }
   private getToken() {
     return localStorage.getItem('token');
   }

@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
+import { CustomerService } from 'src/app/services/customer.service';
 
 @Component({
   selector: 'app-nav-bar',
@@ -19,7 +20,8 @@ import { AuthService } from 'src/app/services/auth.service';
 export class NavBarComponent implements OnInit {
   @Input() count:number =0;
   constructor(
-    private authService:AuthService
+    private authService:AuthService,
+    private customerService:CustomerService
   ) { }
 
   ngOnInit(): void {
@@ -39,10 +41,11 @@ export class NavBarComponent implements OnInit {
   }
 
   getUserName(){
-    return this.authService.getCurrentUser();
+    return this.authService.getUserName();
+
   }
 
   logout(){
-
+    this.authService.logOut();
   }
 }

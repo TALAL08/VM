@@ -17,7 +17,7 @@ import { ProductService } from 'src/app/services/product.service';
 })
 export class ProductsTableComponent implements OnInit {
 
-  products: [] = [];
+  products: any[] = [];
 
   constructor(private productService: ProductService) {}
 

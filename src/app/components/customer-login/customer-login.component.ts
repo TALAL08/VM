@@ -9,7 +9,6 @@ declare var $:any;
   selector: 'app-customer-login',
   templateUrl: './customer-login.component.html',
   styleUrls: [
-    './customer-login.component.css',
     '../../../assets/lib/bootstrap/dist/css/bootstrap.min.css',
     '../../../assets/lib/animate.css/animate.css',
     '../../../assets/lib/components-font-awesome/css/font-awesome.min.css',
@@ -18,6 +17,7 @@ declare var $:any;
     '../../../assets/lib/simple-text-rotator/simpletextrotator.css',
     '../../../assets/css/style.css',
     '../../../assets/css/colors/default.css',
+    './customer-login.component.css'
   ],
 })
 export class CustomerLoginComponent implements OnInit {
@@ -52,11 +52,11 @@ export class CustomerLoginComponent implements OnInit {
     if (this.form.invalid) this.hasErrorsOnSubmit = true;
     else {
       this.authService.login(this.form.value).subscribe(
-        (res) => {
+        res => {
           const items = JSON.parse(localStorage.getItem('items') as string);
           if ((items as []).length > 0)
             this.router.navigate(['/customerDetail']);
-          else this.router.navigate(['/']);
+          else this.router.navigate(['/home']);
         },
         (error: AppError) => {
           if (error instanceof BadRequest)

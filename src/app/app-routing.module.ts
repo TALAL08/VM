@@ -17,6 +17,7 @@ import { CartComponent } from './components/cart/cart.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { CustomerLoginComponent } from './components/customer-login/customer-login.component';
 import { CustomerDetailComponent } from './components/customer-detail/customer-detail.component';
+import { ItemDetailComponent } from './components/item-detail/item-detail.component';
 
 const routes: Routes = [
 
@@ -36,7 +37,7 @@ const routes: Routes = [
   {path:'items', component:ItemsTableComponent},
   {path:'item/new', component:ItemComponent},
   {path:'item/update/:id', component:ItemComponent},
-
+  {path:'item/:id', component:ItemDetailComponent},
   {path:'itemImages/:itemId', component:ItemImagesComponent},
 
   {path:'dashBoard', component:DashBoardComponent},

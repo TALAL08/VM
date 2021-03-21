@@ -126,9 +126,9 @@ declare global {
     'ion-icon': HTMLIonIconElement
   }
 
-  interface ElementTagNameMap {
-    'ion-icon': HTMLIonIconElement;
-  }
+//   interface ElementTagNameMap {
+//     'ion-icon': HTMLIonIconElement;
+//   }
 
 
 }

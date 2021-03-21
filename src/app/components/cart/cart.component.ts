@@ -31,10 +31,12 @@ export class CartComponent implements OnInit {
 
   ngOnInit(): void {
     this.items = JSON.parse(localStorage.getItem('items') as string);
+   if(this.items) {
     (this.items as []).forEach((item: any) => {
       this.cart.CartSubtotal +=
         (item.price as number) * (item.quantity as number);
     });
+  }
     this.cart.deliveryCharges = 200;
     this.cart.total = this.cart.deliveryCharges + this.cart.CartSubtotal;
 

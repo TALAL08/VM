@@ -31,6 +31,7 @@ import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { CustomerLoginComponent } from './components/customer-login/customer-login.component';
 import { CheckoutComponent } from './components/checkout/checkout.component';
 import { CustomerDetailComponent } from './components/customer-detail/customer-detail.component';
+import { ItemDetailComponent } from './components/item-detail/item-detail.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -55,7 +56,8 @@ import { CustomerDetailComponent } from './components/customer-detail/customer-d
     SignUpComponent,
     CustomerLoginComponent,
     CheckoutComponent,
-    CustomerDetailComponent
+    CustomerDetailComponent,
+    ItemDetailComponent
   ],
   imports: [
     BrowserAnimationsModule,

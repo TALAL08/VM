@@ -73,10 +73,18 @@
           <div class="col-sm-6 col-md-3 col-lg-3">
             <div class="shop-item">
               <div class="shop-item-image"><img [src]="getImage(item)" alt="Accessories Pack" />
-                <div class="shop-item-detail"><a [routerLink]="['/itemImages',item.id]"
+                <div class="shop-item-detail">
+                  <a [routerLink]="['/itemImages',item.id]"
                     class="btn btn-round btn-b"><span class="icon-basket">
                       View Images
-                    </span></a>
+                    </span>
+                  </a>
+                    <br>
+                    <a [routerLink]="['/item',item.id]"
+                    class="btn btn-round btn-b"><span class="icon-basket">
+                      View Item
+                    </span>
+                  </a>
                     <br>
                     <br>
                     <a (click)="saveItem(item)"

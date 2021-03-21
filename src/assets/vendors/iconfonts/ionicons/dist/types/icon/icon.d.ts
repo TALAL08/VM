@@ -74,5 +74,5 @@ export declare class Icon {
             'ion-color': boolean;
         };
     };
-    render(): JSX.Element;
+    // render(): JSX.Element;
 }

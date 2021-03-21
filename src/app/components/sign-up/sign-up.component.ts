@@ -37,8 +37,8 @@ export class SignUpComponent implements OnInit {
 
       user: fb.group({
         userName: ['', [Validators.required, Validators.email]],
-        password: ['', [Validators.required, Validators.minLength(11)]],
-        confirmPassword: ['', [Validators.required, Validators.minLength(11)]],
+        password: ['', [Validators.required, Validators.minLength(6)]],
+        confirmPassword: ['', [Validators.required, Validators.minLength(6)]],
       }),
     });
   }
@@ -71,11 +71,12 @@ export class SignUpComponent implements OnInit {
         if (result && result.token) {
           localStorage.setItem('token', result.token);
           const itemsInStorage = localStorage.getItem('items');
+          let items = [];
           if (itemsInStorage) {
-            const items = JSON.parse(itemsInStorage) as {}[];
-            var routerLink = items.length > 0 ? '/customerDetail' : '/';
-            this.router.navigate([routerLink]);
+             items = JSON.parse(itemsInStorage) as {}[];
           }
+          var routerLink = items.length > 0 ? '/customerDetail' : '/home';
+          this.router.navigate([routerLink]);
         }
       }
 
