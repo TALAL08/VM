@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { map } from 'rxjs/operators';
 import { AuthService } from 'src/app/services/auth.service';
 import { CustomerService } from 'src/app/services/customer.service';
+import { ToastNotificationService } from 'src/app/services/toast-notification.service';
 declare var $: any;
 @Component({
   selector: 'app-sign-up',
@@ -26,6 +27,7 @@ export class SignUpComponent implements OnInit {
     private router: Router,
     private fb: FormBuilder,
     private customerService: CustomerService,
+    private toastNotificationService:ToastNotificationService,
     private authService: AuthService
   ) {
     this.form = fb.group({
@@ -57,12 +59,18 @@ export class SignUpComponent implements OnInit {
       const confirmPassword = this.form.get('user')?.get('confirmPassword')
         ?.value as string;
       if (password !== confirmPassword)
-        return alert('Password And ConfirmPassword are not same');
+      return this.toastNotificationService.showError(
+        'Password And ConfirmPassword are not same.',
+        'Sign Up Failure'
+      );
 
       const isExist = this.authService.IsUserNameExist(userName);
       if (isExist) {
         this.form.get('userName')?.reset;
-        return alert('Try Another username.');
+        return this.toastNotificationService.showError(
+          'Try Another username.',
+          'Sign Up Failure'
+        );
       }
 
       this.customerService.create(this.form.value).subscribe((response: any) => {

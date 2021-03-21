@@ -4,6 +4,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { OrderService } from 'src/app/services/order.service';
 import { CustomerService } from 'src/app/services/customer.service';
 import { Router } from '@angular/router';
+import { ToastNotificationService } from 'src/app/services/toast-notification.service';
 declare var $: any;
 @Component({
   selector: 'app-customer-detail',
@@ -31,6 +32,7 @@ export class CustomerDetailComponent implements OnInit {
     private authService: AuthService,
     private customerService: CustomerService,
     private orderService: OrderService,
+    private toastNotificationService:ToastNotificationService,
     private fb:FormBuilder
   ) {
 
@@ -78,13 +80,13 @@ export class CustomerDetailComponent implements OnInit {
     const resource = {OrderItems:this.items}
 
     console.log(this.items);
-    // this.orderService.create(resource).subscribe(res =>{
+    this.orderService.create(resource).subscribe(res =>{
 
-    //   console.log(res);
-    //   alert("Your Order is placed successfully");
-    //   localStorage.removeItem('items');
-    //   this.router.navigate(['/home']);
+      console.log(res);
+      this.toastNotificationService.showSuccess("Your Order is placed successfully","Order Confirm");
+      localStorage.removeItem('items');
+      this.router.navigate(['/home']);
 
-    // });
+    });
   }
 }

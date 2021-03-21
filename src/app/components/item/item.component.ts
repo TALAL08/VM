@@ -6,6 +6,7 @@ import { Color } from 'src/app/common/enum/color.enum';
 import { CategoryProductService } from 'src/app/services/category-product.service';
 import { CategoryService } from 'src/app/services/category.service';
 import { ItemService } from 'src/app/services/item.service';
+import { ToastNotificationService } from 'src/app/services/toast-notification.service';
 @Component({
   selector: 'app-item',
   templateUrl: './item.component.html',
@@ -37,6 +38,7 @@ export class ItemComponent implements OnInit {
     private categoryService: CategoryService,
     private categoryProductService: CategoryProductService,
     private itemService: ItemService,
+    private toastNotificationService:ToastNotificationService,
     private fb: FormBuilder
   ) {
     this.form = this.fb.group({
@@ -200,14 +202,15 @@ export class ItemComponent implements OnInit {
   private CreateItem(resource: any) {
     this.itemService.create(resource).subscribe((res) => {
       console.log(res);
-      alert('Item Created Successfully');
+
+      this.toastNotificationService.showSuccess("Item Created Successfully","Success");
     });
   }
 
   private updateItem(itemId: string, resource: any) {
     this.itemService.update(resource, null, [itemId]).subscribe((res) => {
       console.log(res);
-      alert('Item Updated Successfully');
+      this.toastNotificationService.showSuccess("Item Updated Successfully","Success");
     });
   }
 }

@@ -1,4 +1,3 @@
-import { animate, style, transition, trigger } from '@angular/animations';
 import { Component } from '@angular/core';
 import { AuthService } from './services/auth.service';
 
@@ -26,7 +25,9 @@ import { AuthService } from './services/auth.service';
 })
 export class AppComponent {
   title = 'VirtualMartket';
-  constructor(private authService:AuthService){
+  constructor(
+    private authService:AuthService
+    ){
 
   }
 

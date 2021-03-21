@@ -62,7 +62,7 @@ import { ToastrModule } from 'ngx-toastr';
     CustomerDetailComponent,
     ItemDetailComponent,
     OrderComponent,
-    OrderItemComponent
+    OrderItemComponent,
   ],
   imports: [
     BrowserAnimationsModule,
@@ -74,9 +74,11 @@ import { ToastrModule } from 'ngx-toastr';
     FormsModule,
     HttpClientModule,
     ReactiveFormsModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot({
+      closeButton: true,
+    }),
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

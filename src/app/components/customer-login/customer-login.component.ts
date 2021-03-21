@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { AppError } from 'src/app/common/validator/app-error';
 import { BadRequest } from 'src/app/common/validator/bad-request';
 import { AuthService } from 'src/app/services/auth.service';
+import { ToastNotificationService } from 'src/app/services/toast-notification.service';
 declare var $:any;
 @Component({
   selector: 'app-customer-login',
@@ -29,7 +30,8 @@ export class CustomerLoginComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private router: Router,
-    private authService: AuthService
+    private authService: AuthService,
+    private toastNotificationService: ToastNotificationService
   ) {
     this.form = this.fb.group({
       userName: ['', Validators.required],
@@ -60,7 +62,7 @@ export class CustomerLoginComponent implements OnInit {
         },
         (error: AppError) => {
           if (error instanceof BadRequest)
-            alert('Email Or Passoword Is Not Valid');
+            this.toastNotificationService.showError("Email Or Passoword Is Not Valid","Login Fail");
           else throw error;
         }
       );
