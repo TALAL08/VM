@@ -28,7 +28,7 @@
           </a>
         </li>
 
-        <li *ngIf="isAutherizeUser()" class="dropdown"><a class="dropdown-toggle" href="documentation.html" data-toggle="dropdown">{{getUserName()}}</a>
+        <li *ngIf="isAutherizeUser()" class="dropdown"><a class="dropdown-toggle" href="documentation.html" data-toggle="dropdown">{{getName()}}</a>
           <ul class="dropdown-menu">
             <li><a href="documentation.html#contact">Profile</a></li>
             <li><a [routerLink]="['/orders']">Orders</a></li>

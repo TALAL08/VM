@@ -42,9 +42,11 @@ export class NavBarComponent implements OnInit {
 
   getUserName(){
     return this.authService.getUserName();
-
   }
 
+  getName(){
+    return this.authService.getName();
+  }
   logout(){
     this.authService.logOut();
   }

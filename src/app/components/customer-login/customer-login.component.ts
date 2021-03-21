@@ -51,19 +51,23 @@ export class CustomerLoginComponent implements OnInit {
   }
 
   login() {
+
     if (this.form.invalid) this.hasErrorsOnSubmit = true;
     else {
       this.authService.login(this.form.value).subscribe(
         res => {
           const items = JSON.parse(localStorage.getItem('items') as string);
-          if ((items as []).length > 0)
+
+          if(items){
+            if ((items as []).length > 0)
             this.router.navigate(['/customerDetail']);
           else this.router.navigate(['/home']);
+          }
+          else this.router.navigate(['/home']);
+
         },
         (error: AppError) => {
-          if (error instanceof BadRequest)
             this.toastNotificationService.showError("Email Or Passoword Is Not Valid","Login Fail");
-          else throw error;
         }
       );
     }

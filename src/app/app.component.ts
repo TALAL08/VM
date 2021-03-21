@@ -34,4 +34,16 @@ export class AppComponent {
   isInRole(roleName:string){
     return this.authService.isInRole(roleName);
   }
+
+  getUserName(){
+    return this.authService.getUserName();
+  }
+
+  getName(){
+    return this.authService.getName();
+  }
+
+  logout(){
+    return this.authService.logOut();
+  }
 }

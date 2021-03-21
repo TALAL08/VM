@@ -2,7 +2,6 @@ import { trigger, transition, style, animate } from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { CategoryService } from 'src/app/services/category.service';
-import { ToastNotificationService } from 'src/app/services/toast-notification.service';
 declare var $: any;
 @Component({
   selector: 'app-home',
@@ -33,7 +32,6 @@ export class HomeComponent implements OnInit {
   images:any[]=[1];
   constructor(
     private categoryService:CategoryService,
-    private notifyService : ToastNotificationService,
     private sanitizer: DomSanitizer
   ) {
     this.categoryService.getAll().subscribe(res =>{
@@ -50,21 +48,4 @@ export class HomeComponent implements OnInit {
     const image = category.contentType+category.image;
     return this.sanitizer.bypassSecurityTrustResourceUrl(image as string);
   }
-
-  showToasterSuccess(){
-    this.notifyService.showSuccess("Data shown successfully !!", "ItSolutionStuff.com")
-}
-
-showToasterError(){
-    this.notifyService.showError("Something is wrong", "ItSolutionStuff.com")
-}
-
-showToasterInfo(){
-    this.notifyService.showInfo("This is info", "ItSolutionStuff.com")
-}
-
-showToasterWarning(){
-    this.notifyService.showWarning("This is warning", "ItSolutionStuff.com")
-}
-
 }
