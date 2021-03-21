@@ -18,6 +18,8 @@ import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { CustomerLoginComponent } from './components/customer-login/customer-login.component';
 import { CustomerDetailComponent } from './components/customer-detail/customer-detail.component';
 import { ItemDetailComponent } from './components/item-detail/item-detail.component';
+import { OrderComponent } from './components/order/order.component';
+import { OrderItemComponent } from './components/order-item/order-item.component';
 
 const routes: Routes = [
 
@@ -28,6 +30,9 @@ const routes: Routes = [
   {path:'category/update/:id', component:CategoryComponent},
   {path:'categoryProductsTable/:categoryId', component:CategoryProductsTableComponent},
   {path:'categoryProducts/:categoryId', component:CategoryProductsComponent},
+
+  {path:'orders', component:OrderComponent},
+  {path:'orderItem/:orderId', component:OrderItemComponent},
 
   {path:'products', component:ProductsTableComponent},
   {path:'product/new', component:ProductComponent},

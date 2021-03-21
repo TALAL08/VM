@@ -14,7 +14,7 @@ import { CustomerService } from 'src/app/services/customer.service';
     '../../../assets/lib/simple-text-rotator/simpletextrotator.css',
     '../../../assets/css/style.css',
     '../../../assets/css/colors/default.css',
-    './nav-bar.component.css',
+    './nav-bar.component.css'
   ]
 })
 export class NavBarComponent implements OnInit {

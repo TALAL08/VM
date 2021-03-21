@@ -1,0 +1,36 @@
+<app-nav-bar></app-nav-bar>
+<div class="page-loader">
+  <div class="loader">Loading...</div>
+</div>
+<hr class="divider-w">
+<section class="module-small">
+  <div class="container">
+<table class="table table-border">
+  <thead>
+    <tr>
+      <th>S.NO</th>
+      <th>Order</th>
+      <th>Items Count</th>
+      <th>Order Date</th>
+      <th>Status</th>
+      <th>Bill</th>
+    </tr>
+  </thead>
+  <tbody>
+    <ng-container *ngFor="let order of orders;index as count">
+
+      <tr>
+        <td>{{count+1}}</td>
+          <td (click)="orderItem(order.id)" ><a [routerLink] class="order-font" >Order No {{count+1}} </a></td>
+        <td>{{order.orderItems.length}}</td>
+        <td>{{order.orderOn}}</td>
+        <td>{{order.status}}</td>
+        <td>{{order.totalAmount}}</td>
+      </tr>
+
+    </ng-container>
+    </tbody>
+</table>
+
+</div>
+</section>

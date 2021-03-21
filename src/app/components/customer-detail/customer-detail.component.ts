@@ -76,13 +76,15 @@ export class CustomerDetailComponent implements OnInit {
 
     }
     const resource = {OrderItems:this.items}
-    this.orderService.create(resource).subscribe(res =>{
 
-      console.log(res);
-      alert("Your Order is placed successfully");
-      localStorage.removeItem('items');
-      this.router.navigate(['/home']);
+    console.log(this.items);
+    // this.orderService.create(resource).subscribe(res =>{
 
-    });
+    //   console.log(res);
+    //   alert("Your Order is placed successfully");
+    //   localStorage.removeItem('items');
+    //   this.router.navigate(['/home']);
+
+    // });
   }
 }

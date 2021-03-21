@@ -1,0 +1,57 @@
+<app-nav-bar></app-nav-bar>
+<div class="page-loader">
+  <div class="loader">Loading...</div>
+</div>
+<hr class="divider-w">
+<section class="module-small">
+  <div class="container">
+<table class="table table-border">
+  <thead>
+    <tr>
+      <th>S.NO</th>
+      <th>Category</th>
+      <th>Product</th>
+      <th>Item</th>
+      <th>Quantity</th>
+      <th>Per Unit Price</th>
+      <th>Amount</th>
+    </tr>
+  </thead>
+  <tbody>
+    <ng-container *ngFor="let item of items;index as count">
+
+      <tr>
+        <td>{{count+1}}</td>
+        <td>{{item.category.name}}</td>
+        <td>{{item.product.name}}</td>
+        <td>{{item.item.name}}</td>
+        <td>{{item.quantity}}</td>
+        <td>{{item.perUnitPrice}}</td>
+        <td>{{item.totalAmount}}</td>
+      </tr>
+
+    </ng-container>
+    <br>
+    <br>
+    <tr>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td style="font-weight: bolder;">Total Quantity</td>
+      <td></td>
+      <td style="font-weight: bolder;" >Bill</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>{{totalQuantity}}</td>
+      <td></td>
+      <td>{{bill}}</td>
+    </tr>
+    </tbody>
+</table>
+</div>
+</section>

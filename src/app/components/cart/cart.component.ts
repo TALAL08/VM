@@ -59,12 +59,29 @@ export class CartComponent implements OnInit {
     const itemTotal = item.price * item.quantity;
     this.cart.CartSubtotal -= itemTotal;
     this.cart.total -= itemTotal;
+    this.saveCart();
   }
 
   updateQuantity($event: any, item: any) {
+
     const quantity = $event.target.value;
+    this.updateTotalCart(item, quantity);
+
     item.quantity = quantity;
+    this.saveCart();
   }
+
+  private updateTotalCart(item: any, quantity: any) {
+    const itemTotal = item.price * item.quantity;
+    this.cart.CartSubtotal -= itemTotal;
+    this.cart.total -= itemTotal;
+
+
+    const itemNewTotal = item.price * quantity;
+    this.cart.CartSubtotal += itemNewTotal;
+    this.cart.total += itemNewTotal;
+  }
+
   saveCart() {
     localStorage.setItem('items', JSON.stringify(this.items));
   }

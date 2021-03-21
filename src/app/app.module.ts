@@ -32,6 +32,9 @@ import { CustomerLoginComponent } from './components/customer-login/customer-log
 import { CheckoutComponent } from './components/checkout/checkout.component';
 import { CustomerDetailComponent } from './components/customer-detail/customer-detail.component';
 import { ItemDetailComponent } from './components/item-detail/item-detail.component';
+import { OrderComponent } from './components/order/order.component';
+import { OrderItemComponent } from './components/order-item/order-item.component';
+import { ToastrModule } from 'ngx-toastr';
 @NgModule({
   declarations: [
     AppComponent,
@@ -57,7 +60,9 @@ import { ItemDetailComponent } from './components/item-detail/item-detail.compon
     CustomerLoginComponent,
     CheckoutComponent,
     CustomerDetailComponent,
-    ItemDetailComponent
+    ItemDetailComponent,
+    OrderComponent,
+    OrderItemComponent
   ],
   imports: [
     BrowserAnimationsModule,
@@ -68,7 +73,8 @@ import { ItemDetailComponent } from './components/item-detail/item-detail.compon
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ToastrModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]
