@@ -48,6 +48,7 @@ export class CustomerDetailComponent implements OnInit {
   ngOnInit(): void {
 
     if (this.authService.isAutherize()) {
+
       this.customerService.get().subscribe((res) => {
         this.customer = res as any;
         const itemsInStorage = localStorage.getItem('items') as string;
@@ -79,13 +80,11 @@ export class CustomerDetailComponent implements OnInit {
     }
     const resource = {OrderItems:this.items}
 
-    console.log(this.items);
     this.orderService.create(resource).subscribe(res =>{
 
-      console.log(res);
       this.toastNotificationService.showSuccess("Your Order is placed successfully","Order Confirm");
       localStorage.removeItem('items');
-      this.router.navigate(['/home']);
+      this.router.navigate(['/orders']);
 
     });
   }

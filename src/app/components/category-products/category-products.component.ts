@@ -29,7 +29,9 @@ export class CategoryProductsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+
     this.route.paramMap.subscribe((pram) => {
+
       let categoryId = pram.get('categoryId') as string;
       this.categoryProductService.get(categoryId).subscribe((res) => {
         console.log(res);
@@ -37,6 +39,8 @@ export class CategoryProductsComponent implements OnInit {
         if (this.categoryProducts.length > 0)
           this.category = this.categoryProducts[0].category;
 
+          while (this.categoryProducts.length<0) {
+          }
           $('.loader').fadeOut();
           $('.page-loader').delay(350).fadeOut('slow');
       });

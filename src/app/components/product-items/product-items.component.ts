@@ -55,6 +55,8 @@ export class ProductItemsComponent implements OnInit {
             price: item.price,
             image: item.image,
             product: item.product,
+            color:item.colors,
+            size:item.sizes,
             isAddedToCart: false,
           };
 
@@ -63,9 +65,10 @@ export class ProductItemsComponent implements OnInit {
         });
 
         this.product = this.productItems[0].product;
-        console.log(this.productItems);
+        while (this.productItems.length<0) {
+        }
         $('.loader').fadeOut();
-        $('.page-loader').delay(950).fadeOut('slow');
+        $('.page-loader').delay(350).fadeOut('slow');
       });
     });
   }
@@ -90,6 +93,8 @@ export class ProductItemsComponent implements OnInit {
         price: item.price,
         image: item.contentType + item.image,
         quantity: 1,
+        color:item.color,
+        size:item.size,
         productId:this.product.id,
         categoryId:this.product.categoryId
       });
@@ -98,6 +103,7 @@ export class ProductItemsComponent implements OnInit {
       items.slice(cartItemIndex, 1);
     }
 
+    console.log(items);
     localStorage.setItem('items', JSON.stringify(items));
     productItem.isAddedToCart = !item.isAddedToCart;
     this.count = items.length;

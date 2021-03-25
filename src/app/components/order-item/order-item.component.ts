@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { OrderService } from 'src/app/services/order.service';
 declare var $: any;
 @Component({
   selector: 'app-order-item',
@@ -13,35 +14,43 @@ declare var $: any;
     '../../../assets/lib/simple-text-rotator/simpletextrotator.css',
     '../../../assets/css/style.css',
     '../../../assets/css/colors/default.css',
-    './order-item.component.css'
-  ]
+    './order-item.component.css',
+  ],
 })
 export class OrderItemComponent implements OnInit {
+  items: any[] = [];
+  totalQuantity: number = 0;
+  bill: number = 0;
 
-  items:any[]=[];
-  totalQuantity:number=0;
-  bill:number=0;
-
-  constructor(private router: Router) { }
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private orderService: OrderService
+  ) {}
 
   ngOnInit(): void {
 
-   const items = JSON.parse(localStorage.getItem('order') as string);
-    this.items = items;
-
-     this.items.forEach(item => {
-
-      this.totalQuantity+=item.quantity;
-      this.bill+=item.totalAmount;
-
+    const items = JSON.parse(sessionStorage.getItem('order') as string);
+    console.log(items);
+    if (items) this.items = items;
+    else {
+      this.route.paramMap.subscribe((pram) => {
+        const orderId = pram.get('orderId') as string;
+        this.orderService.get(orderId, 'GetCustomerOrder').subscribe((res) => {
+          this.items = (res as any).orderItems;
+        });
+      });
+    }
+    while (items==null) {
+      console.log(items);
+    }
+    this.items.forEach((item) => {
+      this.totalQuantity += item.quantity;
+      this.bill += item.totalAmount;
     });
 
-     if(items== null){
-      this.router.navigate(['/orders'])
-    }
-
-    $('.loader').fadeOut();
-    $('.page-loader').delay(950).fadeOut('slow');
+    if (items == null) this.router.navigate(['/orders']);
+      $('.loader').fadeOut();
+      $('.page-loader').delay(950).fadeOut('slow');
   }
-
 }

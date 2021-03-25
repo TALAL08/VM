@@ -20,6 +20,7 @@ import { CustomerDetailComponent } from './components/customer-detail/customer-d
 import { ItemDetailComponent } from './components/item-detail/item-detail.component';
 import { OrderComponent } from './components/order/order.component';
 import { OrderItemComponent } from './components/order-item/order-item.component';
+import { ProfileComponent } from './components/profile/profile.component';
 
 const routes: Routes = [
 
@@ -30,10 +31,10 @@ const routes: Routes = [
   {path:'category/update/:id', component:CategoryComponent},
   {path:'categoryProductsTable/:categoryId', component:CategoryProductsTableComponent},
   {path:'categoryProducts/:categoryId', component:CategoryProductsComponent},
-
   {path:'orders', component:OrderComponent},
   {path:'orderItem/:orderId', component:OrderItemComponent},
 
+  {path:'profile', component:ProfileComponent},
   {path:'products', component:ProductsTableComponent},
   {path:'product/new', component:ProductComponent},
   {path:'product/update/:id', component:ProductComponent},

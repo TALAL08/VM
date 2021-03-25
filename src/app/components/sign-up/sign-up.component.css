@@ -2,3 +2,14 @@
 {
   text-transform: none;
 }
+
+
+.main{
+  padding-top: 70px;
+}
+
+.form-control:focus {
+  border: 2px solid #c3194c;
+   border-radius: 10px;
+}
+

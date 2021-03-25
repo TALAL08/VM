@@ -1,15 +1,15 @@
 <app-nav-bar ></app-nav-bar>
 <app-loader></app-loader>
-<div class="main">
-    <section class="module bg-dark-60 shop-page-header"style="background-image: url('{{category.contentType+category.image}}');" >
-      <div class="container" >
-        <div class="row">
-          <div class="col-sm-6 col-sm-offset-3">
-            <h2 class="module-title font-alt">{{category.name}}</h2>
-          </div>
-        </div>
+<div class="main" >
+  <section class="module bg-dark-60 shop-page-header"style="background-image: url('{{category.contentType+category.image}}');" >
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-6 col-sm-offset-3">
+        <h2 class="module-title font-alt">{{category.name}}</h2>
       </div>
-    </section>
+    </div>
+  </div>
+</section>
     <section class="module-small">
       <div class="container">
         <form class="row">
@@ -56,7 +56,7 @@
                 <div class="shop-item-image"><img [src]="getImage(product)" alt="Accessories Pack"/>
                   <div class="shop-item-detail"><a [routerLink]="['/productItems',product.id]"  class="btn btn-round btn-b"><span class="icon-basket">View Items</span></a></div>
                 </div>
-                <h4 class="shop-item-title font-alt"><a href="#">{{product.name}}</a></h4>
+                <h4 class="shop-item-title font-alt image-name"><a class="image-text" [routerLink]="['/productItems',product.id]">{{product.name}}</a></h4>
               </div>
             </div>
 

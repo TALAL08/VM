@@ -30,7 +30,6 @@ export class OrderComponent implements OnInit {
 
     this.orderService.getAll("GetCustomerOrders").subscribe(res => {
       this.orders = (res as any);
-      console.log(res);
 
         $('.loader').fadeOut();
         $('.page-loader').delay(950).fadeOut('slow');
@@ -41,7 +40,12 @@ export class OrderComponent implements OnInit {
   orderItem(id:string){
 
     const order = this.orders.find(o => o.id == id);
-    localStorage.setItem('order', JSON.stringify(order.orderItems));
+    try {
+      sessionStorage.setItem('order', JSON.stringify(order.orderItems));
+    } catch (exception) {
+
+    }
+
     this.router.navigate(['/orderItem/'+id])
 
   }

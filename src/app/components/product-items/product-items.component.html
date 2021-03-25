@@ -74,12 +74,14 @@
             <div class="shop-item">
               <div class="shop-item-image"><img [src]="getImage(item)" alt="Accessories Pack" />
                 <div class="shop-item-detail">
-                  <a [routerLink]="['/itemImages',item.id]"
+
+                  <!-- <a [routerLink]="['/itemImages',item.id]"
                     class="btn btn-round btn-b"><span class="icon-basket">
                       View Images
                     </span>
                   </a>
-                    <br>
+                    <br> -->
+
                     <a [routerLink]="['/item',item.id]"
                     class="btn btn-round btn-b"><span class="icon-basket">
                       View Item
@@ -99,7 +101,8 @@
                   </a>
                   </div>
               </div>
-              <h4 class="shop-item-title font-alt"><a href="#">{{item.name}}</a></h4>
+              <h4 class="shop-item-title font-alt image-name"><a class="image-text" [routerLink]="['/item',item.id]">{{item.name}}</a></h4>
+            <span class="image-text" > RS: {{item.price}}</span>
             </div>
           </div>
         </ng-container>

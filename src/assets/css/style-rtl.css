@@ -2788,7 +2788,7 @@ Google map
     margin-bottom: 0;
   }
   .navbar-custom li > a:hover {
-    background: rgba(255, 255, 255, 0.1) !important;
+    background: #f81468db !important;
   }
   .navbar-custom .navbar-nav .open .dropdown-menu .dropdown-header,
   .navbar-custom .navbar-nav .open .dropdown-menu > li > a {

@@ -1,4 +1,4 @@
-<app-nav-bar [count]="0" ></app-nav-bar>
+<app-nav-bar [count]="count" ></app-nav-bar>
 <main>
       <div class="page-loader">
         <div class="loader">Loading...</div>
@@ -8,7 +8,7 @@
           <div class="container">
             <div class="row">
               <div class="col-sm-6 col-sm-offset-3">
-                <h1 class="module-title font-alt">Checkout</h1>
+                <h1 class="module-title font-alt" style="color: rgb(189 0 56 / 90%); font-weight: bolder;"><i class="el el-shopping-cart"></i></h1>
               </div>
             </div>
             <hr class="divider-w pt-20">
@@ -16,28 +16,51 @@
               <div class="col-sm-12">
                 <table class="table table-striped table-border checkout-table">
                   <tbody>
-                    <tr>
+                    <tr style="background-color:rgb(189 0 56 / 90%); color:white">
+                      <th></th>
                       <th class="hidden-xs">Item</th>
-                      <th>Description</th>
                       <th class="hidden-xs">Price</th>
                       <th>Quantity</th>
                       <th>Total</th>
+                      <th>Color</th>
+                      <th>Size</th>
                       <th>Remove</th>
                     </tr>
 
                     <tr *ngFor="let item of items">
+
                       <td class="hidden-xs"><a href="#"><img [src]="getImage(item)" alt="Accessories Pack"/></a></td>
+
                       <td>
                         <h5 class="product-title font-alt">{{item.name}}</h5>
                       </td>
+
                       <td class="hidden-xs">
                         <h5 class="product-title font-alt">PKR {{item.price}}</h5>
                       </td>
+
                       <td>
                         <input min="1" (change)="updateQuantity($event,item)" type="number" value={{item.quantity}}>
                       </td>
+
                       <td>
                         <h5 class="product-title font-alt">PKR {{item.price * item.quantity}}</h5>
+                      </td>
+                      <td >
+                        <select (change)="setItemColor(item,$event.target)" *ngIf="(item.color &&item.color !='None')">
+                          <option>Select Color</option>
+                          <option [selected]="item.color.split(',').length==1"  *ngFor="let color of getColors(item.color)" >
+                            {{color}}
+                          </option>
+                        </select>
+                      </td>
+                      <td >
+                        <select (change)="setItemSize(item,$event.target)" *ngIf="(item.size && item.size!='None')">
+                          <option>Select Size</option>
+                          <option [selected]="item.size.split(',').length==1"  *ngFor="let size of getSizes(item.size)" >
+                            {{size}}
+                          </option>
+                        </select>
                       </td>
                       <td class="pr-remove"><a (click)="remove(item)" title="Remove"><i class="fa fa-times"></i></a></td>
                     </tr>
@@ -45,23 +68,7 @@
                 </table>
               </div>
             </div>
-            <div class="row">
-              <div class="col-sm-3">
-                <div class="form-group">
-                  <input class="form-control" type="text" id="" name="" placeholder="Coupon code"/>
-                </div>
-              </div>
-              <div class="col-sm-3">
-                <div class="form-group">
-                  <button class="btn btn-round btn-g" type="submit">Apply</button>
-                </div>
-              </div>
-              <div class="col-sm-3 col-sm-offset-3">
-                <div class="form-group">
-                  <button class="btn btn-block btn-round btn-d pull-right" type="submit">Save Cart</button>
-                </div>
-              </div>
-            </div>
+
             <hr class="divider-w">
             <div class="row mt-70">
               <div class="col-sm-5 col-sm-offset-7">
@@ -83,7 +90,7 @@
                       </tr>
                     </tbody>
                   </table>
-                  <button class="btn btn-lg btn-block btn-round btn-d" [routerLink]="isAutherizeUser()?['/customerDetail']:['/signUp']">Proceed to Checkout</button>
+                  <button class="btn btn-lg btn-block btn-round btn-d" (click)="validateCartItems()">Proceed to Checkout</button>
                 </div>
               </div>
             </div>

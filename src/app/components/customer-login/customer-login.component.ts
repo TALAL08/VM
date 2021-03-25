@@ -56,15 +56,6 @@ export class CustomerLoginComponent implements OnInit {
     else {
       this.authService.login(this.form.value).subscribe(
         res => {
-          const items = JSON.parse(localStorage.getItem('items') as string);
-
-          if(items){
-            if ((items as []).length > 0)
-            this.router.navigate(['/customerDetail']);
-          else this.router.navigate(['/home']);
-          }
-          else this.router.navigate(['/home']);
-
         },
         (error: AppError) => {
             this.toastNotificationService.showError("Email Or Passoword Is Not Valid","Login Fail");

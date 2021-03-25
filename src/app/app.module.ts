@@ -35,6 +35,7 @@ import { ItemDetailComponent } from './components/item-detail/item-detail.compon
 import { OrderComponent } from './components/order/order.component';
 import { OrderItemComponent } from './components/order-item/order-item.component';
 import { ToastrModule } from 'ngx-toastr';
+import { ProfileComponent } from './components/profile/profile.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -63,6 +64,7 @@ import { ToastrModule } from 'ngx-toastr';
     ItemDetailComponent,
     OrderComponent,
     OrderItemComponent,
+    ProfileComponent,
   ],
   imports: [
     BrowserAnimationsModule,

@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { Color } from 'src/app/common/enum/color.enum';
+import { Size } from 'src/app/common/enum/Size';
 import { CategoryProductService } from 'src/app/services/category-product.service';
 import { CategoryService } from 'src/app/services/category.service';
 import { ItemService } from 'src/app/services/item.service';
@@ -26,6 +27,7 @@ export class ItemComponent implements OnInit {
   form!: FormGroup;
   itemId: string = '';
   colors!: any[];
+  sizes!: any[];
   categories: any[] = [];
   products: any[] = [];
   imageCount: number = 0;
@@ -48,6 +50,7 @@ export class ItemComponent implements OnInit {
       numberInStock: ['', Validators.required],
       price: ['', Validators.required],
       colors: ['', Validators.required],
+      sizes: ['', Validators.required],
       description: ['', Validators.required],
       contentType:['', Validators.required],
       image:['', Validators.required],
@@ -61,6 +64,9 @@ export class ItemComponent implements OnInit {
       (value) => typeof value === 'string'
     );
 
+    this.sizes = Object.values(Size).filter(
+      (value) => typeof value === 'string'
+    );
     this.itemImages = this.form.get('images')?.value as [];
 
     this.route.paramMap.subscribe((pram) => {
@@ -121,7 +127,8 @@ export class ItemComponent implements OnInit {
       const image = imageString.slice(imageString.indexOf(',') + 1);
       form.get('contentType')?.setValue(contentType);
       form.get('image')?.setValue(image);
-
+      console.log(contentType);
+      console.log(form.get('contentType')?.value);
       reader.onerror = function (error) {
         console.log('Error: ', error);
       };
@@ -175,6 +182,9 @@ export class ItemComponent implements OnInit {
   submit() {
     const colorsArray = this.form.get('colors')?.value as [];
     this.form.get('colors')?.setValue(colorsArray.join(','));
+
+    const sizesArray = this.form.get('sizes')?.value as [];
+    this.form.get('sizes')?.setValue(sizesArray.join(','));
 
     this.itemImages.forEach((image) => {
       if (image.isAdded) {

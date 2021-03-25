@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ItemService } from 'src/app/services/item.service';
+import { ProductItemService } from 'src/app/services/product-item.service';
+import { ProductService } from 'src/app/services/product.service';
 declare var $:any;
 @Component({
   selector: 'app-item-detail',
@@ -20,6 +22,8 @@ declare var $:any;
 })
 export class ItemDetailComponent implements OnInit {
   images: any[] = [];
+  productItems: any[] = [];
+  slideIndex = 0;
   item: {
     itemId: string,
     name: string,
@@ -27,17 +31,20 @@ export class ItemDetailComponent implements OnInit {
     description:string,
     price: string,
     image: string,
+    color: string,
+    size: string,
     product:{categoryId:string}
     productId: string,
     categoryId: string,
     isAddedToCart: boolean
-  }={itemId:"",description:"",name:"",contentType:"",price:"",image:"",product:{categoryId:""},productId:"",categoryId:"",isAddedToCart:false};
+  }={itemId:"",description:"",name:"",contentType:"",price:"",image:"",color:"",size:"",product:{categoryId:""},productId:"",categoryId:"",isAddedToCart:false};
   count: number = 0;
   quantity: number = 1;
   constructor(
     private router: Router,
     private route: ActivatedRoute,
     private sanitizer: DomSanitizer,
+    private productItemService: ProductItemService,
     private itemService: ItemService
   ) {}
 
@@ -59,10 +66,14 @@ export class ItemDetailComponent implements OnInit {
             (this.item.contentType = i.contentType),
             (this.item.price = i.price),
             (this.item.image = i.image),
+            (this.item.color = i.colors),
+            (this.item.size = i.sizes),
             (this.item.productId = i.product.id),
             (this.item.product.categoryId = i.product.categoryId),
             (this.item.isAddedToCart = false),
             (this.images = i.images);
+
+            this.getRelatedProductItems(this.item.productId,items);
         });
       }else{
         this.item.itemId = item.id,
@@ -70,16 +81,48 @@ export class ItemDetailComponent implements OnInit {
         (this.item.contentType = item.contentType),
         (this.item.price = item.price),
         (this.item.image = item.image),
+        (this.item.color = item.colors),
+        (this.item.size = item.sizes),
         (this.item.productId = item.product.id),
         (this.item.product.categoryId = item.product.categoryId),
         (this.item.isAddedToCart = true),
         (this.images = item.images);
+
+        this.getRelatedProductItems(this.item.productId,items);
       }
 
-      $('.loader').fadeOut();
       $('.page-loader').delay(350).fadeOut('slow');
+      $('.loader').fadeOut();
     });
   }
+
+  private getRelatedProductItems(productId:string,items: {}[]) {
+    this.productItemService.get(productId).subscribe((res) => {
+      const selectedItem = ((res as any) as []).find(
+        (pi: any) => pi.id == this.item.itemId
+      ) as any;
+      ((res as any) as []).forEach((item: any) => {
+        const isInCart = items.find((c: any) => c.itemId === item.id);
+
+        let productItem = {
+          id: item.id,
+          name: item.name,
+          contentType: item.contentType,
+          price: item.price,
+          image: item.image,
+          color:item.colors,
+          size:item.sizes,
+          product: item.product,
+          isAddedToCart: false,
+        };
+
+        if (isInCart) productItem.isAddedToCart = true;
+
+        if (selectedItem.id != item.id) this.productItems.push(productItem);
+      });
+    });
+  }
+
   updateQuantity($event: any, item: any) {
     this.quantity = $event.target.value;
   }
@@ -98,6 +141,8 @@ export class ItemDetailComponent implements OnInit {
         price: item.price,
         image: item.contentType + item.image,
         quantity: this.quantity,
+        color:item.colors,
+        size:item.sizes,
         productId: this.item.productId,
         categoryId: this.item.product.categoryId,
       });
@@ -116,4 +161,41 @@ export class ItemDetailComponent implements OnInit {
     const image = itemImage.contentType + itemImage.image;
     return this.sanitizer.bypassSecurityTrustResourceUrl(image as string);
   }
+
+
+
+  openModal() {
+    (document.getElementById('imgModal') as any).style.display = "block";
+   }
+   closeModal() {
+    (document.getElementById('imgModal')as any).style.display = "none";
+   }
+   plusSlides(n:any) {
+    this.showSlides(this.slideIndex += n);
+   }
+   currentSlide(n:any) {
+    this.showSlides(this.slideIndex = n);
+   }
+
+   showSlides(n:any) {
+    let i;
+    const slides = document.getElementsByClassName("img-slides") as HTMLCollectionOf < HTMLElement > ;
+    const dots = document.getElementsByClassName("images") as HTMLCollectionOf < HTMLElement > ;
+    if (n > slides.length) {
+     this.slideIndex = 1
+    }
+    if (n < 1) {
+     this.slideIndex = slides.length
+    }
+    for (i = 0; i < slides.length; i++) {
+     slides[i].style.display = "none";
+    }
+    for (i = 0; i < dots.length; i++) {
+     dots[i].className = dots[i].className.replace(" active", "");
+    }
+    slides[this.slideIndex - 1].style.display = "block";
+    if (dots && dots.length > 0) {
+     dots[this.slideIndex - 1].className += " active";
+    }
+   }
 }

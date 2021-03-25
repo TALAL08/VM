@@ -41,7 +41,17 @@ export class AuthService {
             localStorage.setItem('name', result.name);
             localStorage.setItem('fatherName', result.fatherName);
             this.toastNotificationService.showSuccess("logged In Successfully","Login");
-            return (this.isInRole('Admin'))?this.router.navigate(['/dashBoard']):this.router.navigate(['/home']);
+
+            if (this.isInRole('Admin')) return this.router.navigate(['/dashBoard']);
+
+            const items = JSON.parse(localStorage.getItem('items') as string);
+            if(items){
+              if ((items as []).length > 0)
+              return this.router.navigate(['/customerDetail']);
+            else return this.router.navigate(['/home']);
+            }
+            else return this.router.navigate(['/home']);
+
           }
          return this.toastNotificationService.showError("Email Or Passoword Is Not Valid","Login Fail");
         })

@@ -708,13 +708,13 @@ a,
 }
 
 .btn.btn-d {
-  background: rgba(17, 17, 17, 0.8);
+  background: rgb(189 0 56 / 90%);
   color: #fff;
 }
 
 .btn.btn-d:hover,
 .btn.btn-d:focus {
-  background: #111111;
+    background: rgb(230 4 71 / 90%);
 }
 
 .btn.btn-b {
@@ -823,8 +823,12 @@ a,
 }
 
 .form-control:focus {
-  border-color: #CACACA;
-}
+    border: 2px solid #c3194c;
+     border-radius: 10px;
+     color: #ff1bce;
+    font-weight: bold;
+  }
+  
 
 /* Forms size */
 .input-lg,
@@ -891,8 +895,12 @@ blockquote {
   font-family: "Roboto Condensed", sans-serif;
   text-transform: uppercase;
   letter-spacing: 2px;
+  font-weight: bold;
+  color: rgb(189 0 56 / 90%);
 }
-
+label{
+    color: rgb(189 0 56 / 90%);
+}
 .font-serif {
   font-family: Volkhov, "Times New Roman", sans-serif;
   font-style: italic;
@@ -2488,11 +2496,22 @@ Google map
 .shop-item {
   text-align: center;
   margin: 0 0 40px;
+  padding-bottom: 10px;
+  background-color: rgb(189 0 56 / 90%);
 }
-
+.image-name{
+    padding-bottom: 10px;
+}
+.image-text{
+    font-weight: bold;
+    color: white;
+}
 .shop-item-image {
+    border-style: solid;
+    border-color: rgb(189 0 56 / 90%);    
   position: relative;
   overflow: hidden;
+  background-color: #f2f2f2;
 }
 
 .shop-item-image img {
@@ -2792,8 +2811,8 @@ Google map
     margin-bottom: 0;
   }
   .navbar-custom li > a:hover {
-    background: rgba(255, 255, 255, 0.1) !important;
-  }
+    background: #f81468db !important;
+}
   .navbar-custom .navbar-nav .open .dropdown-menu .dropdown-header,
   .navbar-custom .navbar-nav .open .dropdown-menu > li > a {
     padding: 10px 25px;

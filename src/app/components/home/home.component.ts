@@ -36,13 +36,14 @@ export class HomeComponent implements OnInit {
   ) {
     this.categoryService.getAll().subscribe(res =>{
       this.categories = (res as any);
+      while (this.categories.length<0) {
+      }
+      $('.loader').fadeOut();
+      $('.page-loader').delay(550).fadeOut('slow');
     });
   }
 
   ngOnInit(): void {
-
-    $('.loader').fadeOut();
-    $('.page-loader').delay(350).fadeOut('slow');
   }
   getImage(category: any) {
     const image = category.contentType+category.image;

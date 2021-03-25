@@ -6,10 +6,12 @@
       <div class="row">
         <div class="col-sm-6 mb-sm-40"><a class="gallery" href="assets/images/shop/product-7.jpg"><img [src]="getImage(item)" alt="Single Product Image"/></a>
           <ul class="product-gallery">
-            <ng-container *ngFor="let image of images">
+            <ng-container *ngFor="let image of images;index as i;">
 
-              <li><a class="gallery" href="assets/images/shop/product-8.jpg"></a><img [src]="getImage(image)" alt="Single Product"/></li>
+              <li><a class="gallery" href="assets/images/shop/product-8.jpg"></a><img [src]="getImage(image)" (click)="openModal();currentSlide(i+1)"  alt="Single Product"/></li>
+
             </ng-container>
+
           </ul>
         </div>
         <div class="col-sm-6">
@@ -178,42 +180,46 @@
     <div class="container">
       <div class="row">
         <div class="col-sm-6 col-sm-offset-3">
-          <h2 class="module-title font-alt">Related Products</h2>
+          <h2 class="module-title font-alt">Related Items</h2>
         </div>
       </div>
       <div class="row multi-columns-row">
+        <ng-container *ngFor="let item of productItems">
         <div class="col-sm-6 col-md-3 col-lg-3">
           <div class="shop-item">
-            <div class="shop-item-image"><img src="assets/images/shop/product-11.jpg" alt="Accessories Pack"/>
-              <div class="shop-item-detail"><a class="btn btn-round btn-b"><span class="icon-basket">Add To Cart</span></a></div>
+            <div class="shop-item-image"><img [src]="getImage(item)" alt="Men’s Casual Pack"/>
+              <div class="shop-item-detail">
+
+                <!-- <a [routerLink]="['/itemImages',item.id]"
+                  class="btn btn-round btn-b"><span class="icon-basket">
+                    View Images
+                  </span>
+                </a>
+                  <br> -->
+
+                  <a [routerLink]="['/item',item.id]"
+                  class="btn btn-round btn-b"><span class="icon-basket">
+                    View Item
+                  </span>
+                </a>
+                  <br>
+                  <br>
+                  <a (click)="saveItem(item)"
+
+                   class="btn btn-round btn-b">
+                   <span *ngIf="item.isAddedToCart" class="icon-basket">
+                    Item Added to Cart
+                  </span>
+                  <span *ngIf="!item.isAddedToCart" class="icon-basket">
+                    Add to Cart
+                  </span>
+                </a>
+                </div>
             </div>
-            <h4 class="shop-item-title font-alt"><a href="#">Accessories Pack</a></h4>£9.00
+            <h4 class="shop-item-title font-alt"><a [routerLink]="['/item',item.id]">{{item.name}}</a></h4>Rs: {{item.price}}
           </div>
         </div>
-        <div class="col-sm-6 col-md-3 col-lg-3">
-          <div class="shop-item">
-            <div class="shop-item-image"><img src="assets/images/shop/product-12.jpg" alt="Men’s Casual Pack"/>
-              <div class="shop-item-detail"><a class="btn btn-round btn-b"><span class="icon-basket">Add To Cart</span></a></div>
-            </div>
-            <h4 class="shop-item-title font-alt"><a href="#">Men’s Casual Pack</a></h4>£12.00
-          </div>
-        </div>
-        <div class="col-sm-6 col-md-3 col-lg-3">
-          <div class="shop-item">
-            <div class="shop-item-image"><img src="assets/images/shop/product-13.jpg" alt="Men’s Garb"/>
-              <div class="shop-item-detail"><a class="btn btn-round btn-b"><span class="icon-basket">Add To Cart</span></a></div>
-            </div>
-            <h4 class="shop-item-title font-alt"><a href="#">Men’s Garb</a></h4>£6.00
-          </div>
-        </div>
-        <div class="col-sm-6 col-md-3 col-lg-3">
-          <div class="shop-item">
-            <div class="shop-item-image"><img src="assets/images/shop/product-14.jpg" alt="Cold Garb"/>
-              <div class="shop-item-detail"><a class="btn btn-round btn-b"><span class="icon-basket">Add To Cart</span></a></div>
-            </div>
-            <h4 class="shop-item-title font-alt"><a href="#">Cold Garb</a></h4>£14.00
-          </div>
-        </div>
+      </ng-container>
       </div>
     </div>
   </section>
@@ -347,4 +353,20 @@
       </div>
     </div>
   </footer>
+</div>
+
+<div id="imgModal" class="slide-modal">
+  <span class="close cursor" (click)="closeModal()">&times;</span>
+  <div class="slide-modal-content">
+      <div class="img-slides" *ngFor="let image of images; let i = index">
+          <img  [src]="getImage(image)">
+      </div>
+      <a class="prev" (click)="plusSlides(-1)">&#10094;</a>
+      <a class="next" (click)="plusSlides(1)">&#10095;</a>
+      <div class="image-row">
+          <div class="image-column" *ngFor="let image of images; let i = index">
+              <img class="images" (click)="currentSlide(i+1)" src="{{image.url}}">
+          </div>
+      </div>
+  </div>
 </div>

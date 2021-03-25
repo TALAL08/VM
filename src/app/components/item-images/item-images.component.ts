@@ -39,10 +39,13 @@ export class ItemImagesComponent implements OnInit {
       this.itemService.get(itemId).subscribe((res) => {
         this.item =(res as any);
         this.images =this.item.images
-      });
 
-      $('.loader').fadeOut();
-      $('.page-loader').delay(350).fadeOut('slow');
+        while (this.item.images.length<0) {
+        }
+        $('.loader').fadeOut();
+        $('.page-loader').delay(350).fadeOut('slow');
+
+      });
     });
 
   }
