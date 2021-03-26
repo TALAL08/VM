@@ -37,6 +37,7 @@ export class NavBarComponent implements OnInit {
   }
 
   isAutherizeUser(){
+    console.log(this.authService.isAutherize())
     return this.authService.isAutherize();
   }
 

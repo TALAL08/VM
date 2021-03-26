@@ -1,23 +1,22 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { OrderService } from 'src/app/services/order.service';
-declare var $: any;
+
 @Component({
-  selector: 'app-order-item',
-  templateUrl: './order-item.component.html',
+  selector: 'app-admin-order-item',
+  templateUrl: './admin-order-item.component.html',
   styleUrls: [
-    '../../../assets/lib/bootstrap/dist/css/bootstrap.min.css',
-    '../../../assets/lib/animate.css/animate.css',
-    '../../../assets/lib/components-font-awesome/css/font-awesome.min.css',
-    '../../../assets/lib/et-line-font/et-line-font.css',
-    '../../../assets/lib/magnific-popup/dist/magnific-popup.css',
-    '../../../assets/lib/simple-text-rotator/simpletextrotator.css',
-    '../../../assets/css/style.css',
-    '../../../assets/css/colors/default.css',
-    './order-item.component.css',
-  ],
+    '../../../assets/vendors/iconfonts/mdi/css/materialdesignicons.min.css',
+    '../../../assets/vendors/iconfonts/ionicons/dist/css/ionicons.css',
+    '../../../assets/vendors/iconfonts/flag-icon-css/css/flag-icon.min.css',
+    '../../../assets/vendors/css/vendor.bundle.base.css',
+    '../../../assets/vendors/css/vendor.bundle.addons.css',
+    '../../../assets/css/shared/style.css',
+    '../../../assets/css/demo_1/style.css',
+    './admin-order-item.component.css'
+  ]
 })
-export class OrderItemComponent implements OnInit {
+export class AdminOrderItemComponent implements OnInit {
   items: any[] = [];
   totalQuantity: number = 0;
   bill: number = 0;
@@ -36,12 +35,11 @@ export class OrderItemComponent implements OnInit {
     else {
       this.route.paramMap.subscribe((pram) => {
         const orderId = pram.get('orderId') as string;
-        this.orderService.get(orderId, 'GetCustomerOrder').subscribe((res) => {
+        this.orderService.get(orderId).subscribe((res) => {
           this.items = (res as any).orderItems;
         });
       });
     }
-
     while (items==null);
 
     this.items.forEach((item) => {
@@ -50,7 +48,5 @@ export class OrderItemComponent implements OnInit {
     });
 
     if (items == null) this.router.navigate(['/orders']);
-      $('.loader').fadeOut();
-      $('.page-loader').delay(950).fadeOut('slow');
   }
 }

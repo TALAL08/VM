@@ -39,9 +39,6 @@ export class ProductItemsComponent implements OnInit {
       items = [];
       if (itemsInStorage)
         items = JSON.parse(itemsInStorage) as {}[];
-
-
-
       this.productItemService.get(productId).subscribe((res) => {
 
         ((res as any) as []).forEach((item: any) => {
@@ -91,6 +88,7 @@ export class ProductItemsComponent implements OnInit {
         itemId: item.id,
         name: item.name,
         price: item.price,
+        contentType:item.contentType,
         image: item.contentType + item.image,
         quantity: 1,
         color:item.color,

@@ -3,7 +3,6 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ItemService } from 'src/app/services/item.service';
 import { ProductItemService } from 'src/app/services/product-item.service';
-import { ProductService } from 'src/app/services/product.service';
 declare var $:any;
 @Component({
   selector: 'app-item-detail',
@@ -40,6 +39,7 @@ export class ItemDetailComponent implements OnInit {
   }={itemId:"",description:"",name:"",contentType:"",price:"",image:"",color:"",size:"",product:{categoryId:""},productId:"",categoryId:"",isAddedToCart:false};
   count: number = 0;
   quantity: number = 1;
+
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -49,6 +49,7 @@ export class ItemDetailComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+
     this.route.paramMap.subscribe((pram) => {
       let itemId = pram.get('id') as string;
       const itemsInStorage = localStorage.getItem('items');
@@ -76,15 +77,15 @@ export class ItemDetailComponent implements OnInit {
             this.getRelatedProductItems(this.item.productId,items);
         });
       }else{
-        this.item.itemId = item.id,
+        this.item.itemId = item.itemId,
         (this.item.name = item.name),
         (this.item.contentType = item.contentType),
         (this.item.price = item.price),
         (this.item.image = item.image),
-        (this.item.color = item.colors),
-        (this.item.size = item.sizes),
-        (this.item.productId = item.product.id),
-        (this.item.product.categoryId = item.product.categoryId),
+        (this.item.color = item.color),
+        (this.item.size = item.size),
+        (this.item.productId = item.productId),
+        (this.item.product.categoryId = item.categoryId),
         (this.item.isAddedToCart = true),
         (this.images = item.images);
 
@@ -97,11 +98,13 @@ export class ItemDetailComponent implements OnInit {
   }
 
   private getRelatedProductItems(productId:string,items: {}[]) {
+
     this.productItemService.get(productId).subscribe((res) => {
       const selectedItem = ((res as any) as []).find(
         (pi: any) => pi.id == this.item.itemId
       ) as any;
       ((res as any) as []).forEach((item: any) => {
+
         const isInCart = items.find((c: any) => c.itemId === item.id);
 
         let productItem = {
@@ -118,7 +121,7 @@ export class ItemDetailComponent implements OnInit {
 
         if (isInCart) productItem.isAddedToCart = true;
 
-        if (selectedItem.id != item.id) this.productItems.push(productItem);
+        if (this.item.itemId != item.id) this.productItems.push(productItem);
       });
     });
   }
@@ -139,10 +142,11 @@ export class ItemDetailComponent implements OnInit {
         itemId: item.id,
         name: item.name,
         price: item.price,
+        contentType:item.contentType,
         image: item.contentType + item.image,
         quantity: this.quantity,
-        color:item.colors,
-        size:item.sizes,
+        color:item.color,
+        size:item.size,
         productId: this.item.productId,
         categoryId: this.item.product.categoryId,
       });
@@ -157,8 +161,8 @@ export class ItemDetailComponent implements OnInit {
       this.router.navigate(['productItems/' + this.item.productId]);
   }
 
-  getImage(itemImage: any) {
-    const image = itemImage.contentType + itemImage.image;
+  getImage(image: any) {
+
     return this.sanitizer.bypassSecurityTrustResourceUrl(image as string);
   }
 

@@ -21,6 +21,8 @@ import { ItemDetailComponent } from './components/item-detail/item-detail.compon
 import { OrderComponent } from './components/order/order.component';
 import { OrderItemComponent } from './components/order-item/order-item.component';
 import { ProfileComponent } from './components/profile/profile.component';
+import { AdminOrdersComponent } from './components/admin-orders/admin-orders.component';
+import { AdminOrderItemComponent } from './components/admin-order-item/admin-order-item.component';
 
 const routes: Routes = [
 
@@ -33,6 +35,8 @@ const routes: Routes = [
   {path:'categoryProducts/:categoryId', component:CategoryProductsComponent},
   {path:'orders', component:OrderComponent},
   {path:'orderItem/:orderId', component:OrderItemComponent},
+  {path:'adminOrders', component:AdminOrdersComponent},
+  {path:'adminOrderItem/:orderId', component:AdminOrderItemComponent},
 
   {path:'profile', component:ProfileComponent},
   {path:'products', component:ProductsTableComponent},

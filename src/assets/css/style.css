@@ -708,23 +708,23 @@ a,
 }
 
 .btn.btn-d {
-  background: rgb(189 0 56 / 90%);
+    background: #723C70;
   color: #fff;
 }
 
 .btn.btn-d:hover,
 .btn.btn-d:focus {
-    background: rgb(230 4 71 / 90%);
+    background: #723C70;
 }
 
 .btn.btn-b {
-  background: #111111;
+  background: #5C4D7D;
   color: #fff;
 }
 
 .btn.btn-b:hover,
 .btn.btn-b:focus {
-  background: rgba(17, 17, 17, 0.8);
+  background: #723C70;
 }
 
 .btn-border-d {
@@ -815,8 +815,8 @@ a,
   font-family: "Roboto Condensed", sans-serif;
   text-transform: uppercase;
   letter-spacing: 2px;
-  font-size: 11px;
-  height: 33px;
+  font-size: 16px;
+  height: 40px;
   border: 1px solid #EAEAEA;
   border-radius: 2px;
   transition: all 0.4s ease-in-out 0s;
@@ -825,8 +825,8 @@ a,
 .form-control:focus {
     border: 2px solid #c3194c;
      border-radius: 10px;
-     color: #ff1bce;
-    font-weight: bold;
+     color:white;
+     background-color: #c3194c;
   }
   
 
@@ -2497,7 +2497,7 @@ Google map
   text-align: center;
   margin: 0 0 40px;
   padding-bottom: 10px;
-  background-color: rgb(189 0 56 / 90%);
+  background-color: #723C70;
 }
 .image-name{
     padding-bottom: 10px;
@@ -2508,7 +2508,7 @@ Google map
 }
 .shop-item-image {
     border-style: solid;
-    border-color: rgb(189 0 56 / 90%);    
+    border-color: #723C70;    
   position: relative;
   overflow: hidden;
   background-color: #f2f2f2;

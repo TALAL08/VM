@@ -8,10 +8,10 @@
     <div class="collapse navbar-collapse" id="custom-collapse">
       <ul class="nav navbar-nav navbar-right">
 
-        <ng-template *ngIf="!isAutherizeUser();">
+        <ng-container *ngIf="!isAutherizeUser()">
           <li ><a [routerLink]="['/customerLogin']">Login</a></li>
           <li ><a [routerLink]="['/signUp']">Sign Up</a></li>
-        </ng-template>
+        </ng-container>
 
         <li><a [routerLink]="['/home']">Home</a>
         </li>

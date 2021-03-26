@@ -4,11 +4,13 @@
   <section class="module">
     <div class="container">
       <div class="row">
-        <div class="col-sm-6 mb-sm-40"><a class="gallery" href="assets/images/shop/product-7.jpg"><img [src]="getImage(item)" alt="Single Product Image"/></a>
+        <div class="col-sm-6 mb-sm-40"><a class="gallery" href="assets/images/shop/product-7.jpg"><img [src]="getImage(item.contentType+item.image)" alt="Single Product Image"/></a>
           <ul class="product-gallery">
             <ng-container *ngFor="let image of images;index as i;">
 
-              <li><a class="gallery" href="assets/images/shop/product-8.jpg"></a><img [src]="getImage(image)" (click)="openModal();currentSlide(i+1)"  alt="Single Product"/></li>
+              <li>
+                <img *ngIf="image" [src]="getImage(image.contentType+image.image)" (click)="openModal();currentSlide(i+1)"  alt="Single Product"/>
+              </li>
 
             </ng-container>
 
@@ -187,7 +189,8 @@
         <ng-container *ngFor="let item of productItems">
         <div class="col-sm-6 col-md-3 col-lg-3">
           <div class="shop-item">
-            <div class="shop-item-image"><img [src]="getImage(item)" alt="Men’s Casual Pack"/>
+            <div class="shop-item-image">
+              <img *ngIf="item" [src]="getImage(item.contentType+item.image)" alt="Men’s Casual Pack"/>
               <div class="shop-item-detail">
 
                 <!-- <a [routerLink]="['/itemImages',item.id]"
@@ -216,7 +219,8 @@
                 </a>
                 </div>
             </div>
-            <h4 class="shop-item-title font-alt"><a [routerLink]="['/item',item.id]">{{item.name}}</a></h4>Rs: {{item.price}}
+            <h4 class="shop-item-title font-alt"><a class="image-text" [routerLink]="['/item',item.id]">{{item.name}}</a></h4>
+            <span class="image-text" > RS: {{item.price}}</span>
           </div>
         </div>
       </ng-container>
@@ -359,7 +363,7 @@
   <span class="close cursor" (click)="closeModal()">&times;</span>
   <div class="slide-modal-content">
       <div class="img-slides" *ngFor="let image of images; let i = index">
-          <img  [src]="getImage(image)">
+          <img  [src]="getImage(image.contentType+image.image)">
       </div>
       <a class="prev" (click)="plusSlides(-1)">&#10094;</a>
       <a class="next" (click)="plusSlides(1)">&#10095;</a>
