@@ -1,0 +1,7 @@
+.font-custom{
+  font-family: "Roboto Condensed", sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: bold;
+    color: white;
+}
