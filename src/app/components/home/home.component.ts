@@ -7,7 +7,6 @@ declare var $: any;
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: [
-    './home.component.css',
     '../../../assets/lib/bootstrap/dist/css/bootstrap.min.css',
     '../../../assets/lib/animate.css/animate.css',
     '../../../assets/lib/components-font-awesome/css/font-awesome.min.css',
@@ -16,6 +15,7 @@ declare var $: any;
     '../../../assets/lib/simple-text-rotator/simpletextrotator.css',
     '../../../assets/css/style.css',
     '../../../assets/css/colors/default.css',
+    './home.component.css',
 ],
 animations:[
   trigger('loader',[

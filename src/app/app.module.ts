@@ -38,6 +38,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { ProfileComponent } from './components/profile/profile.component';
 import { AdminOrdersComponent } from './components/admin-orders/admin-orders.component';
 import { AdminOrderItemComponent } from './components/admin-order-item/admin-order-item.component';
+import { FooterComponent } from './components/footer/footer.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -69,6 +70,7 @@ import { AdminOrderItemComponent } from './components/admin-order-item/admin-ord
     ProfileComponent,
     AdminOrdersComponent,
     AdminOrderItemComponent,
+    FooterComponent,
   ],
   imports: [
     BrowserAnimationsModule,
