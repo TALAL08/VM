@@ -1,4 +1,4 @@
-<app-nav-bar></app-nav-bar>
+<app-nav-bar [count]="count"></app-nav-bar>
 <app-loader></app-loader>
 <app-slider *ngIf="categoryProducts.length==0" ></app-slider>
 <div *ngIf="showHome" class="main">
@@ -38,7 +38,9 @@
 
 *ngIf="showProducts"
 [categoryProducts]="categoryProducts" [category]="category"
-(change)="showProdouctItems($event)">
+(change)="showProdouctItems($event)"
+(goBack)="back($event)"
+>
 
 </app-category-products>
 
@@ -47,7 +49,9 @@
 
 *ngIf="showItems"
 [productItems]="productItems" [product]="getProduct()"
-(change)="showtItemDetail($event)">
+(changeCartCount)="updateCartCount()"
+(change)="showtItemDetail($event)"
+(goBack)="back($event)">
 
 </app-product-items>
 
@@ -56,7 +60,10 @@
 
 *ngIf="showItemDetail"
 [productItems]="productItems" [item]="getItem()" [images]="images"
-(change)="showtItemDetail($event)">
+(changeCartCount)="updateCartCount()"
+(change)="showtItemDetail($event)"
+(view)="showtItemDetail($event)"
+(goBack)="back($event)">
 
 </app-item-detail>
 

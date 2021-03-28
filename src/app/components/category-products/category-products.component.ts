@@ -1,8 +1,7 @@
-  import { PlatformLocation } from '@angular/common';
+import { LocationStrategy } from '@angular/common';
 import { Component,EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
-import { ActivatedRoute } from '@angular/router';
-import { CategoryProductService } from 'src/app/services/category-product.service';
+import { ComponentName } from 'src/app/common/enum/ComponentName';
 declare var $: any;
 @Component({
   selector: 'app-category-products',
@@ -17,40 +16,29 @@ declare var $: any;
     '../../../assets/lib/simple-text-rotator/simpletextrotator.css',
     '../../../assets/css/style.css',
     '../../../assets/css/colors/default.css',
-  ]
+  ],
 })
 export class CategoryProductsComponent implements OnInit {
   @Input() categoryProducts!: any[];
   @Input() category: any;
   @Output() change = new EventEmitter();
+  @Output() goBack = new EventEmitter();
 
   constructor(
-   private location: PlatformLocation,
-    private route: ActivatedRoute,
-    private sanitizer: DomSanitizer,
-    private categoryProductService: CategoryProductService
-  ) {}
+    private location: LocationStrategy,
+    private sanitizer: DomSanitizer
+  ) {
+
+    history.pushState(null, 'null', window.location.href);
+    this.location.onPopState(() => {
+      this.goBack.emit({component:ComponentName.Product});
+      history.pushState(null, 'null', window.location.href);
+    });
+  }
 
   ngOnInit(): void {
-
-    // this.route.paramMap.subscribe((pram) => {
-
-    //   let categoryId = pram.get('categoryId') as string;
-    //   this.categoryProductService.get(categoryId).subscribe((res) => {
-    //     console.log(res);
-    //     this.categoryProducts = res as any;
-    //     if (this.categoryProducts.length > 0)
-    //       this.category = this.categoryProducts[0].category;
-
-    //       while (this.categoryProducts.length<0) {
-    //       }
-    //       $('.loader').fadeOut();
-    //       $('.page-loader').delay(350).fadeOut('slow');
-    //   });
-    // });
-
-          $('.loader').fadeOut();
-          $('.page-loader').delay(350).fadeOut('slow');
+    $('.loader').fadeOut();
+    $('.page-loader').delay(350).fadeOut('slow');
   }
 
   getImage(categoryImage: any) {
@@ -58,8 +46,7 @@ export class CategoryProductsComponent implements OnInit {
     return this.sanitizer.bypassSecurityTrustResourceUrl(image as string);
   }
 
-  getProductItems(product:any,categoryId:string){
-    console.log({product:product,categoryId:categoryId});
-    this.change.emit({product:product,categoryId:categoryId});
+  getProductItems(product: any, categoryId: string) {
+    this.change.emit({ product: product, categoryId: categoryId });
   }
 }

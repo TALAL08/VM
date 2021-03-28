@@ -1,6 +1,7 @@
-import { LocationStrategy, PlatformLocation } from '@angular/common';
+import { LocationStrategy } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
+import { ComponentName } from 'src/app/common/enum/ComponentName';
 import { CategoryService } from 'src/app/services/category.service';
 import { ShopService } from 'src/app/services/shop.service';
 declare var $: any;
@@ -82,6 +83,7 @@ export class HomeComponent implements OnInit {
     private categoryService: CategoryService,
     private sanitizer: DomSanitizer
   ) {
+
     history.pushState(null, 'null', window.location.href);
     this.location.onPopState(() => {
       const url = window.location.href.includes('home');
@@ -136,7 +138,7 @@ export class HomeComponent implements OnInit {
     };
 
     let cartItems = this.getCartItems();
-
+    this.productItems=[];
     (product.items as []).forEach((item: any) => {
       const isInCart = cartItems.find((c: any) => c.itemId === item.id);
 
@@ -167,7 +169,7 @@ export class HomeComponent implements OnInit {
     const categoryId = $event.categoryId;
     this.product=null;
     this.item = {
-      itemId: item.itemId,
+      itemId: item.id,
       name: item.name,
       description: item.description,
       contentType: item.contentType,
@@ -176,9 +178,9 @@ export class HomeComponent implements OnInit {
       color: item.color,
       size: item.size,
       productId: item.product.id,
-      product: { categoryId: item.categoryId },
-      categoryId: item.categoryId,
-      isAddedToCart: true,
+      product: { categoryId: item.product.categoryId },
+      categoryId: item.product.categoryId,
+      isAddedToCart: item.isAddedToCart,
     };
 
     this.images = item.images;
@@ -238,5 +240,39 @@ export class HomeComponent implements OnInit {
 
       this.productItems.push(productItem);
     });
+  }
+
+  getCartCount():number{
+    return this.getCartItems().length;
+  }
+
+  updateCartCount(){
+    this.count = this.getCartCount();
+  }
+
+  back($event:any){
+    console.log($event);
+    const componentName = ($event.component as ComponentName)
+    if(componentName== ComponentName.Product)
+    {
+      this.showProducts=false;
+      this.showHome=true;
+    }
+
+    else if(componentName== ComponentName.Item){
+      this.showItems=false;
+      this.showCategoryProdouct($event.categoryId);
+    }
+
+    else if(componentName== ComponentName.ItemDetail){
+      this.showItemDetail=false;
+      const categoryId = $event.categoryId;
+      const productId = $event.productId;
+      const product = this.categories
+      .find(c => c.id ==categoryId)
+      .products
+      .find((p:any) => p.id ==productId);
+      this.showProdouctItems({product:product,categoryId:categoryId});
+    }
   }
 }

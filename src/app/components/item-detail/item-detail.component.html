@@ -1,5 +1,3 @@
-<app-nav-bar [count]="count" ></app-nav-bar>
-<app-loader></app-loader>
 <div class="main">
   <section class="module">
     <div class="container">
@@ -43,7 +41,7 @@
           <div class="row mb-20">
             <div class="col-sm-4 mb-sm-20">
               <input
-              (change)="updateQuantity($event,item)"
+              (change)="updateQuantity($event)"
               class="form-control input-lg" type="number" name="" value="{{quantity}}" max="40" min="1" required="required"/>
             </div>
             <div class="col-sm-8">
@@ -200,7 +198,8 @@
                 </a>
                   <br> -->
 
-                  <a [routerLink]="['/item',item.id]"
+                  <a [routerLink]
+                  (click)="viewItem(item)"
                   class="btn btn-round btn-b"><span class="icon-basket">
                     View Item
                   </span>

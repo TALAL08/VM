@@ -1,7 +1,8 @@
+import { LocationStrategy } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
-import { ActivatedRoute } from '@angular/router';
-import { ProductItemService } from '../../services/product-item.service';
+import { ComponentName } from 'src/app/common/enum/ComponentName';
+import { ToastNotificationService } from 'src/app/services/toast-notification.service';
 declare var $: any;
 @Component({
   selector: 'app-product-items',
@@ -21,22 +22,37 @@ declare var $: any;
   ],
 })
 export class ProductItemsComponent implements OnInit {
- @Input() productItems: any[] = [];
- @Input() product: {id:string,name:string,contentType:string,image:string,categoryId:string}={id:"",name:"",contentType:"",image:"",categoryId:"",};
+  @Input() productItems: any[] = [];
+  @Input() product: {
+    id: string;
+    name: string;
+    contentType: string;
+    image: string;
+    categoryId: string;
+  } = { id: '', name: '', contentType: '', image: '', categoryId: '' };
 
- @Output() change = new EventEmitter();
+  @Output() change = new EventEmitter();
+  @Output() changeCartCount = new EventEmitter();
+  @Output() goBack = new EventEmitter();
 
- count: number = 0;
   constructor(
-    private route: ActivatedRoute,
+    private location: LocationStrategy,
     private sanitizer: DomSanitizer,
-    private productItemService: ProductItemService
-  ) {}
+    private toastNotificationService:ToastNotificationService
+  ) {
+
+    history.pushState(null, 'null', window.location.href);
+    this.location.onPopState(() => {
+      this.goBack.emit({component:ComponentName.Item,categoryId:this.product.categoryId});
+      history.pushState(null, 'null', window.location.href);
+    });
+
+  }
 
   ngOnInit(): void {
 
-        $('.loader').fadeOut();
-        $('.page-loader').delay(350).fadeOut('slow');
+    $('.loader').fadeOut();
+    $('.page-loader').delay(350).fadeOut('slow');
   }
 
   getImage(itemImage: any) {
@@ -58,27 +74,31 @@ export class ProductItemsComponent implements OnInit {
         itemId: item.id,
         name: item.name,
         price: item.price,
-        contentType:item.contentType,
+        contentType: item.contentType,
         image: item.contentType + item.image,
         quantity: 1,
-        color:item.color,
-        size:item.size,
-        productId:this.product.id,
-        categoryId:this.product.categoryId
+        color: item.color,
+        size: item.size,
+        productId: this.product.id,
+        categoryId: this.product.categoryId,
       });
+      this.toastNotificationService.showSuccess('Item added to cart','Added To Cart');
     } else {
       let cartItemIndex = items.findIndex((c: any) => c.itemId == item.id);
-      items.slice(cartItemIndex, 1);
+      items.splice(cartItemIndex, 1);
+      this.toastNotificationService.showSuccess('Item removed from cart','Removed From Cart');
     }
 
-    console.log(items);
-    localStorage.setItem('items', JSON.stringify(items));
     productItem.isAddedToCart = !item.isAddedToCart;
-    this.count = items.length;
+    localStorage.setItem('items', JSON.stringify(items));
+    this.changeCartCount.emit();
   }
 
-  itemDetail(item:any,categoryId:string,productId:string){
-    console.log({item:item,categoryId:categoryId,productId:productId});
-    this.change.emit({item:item,categoryId:categoryId,productId:productId});
+  itemDetail(item: any, categoryId: string, productId: string) {
+    this.change.emit({
+      item: item,
+      categoryId: categoryId,
+      productId: productId,
+    });
   }
 }
