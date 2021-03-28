@@ -1,3 +1,4 @@
+import { LocationStrategy } from '@angular/common';
 import { Component } from '@angular/core';
 import { AuthService } from './services/auth.service';
 
@@ -26,9 +27,13 @@ import { AuthService } from './services/auth.service';
 export class AppComponent {
   title = 'VirtualMartket';
   constructor(
+    private location: LocationStrategy,
     private authService:AuthService
     ){
-
+      history.pushState(null, "null", window.location.href);
+      this.location.onPopState(() => {
+        history.pushState(null, "null", window.location.href);
+        });
   }
 
   isInRole(roleName:string){

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { ProductItemService } from '../../services/product-item.service';
@@ -21,9 +21,12 @@ declare var $: any;
   ],
 })
 export class ProductItemsComponent implements OnInit {
-  productItems: any[] = [];
-  product: {id:string,name:string,contentType:string,image:string,categoryId:string}={id:"",name:"",contentType:"",image:"",categoryId:"",};
-  count: number = 0;
+ @Input() productItems: any[] = [];
+ @Input() product: {id:string,name:string,contentType:string,image:string,categoryId:string}={id:"",name:"",contentType:"",image:"",categoryId:"",};
+
+ @Output() change = new EventEmitter();
+
+ count: number = 0;
   constructor(
     private route: ActivatedRoute,
     private sanitizer: DomSanitizer,
@@ -31,44 +34,11 @@ export class ProductItemsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.route.paramMap.subscribe((pram) => {
 
-      let productId = pram.get('productId') as string;
-      const itemsInStorage = localStorage.getItem('items');
-      let items = [{}];
-      items = [];
-      if (itemsInStorage)
-        items = JSON.parse(itemsInStorage) as {}[];
-      this.productItemService.get(productId).subscribe((res) => {
-
-        ((res as any) as []).forEach((item: any) => {
-
-          const isInCart = items.find((c: any) => c.itemId === item.id);
-
-          let productItem = {
-            id: item.id,
-            name: item.name,
-            contentType: item.contentType,
-            price: item.price,
-            image: item.image,
-            product: item.product,
-            color:item.colors,
-            size:item.sizes,
-            isAddedToCart: false,
-          };
-
-          if (isInCart) productItem.isAddedToCart = true;
-          this.productItems.push(productItem);
-        });
-
-        this.product = this.productItems[0].product;
-        while (this.productItems.length<0) {
-        }
         $('.loader').fadeOut();
         $('.page-loader').delay(350).fadeOut('slow');
-      });
-    });
   }
+
   getImage(itemImage: any) {
     const image = itemImage.contentType + itemImage.image;
     return this.sanitizer.bypassSecurityTrustResourceUrl(image as string);
@@ -105,5 +75,10 @@ export class ProductItemsComponent implements OnInit {
     localStorage.setItem('items', JSON.stringify(items));
     productItem.isAddedToCart = !item.isAddedToCart;
     this.count = items.length;
+  }
+
+  itemDetail(item:any,categoryId:string,productId:string){
+    console.log({item:item,categoryId:categoryId,productId:productId});
+    this.change.emit({item:item,categoryId:categoryId,productId:productId});
   }
 }

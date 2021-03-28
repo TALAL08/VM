@@ -1,4 +1,5 @@
-  import { Component, OnInit } from '@angular/core';
+  import { PlatformLocation } from '@angular/common';
+import { Component,EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { CategoryProductService } from 'src/app/services/category-product.service';
@@ -19,10 +20,12 @@ declare var $: any;
   ]
 })
 export class CategoryProductsComponent implements OnInit {
-  categoryProducts: any[] = [];
-  category: any;
+  @Input() categoryProducts!: any[];
+  @Input() category: any;
+  @Output() change = new EventEmitter();
 
   constructor(
+   private location: PlatformLocation,
     private route: ActivatedRoute,
     private sanitizer: DomSanitizer,
     private categoryProductService: CategoryProductService
@@ -30,25 +33,33 @@ export class CategoryProductsComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.route.paramMap.subscribe((pram) => {
+    // this.route.paramMap.subscribe((pram) => {
 
-      let categoryId = pram.get('categoryId') as string;
-      this.categoryProductService.get(categoryId).subscribe((res) => {
-        console.log(res);
-        this.categoryProducts = res as any;
-        if (this.categoryProducts.length > 0)
-          this.category = this.categoryProducts[0].category;
+    //   let categoryId = pram.get('categoryId') as string;
+    //   this.categoryProductService.get(categoryId).subscribe((res) => {
+    //     console.log(res);
+    //     this.categoryProducts = res as any;
+    //     if (this.categoryProducts.length > 0)
+    //       this.category = this.categoryProducts[0].category;
 
-          while (this.categoryProducts.length<0) {
-          }
+    //       while (this.categoryProducts.length<0) {
+    //       }
+    //       $('.loader').fadeOut();
+    //       $('.page-loader').delay(350).fadeOut('slow');
+    //   });
+    // });
+
           $('.loader').fadeOut();
           $('.page-loader').delay(350).fadeOut('slow');
-      });
-    });
   }
 
   getImage(categoryImage: any) {
     const image = categoryImage.contentType + categoryImage.image;
     return this.sanitizer.bypassSecurityTrustResourceUrl(image as string);
+  }
+
+  getProductItems(product:any,categoryId:string){
+    console.log({product:product,categoryId:categoryId});
+    this.change.emit({product:product,categoryId:categoryId});
   }
 }

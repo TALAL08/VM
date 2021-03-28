@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ItemService } from 'src/app/services/item.service';
@@ -20,10 +20,9 @@ declare var $:any;
   ],
 })
 export class ItemDetailComponent implements OnInit {
-  images: any[] = [];
-  productItems: any[] = [];
-  slideIndex = 0;
-  item: {
+  @Input() images: any[] = [];
+  @Input() productItems: any[] = [];
+ @Input() item: {
     itemId: string,
     name: string,
     contentType: string,
@@ -37,6 +36,8 @@ export class ItemDetailComponent implements OnInit {
     categoryId: string,
     isAddedToCart: boolean
   }={itemId:"",description:"",name:"",contentType:"",price:"",image:"",color:"",size:"",product:{categoryId:""},productId:"",categoryId:"",isAddedToCart:false};
+
+  slideIndex = 0;
   count: number = 0;
   quantity: number = 1;
 
@@ -49,81 +50,8 @@ export class ItemDetailComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-
-    this.route.paramMap.subscribe((pram) => {
-      let itemId = pram.get('id') as string;
-      const itemsInStorage = localStorage.getItem('items');
-      let items = [{}];
-      items = [];
-      if (itemsInStorage) items = JSON.parse(itemsInStorage) as {}[];
-
-      const item =(items.find((i: any) => i.itemId == itemId)as any);
-      if (item == null) {
-        this.itemService.get(itemId).subscribe((res) => {
-
-          let i = (res as any);
-          this.item.itemId = i.id,
-            (this.item.name = i.name),
-            (this.item.contentType = i.contentType),
-            (this.item.price = i.price),
-            (this.item.image = i.image),
-            (this.item.color = i.colors),
-            (this.item.size = i.sizes),
-            (this.item.productId = i.product.id),
-            (this.item.product.categoryId = i.product.categoryId),
-            (this.item.isAddedToCart = false),
-            (this.images = i.images);
-
-            this.getRelatedProductItems(this.item.productId,items);
-        });
-      }else{
-        this.item.itemId = item.itemId,
-        (this.item.name = item.name),
-        (this.item.contentType = item.contentType),
-        (this.item.price = item.price),
-        (this.item.image = item.image),
-        (this.item.color = item.color),
-        (this.item.size = item.size),
-        (this.item.productId = item.productId),
-        (this.item.product.categoryId = item.categoryId),
-        (this.item.isAddedToCart = true),
-        (this.images = item.images);
-
-        this.getRelatedProductItems(this.item.productId,items);
-      }
-
-      $('.page-loader').delay(350).fadeOut('slow');
-      $('.loader').fadeOut();
-    });
-  }
-
-  private getRelatedProductItems(productId:string,items: {}[]) {
-
-    this.productItemService.get(productId).subscribe((res) => {
-      const selectedItem = ((res as any) as []).find(
-        (pi: any) => pi.id == this.item.itemId
-      ) as any;
-      ((res as any) as []).forEach((item: any) => {
-
-        const isInCart = items.find((c: any) => c.itemId === item.id);
-
-        let productItem = {
-          id: item.id,
-          name: item.name,
-          contentType: item.contentType,
-          price: item.price,
-          image: item.image,
-          color:item.colors,
-          size:item.sizes,
-          product: item.product,
-          isAddedToCart: false,
-        };
-
-        if (isInCart) productItem.isAddedToCart = true;
-
-        if (this.item.itemId != item.id) this.productItems.push(productItem);
-      });
-    });
+    $('.loader').fadeOut();
+    $('.page-loader').delay(350).fadeOut('slow');
   }
 
   updateQuantity($event: any, item: any) {

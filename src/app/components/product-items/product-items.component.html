@@ -82,7 +82,9 @@
                   </a>
                     <br> -->
 
-                    <a [routerLink]="['/item',item.id]"
+                    <a
+                    (click)="itemDetail(item,product.categoryId,product.id)"
+                    [routerLink]
                     class="btn btn-round btn-b"><span class="icon-basket">
                       View Item
                     </span>
@@ -118,4 +120,3 @@
   </section>
   <app-footer></app-footer>
 </div>
-<div class="scroll-up"><a href="#totop"><i class="fa fa-angle-double-up"></i></a></div>
