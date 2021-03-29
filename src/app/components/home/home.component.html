@@ -1,6 +1,16 @@
-<app-nav-bar [count]="count"></app-nav-bar>
+<app-nav-bar [count]="count"
+
+(showHome)="showHomePage()"
+(showCart)="onShowCart()"
+(showOrders)="showCustomerOrders()"
+>
+</app-nav-bar>
+
 <app-loader></app-loader>
-<app-slider *ngIf="categoryProducts.length==0" ></app-slider>
+<div class="main">
+
+  <app-slider></app-slider>
+</div>
 <div *ngIf="showHome" class="main">
   <section class="module-small">
     <div class="container">
@@ -67,8 +77,23 @@
 
 </app-item-detail>
 
+<app-order
 
-<app-cart *ngIf="0>1"></app-cart>
+*ngIf="showOrders"
+[orders]="orders"
+(goBack)="back($event)"
+>
+
+</app-order>
+
+<app-cart
+*ngIf="showCart"
+[itemsInMemory]="cartItems"
+[items]="cartItems"
+>
+
+</app-cart>
+
 <app-customer-detail *ngIf="0>1"></app-customer-detail>
 
 <div class="scroll-up"><a href="#totop"><i class="fa fa-angle-double-up"></i></a></div>

@@ -1,6 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component,EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
-import { CustomerService } from 'src/app/services/customer.service';
 
 @Component({
   selector: 'app-nav-bar',
@@ -19,9 +18,12 @@ import { CustomerService } from 'src/app/services/customer.service';
 })
 export class NavBarComponent implements OnInit {
   @Input() count:number =0;
+  @Output() showOrders = new EventEmitter();
+  @Output() showHome = new EventEmitter();
+  @Output() showCart = new EventEmitter();
+
   constructor(
-    private authService:AuthService,
-    private customerService:CustomerService
+    private authService:AuthService
   ) { }
 
   ngOnInit(): void {
@@ -49,5 +51,16 @@ export class NavBarComponent implements OnInit {
   }
   logout(){
     this.authService.logOut();
+  }
+
+  onShowOrders(){
+    this.showOrders.emit();
+  }
+
+  onShowHome(){
+    this.showHome.emit();
+  }
+  onShowCart(){
+    this.showCart.emit();
   }
 }

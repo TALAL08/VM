@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ComponentName } from 'src/app/common/enum/ComponentName';
 import { CategoryService } from 'src/app/services/category.service';
+import { OrderService } from 'src/app/services/order.service';
 import { ShopService } from 'src/app/services/shop.service';
 declare var $: any;
 @Component({
@@ -10,18 +11,22 @@ declare var $: any;
   templateUrl: './home.component.html',
   styleUrls: [
     '../../../assets/lib/bootstrap/dist/css/bootstrap.min.css',
+    '../../../assets/lib/owl.carousel/dist/assets/owl.carousel.min.css',
+    '../../../assets/lib/owl.carousel/dist/assets/owl.theme.default.min.css',
     '../../../assets/lib/animate.css/animate.css',
     '../../../assets/lib/components-font-awesome/css/font-awesome.min.css',
     '../../../assets/lib/et-line-font/et-line-font.css',
     '../../../assets/lib/magnific-popup/dist/magnific-popup.css',
     '../../../assets/lib/simple-text-rotator/simpletextrotator.css',
-    '../../../assets/css/style.css',
     '../../../assets/css/colors/default.css',
+    '../../../assets/lib/flexslider/flexslider.css',
+    '../../../assets/css/style.css',
     './home.component.css',
   ],
 })
 export class HomeComponent implements OnInit {
   categories: any[] = [];
+  cartItems: any[] = [];
 
   category: {id:string, name: string; contentType: string; image: string }|null = {
     id: '',
@@ -69,6 +74,9 @@ export class HomeComponent implements OnInit {
     categoryId: '',
     isAddedToCart: false,
   };
+
+  orders: any[] = [];
+
   count: number = 0;
   quantity: number = 1;
 
@@ -76,11 +84,14 @@ export class HomeComponent implements OnInit {
   showProducts:boolean=false;
   showItems:boolean=false;
   showItemDetail:boolean=false;
+  showOrders:boolean=false;
+  showCart:boolean=false;
 
   constructor(
     private location: LocationStrategy,
     private shopService: ShopService,
     private categoryService: CategoryService,
+    private orderService: OrderService,
     private sanitizer: DomSanitizer
   ) {
 
@@ -164,6 +175,44 @@ export class HomeComponent implements OnInit {
     this.showItems=true;
   }
 
+  showHomePage(){
+    if(!this.showHome){
+
+      this.showProducts=false;
+      this.showItems=false;
+      this.showItemDetail=false;
+      this.showOrders=false;
+
+      this.showHome=true;
+    }
+  }
+
+  showCustomerOrders(){
+
+    this.showHome=false;
+    this.showProducts=false;
+    this.showItems=false;
+    this.showItemDetail=false;
+
+    if (this.orders.length == 0) {
+      this.orderService.getAll('GetCustomerOrders').subscribe((res) => {
+        this.orders = res as any;
+        this.showOrders=true;
+      });
+    }
+
+      if (this.orders.length>0) this.showOrders = true;
+  }
+  onShowCart(){
+    this.showHome=false;
+    this.showProducts=false;
+    this.showItems=false;
+    this.showItemDetail=false;
+    this.showOrders = false;
+    this.cartItems = this.getCartItems();
+    this.showCart = true;
+  }
+
   showtItemDetail($event: any) {
     const item = $event.item;
     const categoryId = $event.categoryId;
@@ -189,8 +238,6 @@ export class HomeComponent implements OnInit {
     this.showItems=false;
     this.showItemDetail=true;
   }
-
-
 
   getProduct(): {id: string,name: string,contentType: string,image: string,categoryId: string} {
     return this.product as any;
@@ -273,6 +320,15 @@ export class HomeComponent implements OnInit {
       .products
       .find((p:any) => p.id ==productId);
       this.showProdouctItems({product:product,categoryId:categoryId});
+    }
+    else if(componentName== ComponentName.Order){
+      this.showOrders=false;
+      this.showHome=true;
+    }
+
+    else if(componentName== ComponentName.Cart){
+      this.showCart=false;
+      this.showHome=true;
     }
   }
 }

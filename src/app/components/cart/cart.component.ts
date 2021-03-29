@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { LocationStrategy } from '@angular/common';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { Color } from 'src/app/common/enum/color.enum';
+import { ComponentName } from 'src/app/common/enum/ComponentName';
 import { Size } from 'src/app/common/enum/Size';
 import { AuthService } from 'src/app/services/auth.service';
 import { ToastNotificationService } from 'src/app/services/toast-notification.service';
@@ -22,27 +24,36 @@ declare var $: any;
   ],
 })
 export class CartComponent implements OnInit {
-  itemsInMemory: any[] = [];
-  items: any[] = [];
-  count: number = 0;
+  @Input() itemsInMemory: any[] = [];
+  @Input() items: any[] = [];
+
+  @Output() goBack = new EventEmitter();
+
   cart: { CartSubtotal: number; deliveryCharges: number; total: number } = {
     CartSubtotal: 0,
     deliveryCharges: 0,
     total: 0,
   };
   constructor(
+    private location: LocationStrategy,
     private sanitizer: DomSanitizer,
     private router: Router,
     private toastNotificationService:ToastNotificationService,
     private authService: AuthService
-  ) {}
+  ) {
+
+    history.pushState(null, 'null', window.location.href);
+    this.location.onPopState(() => {
+      this.goBack.emit({component:ComponentName.Cart});
+      history.pushState(null, 'null', window.location.href);
+    });
+
+  }
 
   ngOnInit(): void {
-    this.items = JSON.parse(localStorage.getItem('items') as string);
-    this.itemsInMemory = this.items;
 
     if (this.items) {
-      let index =0;
+
       (this.items as []).forEach((item: any) => {
 
         this.cart.CartSubtotal +=
@@ -52,7 +63,7 @@ export class CartComponent implements OnInit {
 
     this.cart.deliveryCharges = 200;
     this.cart.total = this.cart.deliveryCharges + this.cart.CartSubtotal;
-    this.count = (this.items)?this.items.length:0;
+
     $('.loader').fadeOut();
     $('.page-loader').delay(350).fadeOut('slow');
   }
@@ -73,7 +84,6 @@ export class CartComponent implements OnInit {
     this.cart.CartSubtotal -= itemTotal;
     this.cart.total -= itemTotal;
     this.saveCart();
-    this.count = this.items.length;
   }
 
   updateQuantity($event: any, item: any) {

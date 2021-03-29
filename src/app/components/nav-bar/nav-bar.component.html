@@ -13,21 +13,23 @@
           <li ><a [routerLink]="['/signUp']">Sign Up</a></li>
         </ng-container>
 
-        <li><a [routerLink]="['/home']">Home</a>
+        <li><a (click)="onShowHome()" [routerLink]>Home</a>
         </li>
 
         <li>
-          <a [routerLink]="['/cart']">
-            Cart
+          <a [routerLink]
+          (click)="onShowCart()"
+          >
+          Cart
             <span class="icon-basket"></span>
             <span *ngIf="count>0" class="badge badge-danger badge-js">{{count}}</span>
           </a>
         </li>
 
-        <li *ngIf="isAutherizeUser()" class="dropdown"><a class="dropdown-toggle" href="documentation.html" data-toggle="dropdown">{{getName()}}</a>
+        <li *ngIf="isAutherizeUser()" class="dropdown"><a [routerLink] class="dropdown-toggle" data-toggle="dropdown">{{getName()}}</a>
           <ul class="dropdown-menu">
             <li class="background-color"><a [routerLink]="['/profile']">Profile</a></li>
-            <li class="background-color"><a [routerLink]="['/orders']">Orders</a></li>
+            <li class="background-color"><a (click)="onShowOrders()" [routerLink]>Orders</a></li>
             <li class="background-color"><a href="documentation.html#mailchimp">Messages</a></li>
             <li class="background-color"><a [routerLink] (click)="logout()">Logout</a></li>
           </ul>

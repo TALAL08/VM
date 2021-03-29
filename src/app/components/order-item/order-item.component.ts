@@ -1,6 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { OrderService } from 'src/app/services/order.service';
+import { LocationStrategy } from '@angular/common';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 declare var $: any;
 @Component({
   selector: 'app-order-item',
@@ -18,38 +17,28 @@ declare var $: any;
   ],
 })
 export class OrderItemComponent implements OnInit {
-  items: any[] = [];
+  @Input() items: any[] = [];
+  @Output() goBack = new EventEmitter();
   totalQuantity: number = 0;
   bill: number = 0;
 
   constructor(
-    private route: ActivatedRoute,
-    private router: Router,
-    private orderService: OrderService
-  ) {}
+    private location: LocationStrategy
+  ) {
+    history.pushState(null, 'null', window.location.href);
+    this.location.onPopState(() => {
+      this.goBack.emit();
+      history.pushState(null, 'null', window.location.href);
+    });
+  }
 
   ngOnInit(): void {
-
-    const items = JSON.parse(sessionStorage.getItem('order') as string);
-    console.log(items);
-    if (items) this.items = items;
-    else {
-      this.route.paramMap.subscribe((pram) => {
-        const orderId = pram.get('orderId') as string;
-        this.orderService.get(orderId, 'GetCustomerOrder').subscribe((res) => {
-          this.items = (res as any).orderItems;
-        });
-      });
-    }
-
-    while (items==null);
 
     this.items.forEach((item) => {
       this.totalQuantity += item.quantity;
       this.bill += item.totalAmount;
     });
 
-    if (items == null) this.router.navigate(['/orders']);
       $('.loader').fadeOut();
       $('.page-loader').delay(950).fadeOut('slow');
   }
