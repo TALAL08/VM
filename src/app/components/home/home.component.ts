@@ -26,6 +26,7 @@ declare var $: any;
   ],
 })
 export class HomeComponent implements OnInit {
+  sliderImages: any[] = [];
   categories: any[] = [];
   cartItems: any[] = [];
   customer: any;
@@ -116,19 +117,25 @@ export class HomeComponent implements OnInit {
       history.pushState(null, 'null', window.location.href);
     });
 
+  }
+
+  ngOnInit(): void {
+
     this.categoryService.getAll().subscribe((res) => {
-      this.categories = res as any;
+      this.categories = (res as any).categories;
+      this.sliderImages = (res as any).sliderImages;
+
       while (this.categories.length < 0) {}
       $('.loader').fadeOut();
       $('.page-loader').delay(550).fadeOut('slow');
+
     });
 
     this.shopService.getAll().subscribe((res) => {
-      this.categories = res as any;
+      this.categories = (res as any);
     });
-  }
 
-  ngOnInit(): void {}
+  }
 
   getImage(category: any) {
     const image = category.contentType + category.image;

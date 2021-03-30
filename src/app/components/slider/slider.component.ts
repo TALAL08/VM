@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-slider',
@@ -15,14 +16,17 @@ import { Component, OnInit } from '@angular/core';
     '../../../assets/css/colors/default.css',
     '../../../assets/lib/flexslider/flexslider.css',
     '../../../assets/css/style.css',
-    './slider.component.css'
-  ]
+    './slider.component.css',
+  ],
 })
 export class SliderComponent implements OnInit {
+  @Input() sliderImages: any[] = [];
+  constructor(    private sanitizer: DomSanitizer) {}
 
-  constructor() { }
+  ngOnInit(): void {}
 
-  ngOnInit(): void {
+  getImage(sliderImage: any) {
+    const image = sliderImage.contentType + sliderImage.image;
+    return this.sanitizer.bypassSecurityTrustResourceUrl(image as string);
   }
-
 }

@@ -9,10 +9,8 @@
 </app-nav-bar>
 
 <app-loader></app-loader>
-<div class="main">
 
-  <app-slider></app-slider>
-</div>
+<app-slider [sliderImages]="sliderImages"></app-slider>
 <div *ngIf="showHome" class="main">
   <section class="module-small">
     <div class="container">

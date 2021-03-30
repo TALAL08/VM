@@ -1,20 +1,48 @@
 <section class="home-section home-fade home-full-height" id="home">
   <div class="hero-slider">
     <ul class="slides" style="padding-left: 0px;">
-      <li class="bg-dark-30 bg-dark shop-page-header" style="background-image:url('/assets/images/shop/slider1.png');">
+      <li class="bg-dark-30 bg-dark shop-page-header" style="background-image: url('{{sliderImages[0].contentType+sliderImages[0].image}}');">
         <div class="titan-caption">
           <div class="caption-content">
-            <div class="font-alt mb-30 titan-title-size-1">This is Virtual Mart</div>
-            <div class="font-alt mb-30 titan-title-size-4"> VIRTUAL MART</div>
-            <div class="font-alt mb-40 titan-title-size-1">Your online Market Destination</div>
+            <div class="font-alt mb-30 titan-title-size-1">{{sliderImages[0].text1}}</div>
+            <div class="font-alt mb-30 titan-title-size-4"> {{sliderImages[0].text2}}</div>
+            <div class="font-alt mb-40 titan-title-size-1">{{sliderImages[0].text3}}</div>
           </div>
         </div>
       </li>
-      <li class="bg-dark-30 bg-dark shop-page-header" style="background-image:url('/assets/images/shop/slider3.png');">
+      <li *ngIf="sliderImages.length>1" class="bg-dark-30 bg-dark shop-page-header" style="background-image: url('{{sliderImages[1].contentType+sliderImages[1].image}}');">
         <div class="titan-caption">
           <div class="caption-content">
-            <div class="font-alt mb-30 titan-title-size-1"> This is Virtual Mart</div>
-            <div class="font-alt mb-40 titan-title-size-4">Exclusive products</div>
+            <div class="font-alt mb-30 titan-title-size-1">{{sliderImages[1].text1}}</div>
+            <div class="font-alt mb-30 titan-title-size-4"> {{sliderImages[1].text2}}</div>
+            <div class="font-alt mb-40 titan-title-size-1">{{sliderImages[1].text3}}</div>
+          </div>
+        </div>
+      </li>
+      <li *ngIf="sliderImages.length>2" class="bg-dark-30 bg-dark shop-page-header" style="background-image: url('{{sliderImages[2].contentType+sliderImages[2].image}}');">
+        <div class="titan-caption">
+          <div class="caption-content">
+            <div class="font-alt mb-30 titan-title-size-1">{{sliderImages[2].text1}}</div>
+            <div class="font-alt mb-30 titan-title-size-4"> {{sliderImages[2].text2}}</div>
+            <div class="font-alt mb-40 titan-title-size-1">{{sliderImages[2].text3}}</div>
+          </div>
+        </div>
+      </li>
+      <li *ngIf="sliderImages.length>3" class="bg-dark-30 bg-dark shop-page-header" style="background-image: url('{{sliderImages[3].contentType+sliderImages[3].image}}');">
+        <div class="titan-caption">
+          <div class="caption-content">
+            <div class="font-alt mb-30 titan-title-size-1">{{sliderImages[3].text1}}</div>
+            <div class="font-alt mb-30 titan-title-size-4"> {{sliderImages[3].text2}}</div>
+            <div class="font-alt mb-40 titan-title-size-1">{{sliderImages[3].text3}}</div>
+          </div>
+        </div>
+      </li>
+      <li *ngIf="sliderImages.length>4" class="bg-dark-30 bg-dark shop-page-header" style="background-image: url('{{sliderImages[4].contentType+sliderImages[4].image}}');">
+        <div class="titan-caption">
+          <div class="caption-content">
+            <div class="font-alt mb-30 titan-title-size-1">{{sliderImages[4].text1}}</div>
+            <div class="font-alt mb-30 titan-title-size-4"> {{sliderImages[4].text2}}</div>
+            <div class="font-alt mb-40 titan-title-size-1">{{sliderImages[4].text3}}</div>
           </div>
         </div>
       </li>
