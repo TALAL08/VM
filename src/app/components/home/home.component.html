@@ -2,8 +2,10 @@
 
 (showHome)="showHomePage()"
 (showCart)="onShowCart()"
-(showOrders)="showCustomerOrders()"
->
+(showLogin)="onShowLogin()"
+(showSignUp)="onShowSignUp()"
+(showOrders)="showCustomerOrders()">
+
 </app-nav-bar>
 
 <app-loader></app-loader>
@@ -87,13 +89,47 @@
 </app-order>
 
 <app-cart
+
 *ngIf="showCart"
 [itemsInMemory]="cartItems"
 [items]="cartItems"
->
+(goBack)="back($event)"
+(onCheckout)="onCheckout($event)">
 
 </app-cart>
 
-<app-customer-detail *ngIf="0>1"></app-customer-detail>
+<app-customer-detail
+
+*ngIf="showCustomerDetail"
+[customer]="customer"
+(onShowOrders)="newOrders()">
+
+</app-customer-detail>
+
+<app-sign-up
+
+*ngIf="showSignUp"
+(showCustomerDetail)="showCustomerDetailComponent()"
+(showHome)="showHomePage()">
+
+</app-sign-up>
+
+<app-customer-login
+
+*ngIf="showLogin"
+
+(showCart)="onShowCart()">
+
+</app-customer-login>
+
+
+<app-profile
+
+*ngIf="showProfile"
+
+(showProfile)="showCustomerProfile()">
+
+</app-profile>
+
 
 <div class="scroll-up"><a href="#totop"><i class="fa fa-angle-double-up"></i></a></div>

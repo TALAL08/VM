@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ComponentName } from 'src/app/common/enum/ComponentName';
 import { CategoryService } from 'src/app/services/category.service';
+import { CustomerService } from 'src/app/services/customer.service';
 import { OrderService } from 'src/app/services/order.service';
 import { ShopService } from 'src/app/services/shop.service';
 declare var $: any;
@@ -27,8 +28,15 @@ declare var $: any;
 export class HomeComponent implements OnInit {
   categories: any[] = [];
   cartItems: any[] = [];
+  customer: any;
+  items: {}[] = [];
 
-  category: {id:string, name: string; contentType: string; image: string }|null = {
+  category: {
+    id: string;
+    name: string;
+    contentType: string;
+    image: string;
+  } | null = {
     id: '',
     name: '',
     contentType: '',
@@ -80,21 +88,26 @@ export class HomeComponent implements OnInit {
   count: number = 0;
   quantity: number = 1;
 
-  showHome:boolean=true;
-  showProducts:boolean=false;
-  showItems:boolean=false;
-  showItemDetail:boolean=false;
-  showOrders:boolean=false;
-  showCart:boolean=false;
+  showHome: boolean = true;
+
+  showProducts: boolean = false;
+  showItems: boolean = false;
+  showItemDetail: boolean = false;
+  showOrders: boolean = false;
+  showCart: boolean = false;
+  showCustomerDetail: boolean = false;
+  showSignUp: boolean = false;
+  showLogin: boolean = false;
+  showProfile: boolean = false;
 
   constructor(
     private location: LocationStrategy,
     private shopService: ShopService,
     private categoryService: CategoryService,
+    private customerService: CustomerService,
     private orderService: OrderService,
     private sanitizer: DomSanitizer
   ) {
-
     history.pushState(null, 'null', window.location.href);
     this.location.onPopState(() => {
       const url = window.location.href.includes('home');
@@ -123,6 +136,7 @@ export class HomeComponent implements OnInit {
   }
 
   showCategoryProdouct(id: string) {
+    this.hideAll();
     const category = this.categories.find((c) => c.id == id);
 
     this.category = {
@@ -132,11 +146,11 @@ export class HomeComponent implements OnInit {
       image: category.image,
     };
     this.categoryProducts = category.products;
-    this.showHome=false;
-    this.showProducts=true;
+    this.showProducts = true;
   }
 
   showProdouctItems($event: any) {
+    this.hideAll();
     const product = $event.product;
     const categoryId = $event.categoryId;
 
@@ -149,7 +163,7 @@ export class HomeComponent implements OnInit {
     };
 
     let cartItems = this.getCartItems();
-    this.productItems=[];
+    this.productItems = [];
     (product.items as []).forEach((item: any) => {
       const isInCart = cartItems.find((c: any) => c.itemId === item.id);
 
@@ -171,52 +185,36 @@ export class HomeComponent implements OnInit {
 
     this.categoryProducts = [];
     this.category = null;
-    this.showProducts=false;
-    this.showItems=true;
+    this.showItems = true;
   }
 
-  showHomePage(){
-    if(!this.showHome){
-
-      this.showProducts=false;
-      this.showItems=false;
-      this.showItemDetail=false;
-      this.showOrders=false;
-
-      this.showHome=true;
-    }
+  showHomePage() {
+    this.hideAll();
+    this.showHome = true;
   }
 
-  showCustomerOrders(){
-
-    this.showHome=false;
-    this.showProducts=false;
-    this.showItems=false;
-    this.showItemDetail=false;
-
+  showCustomerOrders() {
+    this.hideAll();
     if (this.orders.length == 0) {
       this.orderService.getAll('GetCustomerOrders').subscribe((res) => {
         this.orders = res as any;
-        this.showOrders=true;
+        this.showOrders = true;
       });
     }
 
-      if (this.orders.length>0) this.showOrders = true;
+    if (this.orders.length > 0) this.showOrders = true;
   }
-  onShowCart(){
-    this.showHome=false;
-    this.showProducts=false;
-    this.showItems=false;
-    this.showItemDetail=false;
-    this.showOrders = false;
+  onShowCart() {
+    this.hideAll();
     this.cartItems = this.getCartItems();
     this.showCart = true;
   }
 
   showtItemDetail($event: any) {
+    this.hideAll();
     const item = $event.item;
     const categoryId = $event.categoryId;
-    this.product=null;
+    this.product = null;
     this.item = {
       itemId: item.id,
       name: item.name,
@@ -235,15 +233,33 @@ export class HomeComponent implements OnInit {
     this.images = item.images;
     this.getRelatedProductItems(categoryId, this.item.productId, item.id);
 
-    this.showItems=false;
-    this.showItemDetail=true;
+    this.showItemDetail = true;
   }
 
-  getProduct(): {id: string,name: string,contentType: string,image: string,categoryId: string} {
+  getProduct(): {
+    id: string;
+    name: string;
+    contentType: string;
+    image: string;
+    categoryId: string;
+  } {
     return this.product as any;
   }
 
-  getItem():{itemId: string,name: string,contentType: string,description: string,price: string,image: string,color: string,size: string,productId: string,product: { categoryId: string },categoryId: string,isAddedToCart: boolean}{
+  getItem(): {
+    itemId: string;
+    name: string;
+    contentType: string;
+    description: string;
+    price: string;
+    image: string;
+    color: string;
+    size: string;
+    productId: string;
+    product: { categoryId: string };
+    categoryId: string;
+    isAddedToCart: boolean;
+  } {
     return this.item as any;
   }
 
@@ -289,46 +305,92 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  getCartCount():number{
+  getCartCount(): number {
     return this.getCartItems().length;
   }
 
-  updateCartCount(){
+  updateCartCount() {
     this.count = this.getCartCount();
   }
 
-  back($event:any){
-    console.log($event);
-    const componentName = ($event.component as ComponentName)
-    if(componentName== ComponentName.Product)
-    {
-      this.showProducts=false;
-      this.showHome=true;
-    }
+  back($event: any) {
+    this.hideAll();
+    const componentName = $event.component as ComponentName;
+    if (componentName == ComponentName.Product) this.showHome = true;
+    else if (componentName == ComponentName.Item) this.showCategoryProdouct($event.categoryId);
+    else if (componentName == ComponentName.ItemDetail) this.backToProductItems($event);
+    else if (componentName == ComponentName.Order) this.showHome = true;
+    else if (componentName == ComponentName.Cart) this.showHome = true;
+  }
 
-    else if(componentName== ComponentName.Item){
-      this.showItems=false;
-      this.showCategoryProdouct($event.categoryId);
-    }
+  private backToProductItems($event: any) {
+    const categoryId = $event.categoryId;
+    const productId = $event.productId;
+    const product = this.categories
+      .find((c) => c.id == categoryId)
+      .products.find((p: any) => p.id == productId);
+    this.showProdouctItems({ product: product, categoryId: categoryId });
+  }
 
-    else if(componentName== ComponentName.ItemDetail){
-      this.showItemDetail=false;
-      const categoryId = $event.categoryId;
-      const productId = $event.productId;
-      const product = this.categories
-      .find(c => c.id ==categoryId)
-      .products
-      .find((p:any) => p.id ==productId);
-      this.showProdouctItems({product:product,categoryId:categoryId});
+  onCheckout($event: any) {
+    const isAutherize = $event.isAutherize;
+    this.hideAll();
+    if (isAutherize) this.showCustomerDetailComponent();
+    else {
+      this.showSignUp = true;
     }
-    else if(componentName== ComponentName.Order){
-      this.showOrders=false;
-      this.showHome=true;
-    }
+  }
 
-    else if(componentName== ComponentName.Cart){
-      this.showCart=false;
-      this.showHome=true;
+  newOrders() {
+    this.orders = [];
+    this.hideAll();
+    this.showCustomerOrders();
+  }
+
+  showCustomerDetailComponent() {
+    this.hideAll();
+    if (this.customer == null) {
+      this.customerService.get().subscribe((res) => {
+        this.customer = res as any;
+        this.items = this.getCartItems();
+        this.showCustomerDetail = true;
+      });
+    } else {
+      this.items = this.getCartItems();
+      this.showCustomerDetail = true;
     }
+  }
+
+  showCustomerProfile() {
+    this.hideAll();
+    if (this.customer == null) {
+      this.customerService.get().subscribe((res) => {
+        this.customer = res as any;
+        this.items = this.getCartItems();
+        this.showProfile = true;
+      });
+    }
+  }
+  onShowLogin() {
+    this.hideAll();
+    this.showLogin = true;
+  }
+
+  onShowSignUp() {
+    this.hideAll();
+    this.showSignUp = true;
+  }
+
+  hideAll() {
+    this.showHome = false;
+    this.showProducts = false;
+    this.showItems = false;
+    this.showItemDetail = false;
+    this.showOrders = false;
+    this.showCart = false;
+    this.showCustomerDetail = false;
+    this.showSignUp = false;
+    this.showLogin = false;
+    this.showProfile = false;
   }
 }

@@ -28,6 +28,7 @@ export class CartComponent implements OnInit {
   @Input() items: any[] = [];
 
   @Output() goBack = new EventEmitter();
+  @Output() onCheckout = new EventEmitter();
 
   cart: { CartSubtotal: number; deliveryCharges: number; total: number } = {
     CartSubtotal: 0,
@@ -90,11 +91,10 @@ export class CartComponent implements OnInit {
     const quantity = $event.target.value;
     this.updateTotalCart(item, quantity);
 
-    let updateItem =  (this.items.filter(i => i.itemId == item.itemId ) as any);
+    let updateItem =  (this.items.find(i => i.itemId == item.itemId ) as any);
     let index = this.items.indexOf(updateItem);
     updateItem.quantity = quantity;
     this.items[index]= updateItem;
-
     this.saveCart();
   }
 
@@ -153,7 +153,7 @@ export class CartComponent implements OnInit {
       }
     });
     if(isValidItems)
-    (this.authService.isAutherize())?this.router.navigate(['/customerDetail']):this.router.navigate(['/signUp']);
+    this.onCheckout.emit({ isAutherize: this.authService.isAutherize() });
   }
 
   setItemColor(item:any,option:any) {

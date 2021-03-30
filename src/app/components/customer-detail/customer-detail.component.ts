@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
 import { OrderService } from 'src/app/services/order.service';
@@ -24,11 +24,12 @@ declare var $: any;
 
 export class CustomerDetailComponent implements OnInit {
   form!: FormGroup;
-  customer!: any;
-  items!: {}[];
+  @Input() customer: any;
+  @Input() items: {}[]=[];
+
+  @Output() showOrders = new EventEmitter();
 
   constructor(
-    private router: Router,
     private authService: AuthService,
     private customerService: CustomerService,
     private orderService: OrderService,
@@ -48,22 +49,15 @@ export class CustomerDetailComponent implements OnInit {
   ngOnInit(): void {
 
     if (this.authService.isAutherize()) {
-
-      this.customerService.get().subscribe((res) => {
-        this.customer = res as any;
-        const itemsInStorage = localStorage.getItem('items') as string;
-        this.items = JSON.parse(itemsInStorage) as {}[];
-
         this.form.get('name')?.setValue(this.customer.name);
         this.form.get('fatherName')?.setValue(this.customer.fatherName);
         this.form.get('emailAddress')?.setValue(this.customer.emailAddress);
         this.form.get('mobileNo')?.setValue(this.customer.mobileNo);
         this.form.get('address')?.setValue(this.customer.address);
 
-        $('.loader').fadeOut();
-        $('.page-loader').delay(350).fadeOut('slow');
-      });
-    }
+      }
+      $('.loader').fadeOut();
+      $('.page-loader').delay(350).fadeOut('slow');
   }
 
   submit(){
@@ -84,8 +78,8 @@ export class CustomerDetailComponent implements OnInit {
 
       this.toastNotificationService.showSuccess("Your Order is placed successfully","Order Confirm");
       localStorage.removeItem('items');
-      this.router.navigate(['/orders']);
 
+      this.showOrders.emit();
     });
   }
 }

@@ -1,5 +1,6 @@
-import { Component,EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
+import { ToastNotificationService } from 'src/app/services/toast-notification.service';
 
 @Component({
   selector: 'app-nav-bar',
@@ -13,21 +14,24 @@ import { AuthService } from 'src/app/services/auth.service';
     '../../../assets/lib/simple-text-rotator/simpletextrotator.css',
     '../../../assets/css/style.css',
     '../../../assets/css/colors/default.css',
-    './nav-bar.component.css'
-  ]
+    './nav-bar.component.css',
+  ],
 })
 export class NavBarComponent implements OnInit {
-  @Input() count:number =0;
+  @Input() count: number = 0;
   @Output() showOrders = new EventEmitter();
   @Output() showHome = new EventEmitter();
   @Output() showCart = new EventEmitter();
+  @Output() showLogin = new EventEmitter();
+  @Output() showSignUp = new EventEmitter();
+  @Output() showProfile = new EventEmitter();
 
   constructor(
-    private authService:AuthService
-  ) { }
+    private authService: AuthService,
+    private toastNotificationService: ToastNotificationService
+  ) {}
 
   ngOnInit(): void {
-
     const cartInStorage = localStorage.getItem('items');
     let cart = [{}];
     cart = [];
@@ -38,29 +42,47 @@ export class NavBarComponent implements OnInit {
     this.count = cart.length;
   }
 
-  isAutherizeUser(){
+  isAutherizeUser() {
     return this.authService.isAutherize();
   }
 
-  getUserName(){
+  getUserName() {
     return this.authService.getUserName();
   }
 
-  getName(){
+  getName() {
     return this.authService.getName();
   }
-  logout(){
-    this.authService.logOut();
+  logout() {
+    this.authService.logOut().subscribe((res) => {
+      localStorage.clear();
+
+      this.toastNotificationService.showSuccess(
+        'LogOut Successfully',
+        'Logout'
+      );
+      this.showHome.emit();
+    });
   }
 
-  onShowOrders(){
+  onShowOrders() {
     this.showOrders.emit();
   }
 
-  onShowHome(){
+  onShowHome() {
     this.showHome.emit();
   }
-  onShowCart(){
+  onShowCart() {
     this.showCart.emit();
+  }
+  onShowLogin() {
+    this.showLogin.emit();
+  }
+  onShowSignUp() {
+    this.showSignUp.emit();
+  }
+
+  onShowProfile() {
+    this.showProfile.emit();
   }
 }

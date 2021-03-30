@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Output } from '@angular/core';
+import { Component, EventEmitter, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AppError } from 'src/app/common/validator/app-error';
-import { BadRequest } from 'src/app/common/validator/bad-request';
 import { AuthService } from 'src/app/services/auth.service';
 import { ToastNotificationService } from 'src/app/services/toast-notification.service';
-declare var $:any;
+declare var $: any;
 @Component({
   selector: 'app-customer-login',
   templateUrl: './customer-login.component.html',
@@ -18,7 +18,7 @@ declare var $:any;
     '../../../assets/lib/simple-text-rotator/simpletextrotator.css',
     '../../../assets/css/style.css',
     '../../../assets/css/colors/default.css',
-    './customer-login.component.css'
+    './customer-login.component.css',
   ],
 })
 export class CustomerLoginComponent implements OnInit {
@@ -26,6 +26,9 @@ export class CustomerLoginComponent implements OnInit {
   hasErrorsOnSubmit: boolean = false;
   emailError: string = 'Email Is required';
   passwordError: string = 'Password Is required';
+
+  @Output() showHome = new EventEmitter();
+  @Output() showCart = new EventEmitter();
 
   constructor(
     private fb: FormBuilder,
@@ -51,14 +54,39 @@ export class CustomerLoginComponent implements OnInit {
   }
 
   login() {
-
     if (this.form.invalid) this.hasErrorsOnSubmit = true;
     else {
       this.authService.login(this.form.value).subscribe(
-        res => {
+        (res) => {
+          let result = res as any;
+          if (result && result.token) {
+            localStorage.setItem('token', result.token);
+            localStorage.setItem('name', result.name);
+            localStorage.setItem('fatherName', result.fatherName);
+            this.toastNotificationService.showSuccess(
+              'logged In Successfully',
+              'Login'
+            );
+
+            if (this.authService.isInRole('Admin'))
+              return this.router.navigate(['/dashBoard']);
+
+            const items = JSON.parse(localStorage.getItem('items') as string);
+            if (items) {
+              if ((items as []).length > 0) this.showCart.emit();
+              else this.showHome.emit();
+            } else this.showHome.emit();
+          }
+          return this.toastNotificationService.showError(
+            'Email Or Passoword Is Not Valid',
+            'Login Fail'
+          );
         },
         (error: AppError) => {
-            this.toastNotificationService.showError("Email Or Passoword Is Not Valid","Login Fail");
+          this.toastNotificationService.showError(
+            'Email Or Passoword Is Not Valid',
+            'Login Fail'
+          );
         }
       );
     }

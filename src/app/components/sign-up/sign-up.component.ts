@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { map } from 'rxjs/operators';
@@ -22,7 +22,13 @@ declare var $: any;
   ],
 })
 export class SignUpComponent implements OnInit {
+
   form!: FormGroup;
+  @Input() items:any[]=[];
+
+  @Output() showHome = new EventEmitter();
+  @Output() showCustomerDetail = new EventEmitter();
+
   constructor(
     private router: Router,
     private fb: FormBuilder,
@@ -78,13 +84,7 @@ export class SignUpComponent implements OnInit {
         let result = response;
         if (result && result.token) {
           localStorage.setItem('token', result.token);
-          const itemsInStorage = localStorage.getItem('items');
-          let items = [];
-          if (itemsInStorage) {
-             items = JSON.parse(itemsInStorage) as {}[];
-          }
-          var routerLink = items.length > 0 ? '/customerDetail' : '/home';
-          this.router.navigate([routerLink]);
+          (this.items.length > 0) ? this.showCustomerDetail.emit() : this.showHome.emit();
         }
       }
 

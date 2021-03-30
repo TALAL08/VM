@@ -9,8 +9,8 @@
       <ul class="nav navbar-nav navbar-right">
 
         <ng-container *ngIf="!isAutherizeUser()">
-          <li ><a [routerLink]="['/customerLogin']">Login</a></li>
-          <li ><a [routerLink]="['/signUp']">Sign Up</a></li>
+          <li ><a [routerLink] (click)="onShowLogin()" >Login</a></li>
+          <li ><a [routerLink] (click)="onShowSignUp()" >Sign Up</a></li>
         </ng-container>
 
         <li><a (click)="onShowHome()" [routerLink]>Home</a>
@@ -28,9 +28,9 @@
 
         <li *ngIf="isAutherizeUser()" class="dropdown"><a [routerLink] class="dropdown-toggle" data-toggle="dropdown">{{getName()}}</a>
           <ul class="dropdown-menu">
-            <li class="background-color"><a [routerLink]="['/profile']">Profile</a></li>
-            <li class="background-color"><a (click)="onShowOrders()" [routerLink]>Orders</a></li>
-            <li class="background-color"><a href="documentation.html#mailchimp">Messages</a></li>
+            <li class="background-color"><a [routerLink] (click)="onShowProfile()" [routerLink]>Profile</a></li>
+            <li class="background-color"><a [routerLink] (click)="onShowOrders()" [routerLink]>Orders</a></li>
+            <!-- <li class="background-color"><a href="documentation.html#mailchimp">Messages</a></li> -->
             <li class="background-color"><a [routerLink] (click)="logout()">Logout</a></li>
           </ul>
         </li>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CustomerService } from 'src/app/services/customer.service';
 import { ToastNotificationService } from 'src/app/services/toast-notification.service';
@@ -19,12 +19,13 @@ declare var $: any;
   ]
 })
 export class ProfileComponent implements OnInit {
-  customer!:any;
+
+  @Input() customer:any;
   form!: FormGroup;
   constructor(
     private customerService:CustomerService,
     private toastNotificationService:ToastNotificationService,
-    private fb:FormBuilder
+    fb:FormBuilder
   ) {
     this.form = fb.group({
       name: ['', Validators.required],
@@ -37,14 +38,11 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.customerService.get().subscribe(res =>{
-      this.customer = (res as any);
       this.form.get('name')?.setValue(this.customer.name);
       this.form.get('fatherName')?.setValue(this.customer.fatherName);
       this.form.get('emailAddress')?.setValue(this.customer.emailAddress);
       this.form.get('mobileNo')?.setValue(this.customer.mobileNo);
       this.form.get('address')?.setValue(this.customer.address);
-    });
 
     $('.loader').fadeOut();
     $('.page-loader').delay(350).fadeOut('slow');
@@ -55,7 +53,7 @@ export class ProfileComponent implements OnInit {
     const resource = this.form.value;
     if(this.form.valid){
 
-      this.customerService.update(resource).subscribe(res =>{
+      this.customerService.update(resource).subscribe(() =>{
         this.toastNotificationService.showSuccess("Profile Updated Successfully","Profile Updated");
       });
     }else
