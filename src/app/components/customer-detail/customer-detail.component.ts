@@ -58,6 +58,7 @@ export class CustomerDetailComponent implements OnInit {
       }
       $('.loader').fadeOut();
       $('.page-loader').delay(350).fadeOut('slow');
+      console.log(this.items);
   }
 
   submit(){

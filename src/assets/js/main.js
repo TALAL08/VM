@@ -11,7 +11,8 @@ console.log('%c Proudly Crafted with ZiOn.', 'background: #222; color: #bada55')
     // });
 
     $(document).ready(function() {
-
+            
+        setTimeout(() => {
         /* ---------------------------------------------- /*
          * WOW Animation When You Scroll
          /* ---------------------------------------------- */
@@ -119,24 +120,24 @@ console.log('%c Proudly Crafted with ZiOn.', 'background: #222; color: #bada55')
          * Intro slider setup
          /* ---------------------------------------------- */
 
-        if( $('.hero-slider').length > 0 ) {
-            $('.hero-slider').flexslider( {
-                animation: "fade",
-                animationSpeed: 1000,
-                animationLoop: true,
-                prevText: '',
-                nextText: '',
-                before: function(slider) {
-                    $('.titan-caption').fadeOut().animate({top:'-80px'},{queue:false, easing: 'swing', duration: 700});
-                    slider.slides.eq(slider.currentSlide).delay(500);
-                    slider.slides.eq(slider.animatingTo).delay(500);
-                },
-                after: function(slider) {
-                    $('.titan-caption').fadeIn().animate({top:'0'},{queue:false, easing: 'swing', duration: 700});
-                },
-                useCSS: true
-            });
-        }
+        // if( $('.hero-slider').length > 0 ) {
+        //     $('.hero-slider').flexslider( {
+        //         animation: "fade",
+        //         animationSpeed: 1000,
+        //         animationLoop: true,
+        //         prevText: '',
+        //         nextText: '',
+        //         before: function(slider) {
+        //             $('.titan-caption').fadeOut().animate({top:'-80px'},{queue:false, easing: 'swing', duration: 700});
+        //             slider.slides.eq(slider.currentSlide).delay(500);
+        //             slider.slides.eq(slider.animatingTo).delay(500);
+        //         },
+        //         after: function(slider) {
+        //             $('.titan-caption').fadeIn().animate({top:'0'},{queue:false, easing: 'swing', duration: 700});
+        //         },
+        //         useCSS: true
+        //     });
+        // }
 
 
         /* ---------------------------------------------- /*
@@ -300,24 +301,24 @@ console.log('%c Proudly Crafted with ZiOn.', 'background: #222; color: #bada55')
          * Testimonials
          /* ---------------------------------------------- */
 
-        if ($('.testimonials-slider').length > 0 ) {
-            $('.testimonials-slider').flexslider( {
-                animation: "slide",
-                smoothHeight: true
-            });
-        }
+        // if ($('.testimonials-slider').length > 0 ) {
+        //     $('.testimonials-slider').flexslider( {
+        //         animation: "slide",
+        //         smoothHeight: true
+        //     });
+        // }
 
 
         /* ---------------------------------------------- /*
          * Post Slider
          /* ---------------------------------------------- */
 
-        if ($('.post-images-slider').length > 0 ) {
-            $('.post-images-slider').flexslider( {
-                animation: "slide",
-                smoothHeight: true,
-            });
-        }
+        // if ($('.post-images-slider').length > 0 ) {
+        //     $('.post-images-slider').flexslider( {
+        //         animation: "slide",
+        //         smoothHeight: true,
+        //     });
+        // }
 
 
         /* ---------------------------------------------- /*
@@ -846,7 +847,13 @@ console.log('%c Proudly Crafted with ZiOn.', 'background: #222; color: #bada55')
             });
         }
 
-    });
-})(jQuery);
 
+
+    }, 5000);
+    });
+
+
+
+
+})(jQuery);
 

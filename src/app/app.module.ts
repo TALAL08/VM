@@ -39,6 +39,8 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { AdminOrdersComponent } from './components/admin-orders/admin-orders.component';
 import { AdminOrderItemComponent } from './components/admin-order-item/admin-order-item.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { SliderImageFormComponent } from './components/slider-image-form/slider-image-form.component';
+import { SliderImageListComponent } from './components/slider-image-list/slider-image-list.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -71,6 +73,8 @@ import { FooterComponent } from './components/footer/footer.component';
     AdminOrdersComponent,
     AdminOrderItemComponent,
     FooterComponent,
+    SliderImageFormComponent,
+    SliderImageListComponent,
   ],
   imports: [
     BrowserAnimationsModule,

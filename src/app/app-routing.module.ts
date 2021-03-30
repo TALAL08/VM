@@ -23,6 +23,8 @@ import { OrderItemComponent } from './components/order-item/order-item.component
 import { ProfileComponent } from './components/profile/profile.component';
 import { AdminOrdersComponent } from './components/admin-orders/admin-orders.component';
 import { AdminOrderItemComponent } from './components/admin-order-item/admin-order-item.component';
+import { SliderImageListComponent } from './components/slider-image-list/slider-image-list.component';
+import { SliderImageFormComponent } from './components/slider-image-form/slider-image-form.component';
 
 const routes: Routes = [
 
@@ -49,6 +51,10 @@ const routes: Routes = [
   {path:'item/update/:id', component:ItemComponent},
   {path:'item/:id', component:ItemDetailComponent},
   {path:'itemImages/:itemId', component:ItemImagesComponent},
+
+  {path:'sliderImages', component:SliderImageListComponent},
+  {path:'sliderImage/new', component:SliderImageFormComponent},
+  {path:'sliderImage/update/:id', component:SliderImageFormComponent},
 
   {path:'dashBoard', component:DashBoardComponent},
   {path:'signUp', component:SignUpComponent},

@@ -27,6 +27,7 @@ export class SignUpComponent implements OnInit {
   @Input() items:any[]=[];
 
   @Output() showHome = new EventEmitter();
+  @Output() showLogin = new EventEmitter();
   @Output() showCustomerDetail = new EventEmitter();
 
   constructor(
@@ -54,6 +55,10 @@ export class SignUpComponent implements OnInit {
   ngOnInit(): void {
     $('.loader').fadeOut();
     $('.page-loader').delay(350).fadeOut('slow');
+  }
+
+  ShowLoginPage(){
+    this.showLogin.emit();
   }
 
   submit() {

@@ -10,7 +10,8 @@
 
 <app-loader></app-loader>
 
-<app-slider [sliderImages]="sliderImages"></app-slider>
+<app-slider *ngIf="sliderImages.length>0" [sliderImages]="sliderImages"></app-slider>
+
 <div *ngIf="showHome" class="main">
   <section class="module-small">
     <div class="container">
@@ -99,8 +100,9 @@
 <app-customer-detail
 
 *ngIf="showCustomerDetail"
+[items]="cartItems"
 [customer]="customer"
-(onShowOrders)="newOrders()">
+(showOrders)="newOrders()">
 
 </app-customer-detail>
 
@@ -108,6 +110,7 @@
 
 *ngIf="showSignUp"
 (showCustomerDetail)="showCustomerDetailComponent()"
+(showLogin)="onShowLogin()"
 (showHome)="showHomePage()">
 
 </app-sign-up>

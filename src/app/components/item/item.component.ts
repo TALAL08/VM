@@ -19,7 +19,7 @@ import { ToastNotificationService } from 'src/app/services/toast-notification.se
     '../../../assets/vendors/css/vendor.bundle.base.css',
     '../../../assets/vendors/css/vendor.bundle.addons.css',
     '../../../assets/css/shared/style.css',
-    '../../../assets/css/demo_1/style.css',
+    '../../../assets/css/demo_1/style.css'
   ],
   encapsulation: ViewEncapsulation.None,
 })

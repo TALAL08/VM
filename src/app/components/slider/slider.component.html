@@ -1,6 +1,8 @@
-<section class="home-section home-fade home-full-height" id="home">
+<app-loader></app-loader>
+<section  class="home-section home-fade home-full-height" id="home">
   <div class="hero-slider">
-    <ul class="slides" style="padding-left: 0px;">
+    <ul *ngIf="sliderImages.length>0" class="slides" style="padding-left: 0px;">
+
       <li class="bg-dark-30 bg-dark shop-page-header" style="background-image: url('{{sliderImages[0].contentType+sliderImages[0].image}}');">
         <div class="titan-caption">
           <div class="caption-content">

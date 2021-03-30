@@ -8,14 +8,14 @@ import { ItemService } from 'src/app/services/item.service';
 })
 export class ProductItemsTableComponent implements OnInit {
 
-  items: [] = [];
+  products:any [] = [];
 
   constructor(private itemService: ItemService) {}
 
   ngOnInit(): void {
     this.itemService.getAll().subscribe((res) => {
       console.log(res);
-      (this.items as any) = res;
+      (this.products as any) = res;
     });
   }
 
@@ -25,8 +25,8 @@ export class ProductItemsTableComponent implements OnInit {
       console.log(res);
     });
 
-    const index = this.items.indexOf(item as never);
-    this.items.splice(index, 1);
+    const index = this.products.indexOf(item as never);
+    this.products.splice(index, 1);
 
     alert('Deleted');
   }

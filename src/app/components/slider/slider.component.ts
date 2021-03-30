@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
-
+declare var $: any;
 @Component({
   selector: 'app-slider',
   templateUrl: './slider.component.html',
@@ -21,12 +21,55 @@ import { DomSanitizer } from '@angular/platform-browser';
 })
 export class SliderComponent implements OnInit {
   @Input() sliderImages: any[] = [];
-  constructor(    private sanitizer: DomSanitizer) {}
+  applyClsses = false;
+  constructor(private sanitizer: DomSanitizer) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    setTimeout(() => {
+      if ($('.hero-slider').length > 0) {
+        $('.hero-slider').flexslider({
+          animation: 'fade',
+          animationSpeed: 1000,
+          animationLoop: true,
+          prevText: '',
+          nextText: '',
+          before: function (slider: any) {
+            $('.titan-caption')
+              .fadeOut()
+              .animate(
+                { top: '-80px' },
+                { queue: false, easing: 'swing', duration: 700 }
+              );
+            slider.slides.eq(slider.currentSlide).delay(500);
+            slider.slides.eq(slider.animatingTo).delay(500);
+          },
+          after: function (slider: any) {
+            $('.titan-caption')
+              .fadeIn()
+              .animate(
+                { top: '0' },
+                { queue: false, easing: 'swing', duration: 700 }
+              );
+          },
+          useCSS: true,
+        });
 
-  getImage(sliderImage: any) {
-    const image = sliderImage.contentType + sliderImage.image;
-    return this.sanitizer.bypassSecurityTrustResourceUrl(image as string);
+        if ($('.testimonials-slider').length > 0) {
+          $('.testimonials-slider').flexslider({
+            animation: 'slide',
+            smoothHeight: true,
+          });
+        }
+        if ($('.post-images-slider').length > 0) {
+          $('.post-images-slider').flexslider({
+            animation: 'slide',
+            smoothHeight: true,
+          });
+        }
+
+        $('.loader').fadeOut();
+        $('.page-loader').delay(550).fadeOut('slow');
+      }
+    }, 5000);
   }
 }

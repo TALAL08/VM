@@ -22,7 +22,7 @@ export class CategoriesTableComponent implements OnInit {
 
   ngOnInit(): void {
     this.categoryService.getAll().subscribe((res) => {
-      (this.categories as any) = res;
+      this.categories =( res as any).categories;
     });
   }
 

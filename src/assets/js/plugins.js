@@ -138,7 +138,7 @@
         'removeAttr', 'addClass', 'removeClass', 'toggleClass',
         'remove', 'css', 'show', 'hide'], function(i, n) {
         var old = $.fn[n];
-        if (old) {
+            if (old) {
             $.fn[n] = function() {
                 var r = old.apply(this, arguments);
                 $.fn.appear.run();

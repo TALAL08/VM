@@ -63,10 +63,6 @@ export class CustomerLoginComponent implements OnInit {
             localStorage.setItem('token', result.token);
             localStorage.setItem('name', result.name);
             localStorage.setItem('fatherName', result.fatherName);
-            this.toastNotificationService.showSuccess(
-              'logged In Successfully',
-              'Login'
-            );
 
             if (this.authService.isInRole('Admin'))
               return this.router.navigate(['/dashBoard']);
@@ -77,9 +73,9 @@ export class CustomerLoginComponent implements OnInit {
               else this.showHome.emit();
             } else this.showHome.emit();
           }
-          return this.toastNotificationService.showError(
-            'Email Or Passoword Is Not Valid',
-            'Login Fail'
+          return this.toastNotificationService.showSuccess(
+            'logged In Successfully',
+            'Login'
           );
         },
         (error: AppError) => {

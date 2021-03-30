@@ -124,17 +124,12 @@ export class HomeComponent implements OnInit {
     this.categoryService.getAll().subscribe((res) => {
       this.categories = (res as any).categories;
       this.sliderImages = (res as any).sliderImages;
-
-      while (this.categories.length < 0) {}
-      $('.loader').fadeOut();
-      $('.page-loader').delay(550).fadeOut('slow');
-
+      console.log((res as any).sliderImages);
     });
 
     this.shopService.getAll().subscribe((res) => {
       this.categories = (res as any);
     });
-
   }
 
   getImage(category: any) {
@@ -197,6 +192,7 @@ export class HomeComponent implements OnInit {
 
   showHomePage() {
     this.hideAll();
+    this.updateCartCount();
     this.showHome = true;
   }
 
@@ -275,6 +271,7 @@ export class HomeComponent implements OnInit {
     let items = [{}];
     items = [];
     if (itemsInStorage) items = JSON.parse(itemsInStorage) as {}[];
+    console.log(items);
     return items;
   }
 
@@ -350,6 +347,7 @@ export class HomeComponent implements OnInit {
 
   newOrders() {
     this.orders = [];
+    this.updateCartCount();
     this.hideAll();
     this.showCustomerOrders();
   }
