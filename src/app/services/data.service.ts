@@ -10,7 +10,8 @@ import { NotFound } from '../common/validator/not-found';
     providedIn: 'root'
 })
 export class DataService {
-    private url:string="https://localhost:44329/";
+    // private url:string="https://localhost:44329/";
+    private url:string="http://virtualmart-001-site1.etempurl.com/";
     private httpOptions: any = {
 
         headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': "Bearer " + (localStorage.getItem('token') as string) })
