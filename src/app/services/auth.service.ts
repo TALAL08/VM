@@ -17,13 +17,16 @@ export class AuthService {
   private httpOptions: any = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
   };
+  private url = 'http://virtualmart-001-site1.etempurl.com';
+  // private url = 'https://localhost:44329/';
   constructor(
     private http: HttpClient
   ) {}
 
   login(user: any) {
     return this.http.post(
-      'https://localhost:44329/auth/Login',
+      // 'https://localhost:44329/auth/Login',
+      this.url+'/auth/Login',
       JSON.stringify(user),
       this.httpOptions
     );
@@ -38,13 +41,13 @@ export class AuthService {
     };
 
   return  this.http
-      .post('https://localhost:44329/auth/logout', null)
+      .post(this.url+'/auth/logout', null)
       .pipe(catchError(this.handleError));
   }
 
   IsUserNameExist(userName: string): boolean {
     this.http
-      .get('https://localhost:44329/auth/' + userName)
+      .get(this.url+'/auth/' + userName)
       .pipe(catchError(this.handleError))
       .subscribe((res) => {
         console.log(res);
